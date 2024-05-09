@@ -38,7 +38,7 @@ public class Main extends Application
 			
 			Button signUpButton = new Button("Sign Up");
 			signUpButton.setId("signUpButton");
-			signUpButton.setLayoutX(155);
+			signUpButton.setLayoutX(156);
 			signUpButton.setLayoutY(160);
 			signUpButton.setOnAction(new EventHandler<ActionEvent>()
 					{
