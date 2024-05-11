@@ -11,31 +11,35 @@ import javafx.stage.Stage;
 
 public class WelcomeController 
 {
-	 private Stage signUpStage;
+	 /*private Stage signUpStage;
 	 private Scene signUpScene;
 	 
 	 private Stage loginStage;
-	 private Scene loginScene;
+	 private Scene loginScene;*/
+	 private Stage welcomeStage;
+	 private Scene welcomeScene;
 	 
 	 private Parent root;
+	
+	 public void showWelcomePage(ActionEvent event) throws IOException
+	 {
+		 root = FXMLLoader.load(getClass().getResource("/WelcomePage.fxml"));
+		 welcomeStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		 welcomeStage.setTitle("Welcome Page");
+		 welcomeScene = new Scene(root);
+		 welcomeStage.setScene(welcomeScene);
+		 welcomeStage.show();
+	 }
 	 
 	 public void openSignUpPage(ActionEvent event) throws IOException
 	 {
-		 root = FXMLLoader.load(getClass().getResource("/SignUpPage.fxml"));
-		 signUpStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		 signUpStage.setTitle("Sign Up Page");
-		 signUpScene = new Scene(root);
-		 signUpStage.setScene(signUpScene);
-		 signUpStage.show();
+		 SignUpController signUp = new SignUpController();
+		 signUp.showSignUpPage(event);
 	 }
 	 
 	 public void openLoginPage(ActionEvent event) throws IOException
 	 {
-		 root = FXMLLoader.load(getClass().getResource("/LoginPage.fxml"));
-		 loginStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		 loginStage.setTitle("Login Page");
-		 loginScene = new Scene(root);
-		 loginStage.setScene(loginScene);
-		 loginStage.show();
+		 LoginController login = new LoginController();
+		 login.showLoginPage(event);
 	 }
 }

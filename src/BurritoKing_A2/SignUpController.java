@@ -13,11 +13,10 @@ import javafx.fxml.*;
 
 public class SignUpController 
 {
-	private Stage loginStage;
-	private Scene loginScene;
+	private Stage signUpStage;
+	private Scene signUpScene;
 	
-	private Stage welcomeStage;
-	private Scene welcomeScene;
+	private String existingUsername = "Andy";
 	
 	private Parent root;
 	
@@ -27,6 +26,18 @@ public class SignUpController
 	public PasswordField cPasswordTF;
 	public TextField firstNameTF;
 	public TextField lastNameTF;
+	
+	
+	public void showSignUpPage(ActionEvent event) throws IOException
+	{
+		root = FXMLLoader.load(getClass().getResource("/SignUpPage.fxml"));
+		signUpStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		signUpStage.setTitle("Sign Up Page");
+		signUpScene = new Scene(root);
+		signUpStage.setScene(signUpScene);
+		signUpStage.show();
+	}
+	
 	
 	public void openLoginPage(ActionEvent event) throws IOException
 	 {
@@ -39,25 +50,21 @@ public class SignUpController
 		 {
 			 System.out.println("Please enter identical passwords");
 		 }
+		 else if (usernameTF.getText().equals(existingUsername))
+		 {
+			 System.out.println("The username already exists");
+		 }
 		 else
 		 {
-			 root = FXMLLoader.load(getClass().getResource("/LoginPage.fxml"));
-			 loginStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-			 loginStage.setTitle("Login Page");
-			 loginScene = new Scene(root);
-			 loginStage.setScene(loginScene);
-			 loginStage.show();
+			 LoginController login = new LoginController();
+			 login.showLoginPage(event);
 		 }
 	 }
 	
 	
 	public void openWelcomePage(ActionEvent event) throws IOException
 	 {
-		 root = FXMLLoader.load(getClass().getResource("/WelcomePage.fxml"));
-		 welcomeStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		 welcomeStage.setTitle("Welcome Page");
-		 welcomeScene = new Scene(root);
-		 welcomeStage.setScene(welcomeScene);
-		 welcomeStage.show();
+		 WelcomeController welcome = new WelcomeController();
+		 welcome.showWelcomePage(event);
 	 }
 }
