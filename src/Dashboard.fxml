@@ -23,6 +23,15 @@
             </Label>
             <Label fx:id="userLName" alignment="CENTER" prefHeight="17.0" prefWidth="103.0" textFill="WHITE" />
          </children></VBox>
-      <Button alignment="CENTER" layoutX="146.0" layoutY="49.0" mnemonicParsing="false" onAction="#setUserFName" text="Button" />
+      <Button alignment="CENTER" layoutX="368.0" layoutY="14.0" mnemonicParsing="false" onAction="#openProfilePage" style="-fx-background-color: black; -fx-background-image: url(&quot;/Profile.jpg&quot;); -fx-background-size: 50px; -fx-background-repeat: no-repeat;" text="Profile" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button layoutX="366.0" layoutY="401.0" mnemonicParsing="false" onAction="#openLoginPage" style="-fx-background-color: black;" text="Logout" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

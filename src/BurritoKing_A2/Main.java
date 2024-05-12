@@ -11,8 +11,7 @@ import java.sql.SQLException;
 
 
 public class Main extends Application 
-{
-
+{	
 	@Override
 	public void start(Stage welcomeStage) 
 	{
@@ -30,14 +29,15 @@ public class Main extends Application
 		}
 	}
 	
-	 public static void connect() 
-	 {  
+	
+	public static void connect() 
+	{  
         Connection conn = null;  
         try 
         {  
-            // db parameters  
+            //DB Parameters  
             String url = "jdbc:sqlite:C:/Sqlite/AdvProgA2.db";  
-            // create a connection to the database  
+            //Creating a connection to the database  
             conn = DriverManager.getConnection(url);
             System.out.println("Connection to SQLite has been established.");  
 	              
@@ -62,6 +62,7 @@ public class Main extends Application
         }  
     }  
 	
+	 
 	public static void main(String[] args) 
 	{
 		connect();
