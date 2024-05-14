@@ -2,7 +2,11 @@ package BurritoKing_A2;
 
 import java.io.IOException;
 import javafx.event.ActionEvent;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import javafx.fxml.*;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,6 +16,15 @@ import java.sql.SQLException;
 
 public class LoginController 
 {
+	private Stage dashboardStage;
+	private Scene dashboardScene;
+	//private Parent root;
+	
+	private boolean usernameExists = false;
+	private String passwordExists;
+	private String firstName = "";
+	private String lastName = "";
+	
 	@FXML
 	public TextField usernameTF;
 	public PasswordField passwordTF;
@@ -21,11 +34,20 @@ public class LoginController
 	
 	public void openDashboard(ActionEvent event) throws IOException
 	{
-		if (usernameTF.getText().equals(selectUsername(usernameTF.getText())) && 
-				passwordTF.getText().equals(selectPassword(usernameTF.getText())))
+		firstName = getFirstName();
+		lastName = getLastName();
+		
+		if (selectUsername(usernameTF.getText()) && passwordTF.getText().equals(selectPassword(usernameTF.getText())))
 			{
-				Pages pages = new Pages();
-				pages.dashboardPage(event);
+				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Dashboard.fxml"));
+				dashboardScene = new Scene(fxmlLoader.load());
+				DashboardController dc = fxmlLoader.getController();
+				dc.displayFName(firstName);
+				dc.displayLName(lastName);
+				dashboardStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+				dashboardStage.setTitle("Dashboard");
+				dashboardStage.setScene(dashboardScene);
+				dashboardStage.show();
 			}
 		else
 		{
@@ -58,9 +80,8 @@ public class LoginController
     }  
 	
 	
-	public String selectUsername(String username)
+	public boolean selectUsername(String username)
 	{
-		String usernameExists = "";
 		String sql = "SELECT Username FROM Customer WHERE Username = ?";  
         
         try
@@ -70,9 +91,13 @@ public class LoginController
             pstmt.setString(1, username);
             ResultSet rs = pstmt.executeQuery();  
             
-            while (rs.next())
+            if (rs.next())
             {
-            	usernameExists = rs.getString("username");
+            	usernameExists = true;
+            }
+            else
+            {
+            	usernameExists = false;
             }
         } 
         catch (SQLException e) 
@@ -85,7 +110,6 @@ public class LoginController
 	
 	public String selectPassword(String username)
 	{  
-		 String passwordExists = "";
          String sql = "SELECT Password FROM Customer WHERE Username = ?" ;  
          
          try
@@ -105,5 +129,55 @@ public class LoginController
             System.out.println(e.getMessage());  
          }
          return passwordExists;
-     }  
+     }
+	
+	
+	 public String getFirstName()
+	 {
+		 String sql = "SELECT FirstName FROM Customer WHERE Username = ?" ;  
+         
+         try
+         {  
+             Connection conn = this.connect();
+             PreparedStatement pstmt  = conn.prepareStatement(sql);
+             pstmt.setString(1, usernameTF.getText());
+             ResultSet rs = pstmt.executeQuery();  
+             
+             while (rs.next())
+             {
+            	 firstName = rs.getString("FirstName");
+             }
+         } 
+         catch (SQLException e) 
+         {  
+            System.out.println(e.getMessage());  
+         }
+         return firstName;
+		 
+	 }
+	 
+	 
+	 public String getLastName()
+	 {
+		 String sql = "SELECT LastName FROM Customer WHERE Username = ?" ;  
+         
+         try
+         {  
+             Connection conn = this.connect();
+             PreparedStatement pstmt  = conn.prepareStatement(sql);
+             pstmt.setString(1, usernameTF.getText());
+             ResultSet rs = pstmt.executeQuery();  
+             
+             while (rs.next())
+             {
+            	 lastName = rs.getString("LastName");
+             }
+         } 
+         catch (SQLException e) 
+         {  
+            System.out.println(e.getMessage());  
+         }
+         return lastName;
+		 
+	 }
 }

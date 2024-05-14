@@ -5,43 +5,52 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21">
+<AnchorPane prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BurritoKing_A2.ProfileController">
    <children>
-      <Label layoutX="116.0" layoutY="68.0" text="Username:">
+      <Label layoutX="117.0" layoutY="100.0" text="Username:">
          <font>
-            <Font size="18.0" />
+            <Font name="Georgia" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="234.0" layoutY="68.0" prefHeight="21.0" prefWidth="143.0" text="Label">
+      <Label fx:id="currentUsername" layoutX="231.0" layoutY="100.0" prefHeight="21.0" prefWidth="143.0" text="Label">
          <font>
-            <Font size="18.0" />
+            <Font name="Georgia" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="116.0" layoutY="118.0" text="First Name:">
+      <Label layoutX="117.0" layoutY="152.0" text="First Name:">
          <font>
-            <Font size="18.0" />
+            <Font name="Georgia" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="234.0" layoutY="118.0" text="Label">
+      <Label fx:id="currentFName" layoutX="231.0" layoutY="152.0" text="Label">
          <font>
-            <Font size="18.0" />
+            <Font name="Georgia" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="117.0" layoutY="172.0" text="Last Name:">
+      <Label layoutX="119.0" layoutY="202.0" text="Last Name:">
          <font>
-            <Font size="18.0" />
+            <Font name="Georgia" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="234.0" layoutY="172.0" text="Label">
+      <Label fx:id="currentLName" layoutX="231.0" layoutY="202.0" text="Label">
          <font>
-            <Font size="18.0" />
+            <Font name="Georgia" size="20.0" />
          </font>
       </Label>
-      <Button layoutX="145.0" layoutY="246.0" mnemonicParsing="false" style="-fx-background-color: black;" text="Edit Profile" textFill="WHITE">
+      <Button layoutX="136.0" layoutY="272.0" mnemonicParsing="false" style="-fx-background-color: #263F73;" text="Edit Profile" textFill="WHITE">
          <font>
-            <Font size="18.0" />
+            <Font name="Georgia" size="20.0" />
          </font>
       </Button>
+      <Button layoutX="138.0" layoutY="335.0" mnemonicParsing="false" onAction="#openDashboardPage" style="-fx-background-color: #263F73;" text="Dashboard" textFill="WHITE">
+         <font>
+            <Font name="Georgia" size="20.0" />
+         </font>
+      </Button>
+      <Label layoutX="130.0" layoutY="23.0" text="User Details">
+         <font>
+            <Font name="Georgia Bold Italic" size="22.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -61,10 +61,13 @@ public class Pages
 	
 	public void dashboardPage(ActionEvent event) throws IOException
 	{
-		root = FXMLLoader.load(getClass().getResource("/Dashboard.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Dashboard.fxml"));
+		root = loader.load();
+		//root = FXMLLoader.load(getClass().getResource("/Dashboard.fxml"));
 		dashboardStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		dashboardStage.setTitle("Dashboard");
 		dashboardScene = new Scene(root);
+		//System.out.println(x);
 		dashboardStage.setScene(dashboardScene);
 		dashboardStage.show();
 	}

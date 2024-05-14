@@ -9,27 +9,27 @@
    <children>
       <Label alignment="CENTER" layoutX="75.0" layoutY="36.0" prefHeight="58.0" prefWidth="251.0" text="Welcome to Burrito King!">
          <font>
-            <Font size="22.0" />
+            <Font name="Georgia" size="22.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="94.0" layoutY="118.0" text="Would you like to sign up?">
+      <Label alignment="CENTER" layoutX="83.0" layoutY="118.0" text="Would you like to sign up?">
          <font>
-            <Font size="18.0" />
+            <Font name="Georgia" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="signUpButton" alignment="CENTER" layoutX="158.0" layoutY="161.0" mnemonicParsing="false" onAction="#openSignUpPage" style="-fx-background-color: black;" text="Sign Up" textFill="WHITE">
+      <Button fx:id="signUpButton" alignment="CENTER" layoutX="152.0" layoutY="162.0" mnemonicParsing="false" onAction="#openSignUpPage" style="-fx-background-color: #263F73;" text="Sign Up" textFill="WHITE">
          <font>
-            <Font size="18.0" />
+            <Font name="Georgia" size="20.0" />
          </font>
       </Button>
-      <Label alignment="CENTER" layoutX="125.0" layoutY="256.0" text="Already a member?">
+      <Label alignment="CENTER" layoutX="114.0" layoutY="258.0" text="Already a member?">
          <font>
-            <Font size="18.0" />
+            <Font name="Georgia" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="loginButton" alignment="CENTER" layoutX="166.0" layoutY="304.0" mnemonicParsing="false" onAction="#openLoginPage" style="-fx-background-color: black;" text="Login" textFill="WHITE">
+      <Button fx:id="loginButton" alignment="CENTER" layoutX="162.0" layoutY="305.0" mnemonicParsing="false" onAction="#openLoginPage" style="-fx-background-color: #263F73;" text="Login" textFill="WHITE">
          <font>
-            <Font size="18.0" />
+            <Font name="Georgia" size="20.0" />
          </font>
       </Button>
    </children>

@@ -39,8 +39,7 @@ public class Main extends Application
             String url = "jdbc:sqlite:C:/Sqlite/AdvProgA2.db";  
             //Creating a connection to the database  
             conn = DriverManager.getConnection(url);
-            System.out.println("Connection to SQLite has been established.");  
-	              
+            //System.out.println("Connection to SQLite has been established.");
         } 
         catch (SQLException e) 
         {  

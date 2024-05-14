@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
@@ -11,7 +12,7 @@ import javafx.fxml.*;
 
 public class SignUpController 
 {	
-	private String existingUsername = "Andy";
+	private String existingUsername = "";
 	
 	@FXML
 	public TextField usernameTF;
@@ -19,22 +20,25 @@ public class SignUpController
 	public PasswordField cPasswordTF;
 	public TextField firstNameTF;
 	public TextField lastNameTF;
+	public Label errorMessage;
 	
 	
 	public void openLoginPage(ActionEvent event) throws IOException
 	 {
+		 existingCustomer(usernameTF.getText());
+		 
 		 if (usernameTF.getText().isBlank() || passwordTF.getText().isBlank() || cPasswordTF.getText().isBlank() || 
 				 firstNameTF.getText().isBlank() || lastNameTF.getText().isBlank())
 		 {
-			 System.out.println("Fields cannot be empty");
+			 errorMessage.setText("Fields cannot be blank!");
 		 }
 		 else if (!passwordTF.getText().equals(cPasswordTF.getText()))
 		 {
-			 System.out.println("Please enter identical passwords");
+			 errorMessage.setText("Enter identical passwords!");
 		 }
 		 else if (usernameTF.getText().equals(existingUsername))
 		 {
-			 System.out.println("The username already exists");
+			 errorMessage.setText("Username already exists!");
 		 }
 		 else
 		 {
@@ -79,6 +83,30 @@ public class SignUpController
 		{
             System.out.println(e.getMessage());
         }
+	}
+	
+	
+	public String existingCustomer(String username)
+	{
+		String sql = "SELECT Username FROM Customer WHERE Username = ?";
+		
+		try
+        {  
+            Connection conn = this.connect();
+            PreparedStatement pstmt  = conn.prepareStatement(sql);
+            pstmt.setString(1, username);
+            ResultSet rs = pstmt.executeQuery();  
+            
+            while (rs.next())
+            {
+            	existingUsername = rs.getString("username");
+            }
+        } 
+        catch (SQLException e) 
+        {  
+           System.out.println(e.getMessage());  
+        }
+        return existingUsername;
 	}
 	
 	
