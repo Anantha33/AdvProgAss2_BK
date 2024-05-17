@@ -16,8 +16,10 @@ import java.sql.SQLException;
 
 public class LoginController 
 {
-	private Stage dashboardStage;
-	private Scene dashboardScene;
+	Main main = new Main();
+	
+	public Scene profilePageScene;
+	public Stage profilePageStage;
 	//private Parent root;
 	
 	private boolean usernameExists = false;
@@ -38,17 +40,22 @@ public class LoginController
 		lastName = getLastName();
 		
 		if (selectUsername(usernameTF.getText()) && passwordTF.getText().equals(selectPassword(usernameTF.getText())))
-			{
-				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Dashboard.fxml"));
-				dashboardScene = new Scene(fxmlLoader.load());
-				DashboardController dc = fxmlLoader.getController();
-				dc.displayFName(firstName);
-				dc.displayLName(lastName);
-				dashboardStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-				dashboardStage.setTitle("Dashboard");
-				dashboardStage.setScene(dashboardScene);
-				dashboardStage.show();
-			}
+		{	
+			UserSingleton.getInstance().setCurrentUserDetails(firstName, lastName);
+			//UserSingleton.getInstance().setCurrentLName(lastName);
+			//main.openDashboardPage();
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Dashboard.fxml"));
+			Scene dashboardScene = new Scene(fxmlLoader.load());
+			DashboardController dc = fxmlLoader.getController();
+			dc.getCurrentUsername(usernameTF.getText());
+			dc.displayFName();
+			dc.displayLName();
+			Stage dashboardStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			dashboardStage.setTitle("Dashboard");
+			dashboardStage.setScene(dashboardScene);
+			dashboardStage.show();
+			dc.setActiveOrder();
+		}
 		else
 		{
 			errorMessage.setText("Invalid username or password!");
@@ -58,8 +65,7 @@ public class LoginController
 	
 	public void openWelcomePage(ActionEvent event) throws IOException
 	 {
-		 Pages pages = new Pages();
-		 pages.welcomePage(event);
+		main.openWelcomePage();
 	 }
 	
 	

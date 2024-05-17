@@ -12,6 +12,8 @@ import javafx.fxml.*;
 
 public class SignUpController 
 {	
+	private Main mainApp;
+	//Main main = new Main();
 	private String existingUsername = "";
 	
 	@FXML
@@ -109,10 +111,23 @@ public class SignUpController
         return existingUsername;
 	}
 	
-	
+	@FXML
 	public void openWelcomePage(ActionEvent event) throws IOException
 	{
-		Pages pages = new Pages();
-		pages.welcomePage(event);
+		try
+		{
+			mainApp.openWelcomePage();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		/*Pages pages = new Pages();
+		pages.welcomePage(event);*/
 	}
+	
+	public void setMainApp(Main mainApp)
+	 {
+		 this.mainApp = mainApp;
+	 }
 }

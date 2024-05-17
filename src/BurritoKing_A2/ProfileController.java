@@ -12,41 +12,55 @@ import javafx.stage.Stage;
 
 public class ProfileController 
 {
-	private Stage dashboardStage;
+	Main main = new Main();
 	
 	Pages pages = new Pages();
 	
+	String currentFullName = UserSingleton.getInstance().getCurrentFName();
+	
 	@FXML
-	Label currentUsername;
-	Label currentFName;
-	Label currentLName;
-	
-	private Scene preScene;
-	
-	public void setPreScene(Scene preScene)
-	{
-		this.preScene = preScene;
-	}
+	public Label currentUsername;
+	public Label currentFName;
+	public Label currentLName;
 	
 	public void openDashboardPage(ActionEvent event) throws IOException
 	{
-		dashboardStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		dashboardStage.setScene(preScene);
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Dashboard.fxml"));
+		Scene dashboardScene = new Scene(fxmlLoader.load());
+		DashboardController dc = fxmlLoader.getController();
+		//dc.getCurrentUsername(usernameTF.getText());
+		dc.displayFName();
+		dc.displayLName();
+		Stage dashboardStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		dashboardStage.setTitle("Dashboard");
+		dashboardStage.setScene(dashboardScene);
 		dashboardStage.show();
+		dc.setActiveOrder();
+		//main.openDashboardPage();
+		/*dashboardStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		dashboardStage.setScene(preScene);
+		dashboardStage.show();*/
 	}
 	
-	public void displayCurrentUsername(String username)
+	public void getCurrentFName(String fName)
 	{
-		currentUsername.setText(username);
+		currentFullName = fName;
+		System.out.println(currentFullName);
 	}
 	
-	public void displayCurrentFName(String fName)
+	public void displayCurrentUsername()
 	{
-		currentFName.setText(fName);
+		currentUsername.setText(currentFullName);
+	}
+	
+	public void displayCurrentFName()
+	{
+		
 	}
 	
 	public void displayCurrentLName(String lName)
 	{
+		System.out.println(lName);
 		currentLName.setText(lName);
 	}
 }

@@ -32,7 +32,7 @@
             <Font name="Georgia" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="currentLName" layoutX="231.0" layoutY="202.0" text="Label">
+      <Label fx:id="currentLName" layoutX="231.0" layoutY="202.0">
          <font>
             <Font name="Georgia" size="20.0" />
          </font>

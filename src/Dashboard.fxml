@@ -47,6 +47,6 @@
             <Font name="Georgia" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="250.0" prefHeight="27.0" prefWidth="108.0" style="-fx-background-color: white;" />
+      <Label fx:id="activeOrder" layoutX="14.0" layoutY="250.0" prefHeight="27.0" prefWidth="108.0" style="-fx-background-color: white;" />
    </children>
 </AnchorPane>

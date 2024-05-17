@@ -5,16 +5,22 @@ import javafx.event.ActionEvent;
 
 public class WelcomeController 
 {
-	 Pages pages = new Pages();
+	 private Main mainApp;
+	 //Main mainApp = new Main();
 	 
 	 public void openSignUpPage(ActionEvent event) throws IOException
 	 { 
-		 pages.signUpPage(event);
+		 mainApp.openSignUpPage();
 	 }
 	 
 	 
 	 public void openLoginPage(ActionEvent event) throws IOException
 	 {
-		 pages.loginPage(event);
+		 mainApp.openLoginPage();
+	 }
+	 
+	 public void setMainApp(Main mainApp)
+	 {
+		 this.mainApp = mainApp;
 	 }
 }
