@@ -49,10 +49,5 @@
       <TextField fx:id="lastNameTF" layoutX="212.0" layoutY="226.0" promptText="Enter last name" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;" />
       <PasswordField fx:id="passwordTF" layoutX="212.0" layoutY="89.0" promptText="Enter password" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;" />
       <PasswordField fx:id="cPasswordTF" layoutX="212.0" layoutY="137.0" promptText="Re-enter password" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;" />
-      <Label fx:id="errorMessage" layoutX="105.0" layoutY="288.0">
-         <font>
-            <Font name="Georgia" size="18.0" />
-         </font>
-      </Label>
    </children>
 </AnchorPane>

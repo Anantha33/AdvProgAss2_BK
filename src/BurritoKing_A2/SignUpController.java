@@ -6,128 +6,93 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javafx.event.ActionEvent;
+
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
+import javafx.event.ActionEvent;
 import javafx.fxml.*;
 
 public class SignUpController 
 {	
-	private Main mainApp;
-	//Main main = new Main();
-	private String existingUsername = "";
-	
+	//private Stage welcomeStage;
 	@FXML
 	public TextField usernameTF;
 	public PasswordField passwordTF;
 	public PasswordField cPasswordTF;
 	public TextField firstNameTF;
 	public TextField lastNameTF;
-	public Label errorMessage;
 	
 	
-	public void openLoginPage(ActionEvent event) throws IOException
-	 {
-		 existingCustomer(usernameTF.getText());
-		 
+	public void openLoginPage() throws IOException
+	 { 
 		 if (usernameTF.getText().isBlank() || passwordTF.getText().isBlank() || cPasswordTF.getText().isBlank() || 
 				 firstNameTF.getText().isBlank() || lastNameTF.getText().isBlank())
 		 {
-			 errorMessage.setText("Fields cannot be blank!");
+			 showAlert("Error", "Please fill in all fields.");
 		 }
 		 else if (!passwordTF.getText().equals(cPasswordTF.getText()))
 		 {
-			 errorMessage.setText("Enter identical passwords!");
+			 showAlert("Error", "Passwords do not match.");
 		 }
-		 else if (usernameTF.getText().equals(existingUsername))
+		 else if (Database.isUsernameExists(usernameTF.getText()))
 		 {
-			 errorMessage.setText("Username already exists!");
+			 showAlert("Error", "Username already exists.");
 		 }
 		 else
 		 {
-			 insertCustomer(usernameTF.getText(), passwordTF.getText(), firstNameTF.getText(), lastNameTF.getText());
-			 Pages pages = new Pages();
-			 pages.loginPage(event);
+			 try (Connection conn = Database.getConnection()) 
+		        {
+		            String query = "INSERT INTO Customer (Username, Password, firstName, lastName) VALUES (?, ?, ?, ?)";
+		            PreparedStatement stmt = conn.prepareStatement(query);
+		            stmt.setString(1, usernameTF.getText());
+		            stmt.setString(2, passwordTF.getText());
+		            stmt.setString(3, firstNameTF.getText());
+		            stmt.setString(4, lastNameTF.getText());
+		            stmt.executeUpdate();
+
+		            showAlert("Success", "Registration successful. You can now log in.");
+		            //loadLoginPage();
+		        } 
+		        catch (SQLException e) 
+		        {
+		            e.printStackTrace();
+		            showAlert("Error", "An error occurred during registration.");
+		        }
+			 //insertCustomer(usernameTF.getText(), passwordTF.getText(), firstNameTF.getText(), lastNameTF.getText());
+			 /*Pages pages = new Pages();
+			 pages.loginPage(event);*/
 		 }
 	 }
 	
-	
-	private Connection connect() 
-	{  
-	     //SQLite connection string  
-	     String url = "jdbc:sqlite:C:/Sqlite/AdvProgA2.db";  
-	     Connection conn = null;  
-	     try 
-	     {  
-	        conn = DriverManager.getConnection(url);  
-	     } 
-	     catch (SQLException e)
-	     {  
-	        System.out.println(e.getMessage());  
-	     }  
-	     return conn;  
-    } 
-	
-	
-	public void insertCustomer(String username, String password, String firstname, String lastname)
-	{
-		String sql = "INSERT INTO Customer VALUES (?,?,?,?)";
-		try
-        {  
-            Connection conn = this.connect();
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, username);
-            pstmt.setString(2, password);
-            pstmt.setString(3, firstname);
-            pstmt.setString(4, lastname);
-            pstmt.executeUpdate();
-        }
-		catch (SQLException e) 
-		{
-            System.out.println(e.getMessage());
-        }
-	}
-	
-	
-	public String existingCustomer(String username)
-	{
-		String sql = "SELECT Username FROM Customer WHERE Username = ?";
-		
-		try
-        {  
-            Connection conn = this.connect();
-            PreparedStatement pstmt  = conn.prepareStatement(sql);
-            pstmt.setString(1, username);
-            ResultSet rs = pstmt.executeQuery();  
-            
-            while (rs.next())
-            {
-            	existingUsername = rs.getString("username");
-            }
-        } 
-        catch (SQLException e) 
-        {  
-           System.out.println(e.getMessage());  
-        }
-        return existingUsername;
-	}
+	private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 	
 	@FXML
 	public void openWelcomePage(ActionEvent event) throws IOException
 	{
 		try
 		{
-			mainApp.openWelcomePage();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/WelcomePage.fxml"));
+			Parent root = loader.load();
+			Scene welcomeScene = new Scene(root);
+			WelcomeController wc = loader.getController();
+			Stage welcomeStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			welcomeStage.setScene(welcomeScene);
+			welcomeStage.setTitle("Welcome Page");
+			welcomeStage.show();
+			/*mainApp.openWelcomePage();*/
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
-		/*Pages pages = new Pages();
-		pages.welcomePage(event);*/
 	}
-	
-	public void setMainApp(Main mainApp)
-	 {
-		 this.mainApp = mainApp;
-	 }
 }

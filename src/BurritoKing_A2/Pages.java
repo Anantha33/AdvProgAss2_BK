@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.event.ActionEvent;
+import java.lang.*;
 
 public class Pages 
 {
@@ -31,12 +32,14 @@ public class Pages
 	
 	public void welcomePage(ActionEvent event) throws IOException
 	 {
-		 root = FXMLLoader.load(getClass().getResource("/WelcomePage.fxml"));
-		 welcomeStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		 welcomeStage.setTitle("Welcome Page");
-		 welcomeScene = new Scene(root);
-		 welcomeStage.setScene(welcomeScene);
-		 welcomeStage.show();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/WelcomePage.fxml"));
+		Parent root = loader.load();
+		Scene welcomeScene = new Scene(root);
+		WelcomeController wc = loader.getController();
+		Stage welcomeStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		welcomeStage.setScene(welcomeScene);
+		welcomeStage.setTitle("Welcome Page");
+		welcomeStage.show();
 	 }
 	
 	public void loginPage(ActionEvent event) throws IOException

@@ -15,9 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException; 
 
 public class LoginController 
-{
-	Main main = new Main();
-	
+{	
 	public Scene profilePageScene;
 	public Stage profilePageStage;
 	//private Parent root;
@@ -35,37 +33,42 @@ public class LoginController
 	Pages pages = new Pages();
 	
 	public void openDashboard(ActionEvent event) throws IOException
-	{
-		firstName = getFirstName();
-		lastName = getLastName();
-		
-		if (selectUsername(usernameTF.getText()) && passwordTF.getText().equals(selectPassword(usernameTF.getText())))
+	{	
+		if (Database.authenticateUser(usernameTF.getText(), passwordTF.getText()))
 		{	
-			UserSingleton.getInstance().setCurrentUserDetails(firstName, lastName);
-			//UserSingleton.getInstance().setCurrentLName(lastName);
-			//main.openDashboardPage();
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Dashboard.fxml"));
-			Scene dashboardScene = new Scene(fxmlLoader.load());
-			DashboardController dc = fxmlLoader.getController();
-			dc.getCurrentUsername(usernameTF.getText());
-			dc.displayFName();
-			dc.displayLName();
+			firstName = getFirstName();
+			lastName = getLastName();
+			UserSingleton.getInstance().setCurrentUserDetails(usernameTF.getText(), firstName, lastName);
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Dashboard.fxml"));
+			Scene dashboardScene = new Scene(loader.load());
+			DashboardController dc = loader.getController();
+			dc.displayFullName();
 			Stage dashboardStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 			dashboardStage.setTitle("Dashboard");
 			dashboardStage.setScene(dashboardScene);
 			dashboardStage.show();
-			dc.setActiveOrder();
 		}
 		else
 		{
-			errorMessage.setText("Invalid username or password!");
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Login Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Invalid username or password");
+            alert.showAndWait();
 		}
 	}
 	
 	
 	public void openWelcomePage(ActionEvent event) throws IOException
 	 {
-		main.openWelcomePage();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/WelcomePage.fxml"));
+		Parent root = loader.load();
+		Scene welcomeScene = new Scene(root);
+		WelcomeController wc = loader.getController();
+		Stage welcomeStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		welcomeStage.setScene(welcomeScene);
+		welcomeStage.setTitle("Welcome Page");
+		welcomeStage.show();
 	 }
 	
 	
@@ -83,59 +86,7 @@ public class LoginController
 	        System.out.println(e.getMessage());  
 	     }  
 	     return conn;  
-    }  
-	
-	
-	public boolean selectUsername(String username)
-	{
-		String sql = "SELECT Username FROM Customer WHERE Username = ?";  
-        
-        try
-        {  
-            Connection conn = this.connect();
-            PreparedStatement pstmt  = conn.prepareStatement(sql);
-            pstmt.setString(1, username);
-            ResultSet rs = pstmt.executeQuery();  
-            
-            if (rs.next())
-            {
-            	usernameExists = true;
-            }
-            else
-            {
-            	usernameExists = false;
-            }
-        } 
-        catch (SQLException e) 
-        {  
-           System.out.println(e.getMessage());  
-        }
-        return usernameExists;
-	}
-	
-	
-	public String selectPassword(String username)
-	{  
-         String sql = "SELECT Password FROM Customer WHERE Username = ?" ;  
-         
-         try
-         {  
-             Connection conn = this.connect();
-             PreparedStatement pstmt  = conn.prepareStatement(sql);
-             pstmt.setString(1, username);
-             ResultSet rs = pstmt.executeQuery();  
-             
-             while (rs.next())
-             {
-            	 passwordExists = rs.getString("password");
-             }
-         } 
-         catch (SQLException e) 
-         {  
-            System.out.println(e.getMessage());  
-         }
-         return passwordExists;
-     }
+    }
 	
 	
 	 public String getFirstName()

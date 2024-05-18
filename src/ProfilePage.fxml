@@ -12,7 +12,7 @@
             <Font name="Georgia" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="currentUsername" layoutX="231.0" layoutY="100.0" prefHeight="21.0" prefWidth="143.0" text="Label">
+      <Label fx:id="currentUName" layoutX="231.0" layoutY="100.0" prefHeight="21.0" prefWidth="143.0" text="Label">
          <font>
             <Font name="Georgia" size="20.0" />
          </font>
@@ -37,7 +37,7 @@
             <Font name="Georgia" size="20.0" />
          </font>
       </Label>
-      <Button layoutX="136.0" layoutY="272.0" mnemonicParsing="false" style="-fx-background-color: #263F73;" text="Edit Profile" textFill="WHITE">
+      <Button layoutX="136.0" layoutY="272.0" mnemonicParsing="false" onAction="#openEditProfile" style="-fx-background-color: #263F73;" text="Edit Profile" textFill="WHITE">
          <font>
             <Font name="Georgia" size="20.0" />
          </font>

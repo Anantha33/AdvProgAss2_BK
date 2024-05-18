@@ -4,23 +4,27 @@ class UserSingleton
 {
 	private static UserSingleton single_instance = null;
 	
-	public String currentFName;
-	public String currentLName;
+	private String currentUsername;
+	private String currentFName;
+	private String currentLName;
+	private boolean currentIsVIP;
+	private int currentCredits;
 	
-	public void setCurrentUserDetails(String fName, String lName)
+	public void setCurrentUserDetails(String username, String fName, String lName)
 	{
+		currentUsername = username;
 		currentFName = fName;
 		currentLName = lName;
+	}
+	
+	public String getCurrentUsername()
+	{
+		return currentUsername;
 	}
 	
 	public String getCurrentFName()
 	{
 		return currentFName;
-	}
-	
-	public void setCurrentLName(String lName)
-	{
-		currentFName = lName;
 	}
 	
 	public String getCurrentLName()

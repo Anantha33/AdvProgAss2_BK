@@ -31,10 +31,5 @@
             <Font name="Georgia" size="20.0" />
          </font>
       </Button>
-      <Label fx:id="errorMessage" alignment="CENTER" layoutX="55.0" layoutY="222.0" prefHeight="27.0" prefWidth="291.0">
-         <font>
-            <Font name="Georgia" size="18.0" />
-         </font>
-      </Label>
    </children>
 </AnchorPane>

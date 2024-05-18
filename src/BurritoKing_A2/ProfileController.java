@@ -11,56 +11,58 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class ProfileController 
-{
-	Main main = new Main();
-	
-	Pages pages = new Pages();
-	
-	String currentFullName = UserSingleton.getInstance().getCurrentFName();
+{	
+	String currentusername = UserSingleton.getInstance().getCurrentUsername();
+	String currentFirstName = UserSingleton.getInstance().getCurrentFName();
+	String currentLastName = UserSingleton.getInstance().getCurrentLName();
 	
 	@FXML
-	public Label currentUsername;
+	public Label currentUName;
 	public Label currentFName;
 	public Label currentLName;
 	
+	
+	public void openEditProfile(ActionEvent event) throws IOException
+	{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/EditProfilePage.fxml"));
+		Scene editProfileScene = new Scene(loader.load());
+		Stage editProfileStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		editProfileStage.setTitle("Edit Profile");
+		editProfileStage.setScene(editProfileScene);
+		editProfileStage.show();
+	}
+	
+	
 	public void openDashboardPage(ActionEvent event) throws IOException
 	{
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Dashboard.fxml"));
-		Scene dashboardScene = new Scene(fxmlLoader.load());
-		DashboardController dc = fxmlLoader.getController();
-		//dc.getCurrentUsername(usernameTF.getText());
-		dc.displayFName();
-		dc.displayLName();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Dashboard.fxml"));
+		Scene dashboardScene = new Scene(loader.load());
+		DashboardController dc = loader.getController();
+		dc.displayFullName();
 		Stage dashboardStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		dashboardStage.setTitle("Dashboard");
 		dashboardStage.setScene(dashboardScene);
 		dashboardStage.show();
-		dc.setActiveOrder();
-		//main.openDashboardPage();
-		/*dashboardStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		dashboardStage.setScene(preScene);
-		dashboardStage.show();*/
 	}
 	
 	public void getCurrentFName(String fName)
 	{
-		currentFullName = fName;
-		System.out.println(currentFullName);
+		/*currentFirstName = fName;
+		System.out.println(currentFullName);*/
 	}
 	
 	public void displayCurrentUsername()
 	{
-		currentUsername.setText(currentFullName);
+		currentUName.setText(currentusername);
 	}
 	
 	public void displayCurrentFName()
 	{
-		
+		currentFName.setText(currentFirstName);
 	}
 	
-	public void displayCurrentLName(String lName)
+	public void displayCurrentLName()
 	{
-		System.out.println(lName);
-		currentLName.setText(lName);
+		currentLName.setText(currentLastName);
 	}
 }

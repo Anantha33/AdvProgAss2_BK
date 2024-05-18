@@ -3,6 +3,7 @@ package BurritoKing_A2;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -23,62 +24,53 @@ public class DashboardController
 	
 	@FXML
 	private Button profilePageButton;
-	public Label userFName;
-	public Label userLName;
-	public Label activeOrder;
+	public Label userFullName;
 	
-	Pages pages = new Pages();
-	
-	public void displayFName()
+	public void displayFullName()
 	{
 		/*System.out.println(this.currentFName);
 		System.out.println(this.currentLName);*/
 		//currentUsername = firstname;
-		userFName.setText(currentFName);
+		userFullName.setText(currentFName + " " + currentLName);
 	}
-	
-	public void displayLName()
-	{
-		userLName.setText(currentLName);
-	}
-	
 
 	public void openProfilePage(ActionEvent event) throws IOException
 	{
-		//main.openProfilePage();
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ProfilePage.fxml"));
-		profilePageScene = new Scene(fxmlLoader.load());
-		
-		ProfileController pc = fxmlLoader.getController();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ProfilePage.fxml"));
+		Parent root = loader.load();
+		Scene profileScene = new Scene(root);
+		ProfileController pc = loader.getController();
 		pc.displayCurrentUsername();
-		//pc.setPreScene(profilePageButton.getScene());
-		
-		profilePageStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		profilePageStage.setTitle("Profile Page");
-		profilePageStage.setScene(profilePageScene);
-		profilePageStage.show();
-		//pages.profilePage(event);
-		//activeOrder.setText("hello");
+		pc.displayCurrentFName();
+		pc.displayCurrentLName();
+		Stage profileStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		profileStage.setTitle("Profile Page");
+		profileStage.setScene(profileScene);
+		profileStage.show();
+	}
+	
+	
+	public void viewAllOrders(ActionEvent event) throws IOException
+	{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/AllOrders.fxml"));
+		Parent root = loader.load();
+		Scene allOrderScene = new Scene(root);
+		Stage allOrderStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		allOrderStage.setScene(allOrderScene);
+		allOrderStage.setTitle("All Orders");
+		allOrderStage.show();
 	}
 	
 	
 	public void openLoginPage(ActionEvent event) throws IOException
 	{
-		main.openLoginPage();
-		//System.out.println(activeOrder.getText());
-		/*CurrentUser x = CurrentUser.getInstance();
-		System.out.println(x.currentFName);*/
-		//System.out.println(currentUsername);
-		//pages.loginPage(event);
-	}
-	
-	public void getCurrentUsername(String username)
-	{
-		currentUsername = username;
-	}
-	
-	public void setActiveOrder()
-	{
-		activeOrder.setText("hello");
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginPage.fxml"));
+		Parent root = loader.load();
+		Scene loginScene = new Scene(root);
+		LoginController lc = loader.getController();
+		Stage loginStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		loginStage.setScene(loginScene);
+		loginStage.setTitle("Login Page");
+		loginStage.show();
 	}
 }
