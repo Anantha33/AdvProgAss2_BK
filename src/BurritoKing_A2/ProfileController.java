@@ -22,14 +22,36 @@ public class ProfileController
 	public Label currentLName;
 	
 	
-	public void openEditProfile(ActionEvent event) throws IOException
+	public void openEditFirstName(ActionEvent event) throws IOException
 	{
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/EditProfilePage.fxml"));
-		Scene editProfileScene = new Scene(loader.load());
-		Stage editProfileStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		editProfileStage.setTitle("Edit Profile");
-		editProfileStage.setScene(editProfileScene);
-		editProfileStage.show();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/EditFNamePage.fxml"));
+		Scene editFNameScene = new Scene(loader.load());
+		Stage editFNameStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		editFNameStage.setTitle("Edit First Name");
+		editFNameStage.setScene(editFNameScene);
+		editFNameStage.show();
+	}
+	
+	
+	public void openEditLastName(ActionEvent event) throws IOException
+	{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/EditLNamePage.fxml"));
+		Scene editLNameScene = new Scene(loader.load());
+		Stage editLNameStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		editLNameStage.setTitle("Edit Last Name");
+		editLNameStage.setScene(editLNameScene);
+		editLNameStage.show();
+	}
+	
+	
+	public void openEditPassword(ActionEvent event) throws IOException
+	{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/EditPasswordPage.fxml"));
+		Scene editPasswordScene = new Scene(loader.load());
+		Stage editPasswordStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		editPasswordStage.setTitle("Edit Last Name");
+		editPasswordStage.setScene(editPasswordScene);
+		editPasswordStage.show();
 	}
 	
 	
@@ -45,11 +67,6 @@ public class ProfileController
 		dashboardStage.show();
 	}
 	
-	public void getCurrentFName(String fName)
-	{
-		/*currentFirstName = fName;
-		System.out.println(currentFullName);*/
-	}
 	
 	public void displayCurrentUsername()
 	{

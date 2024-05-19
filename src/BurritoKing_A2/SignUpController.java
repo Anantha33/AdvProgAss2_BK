@@ -17,7 +17,6 @@ import javafx.fxml.*;
 
 public class SignUpController 
 {	
-	//private Stage welcomeStage;
 	@FXML
 	public TextField usernameTF;
 	public PasswordField passwordTF;
@@ -26,7 +25,7 @@ public class SignUpController
 	public TextField lastNameTF;
 	
 	
-	public void openLoginPage() throws IOException
+	public void openLoginPage(ActionEvent event) throws IOException
 	 { 
 		 if (usernameTF.getText().isBlank() || passwordTF.getText().isBlank() || cPasswordTF.getText().isBlank() || 
 				 firstNameTF.getText().isBlank() || lastNameTF.getText().isBlank())
@@ -54,7 +53,15 @@ public class SignUpController
 		            stmt.executeUpdate();
 
 		            showAlert("Success", "Registration successful. You can now log in.");
-		            //loadLoginPage();
+		            
+		            FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginPage.fxml"));
+			   		Parent root = loader.load();
+			   		Scene loginScene = new Scene(root);
+			   		LoginController lc = loader.getController();
+			   		Stage loginStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			   		loginStage.setScene(loginScene);
+			   		loginStage.setTitle("Login Page");
+			   		loginStage.show();
 		        } 
 		        catch (SQLException e) 
 		        {
@@ -67,8 +74,9 @@ public class SignUpController
 		 }
 	 }
 	
-	private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+	private void showAlert(String title, String message) 
+	{
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);

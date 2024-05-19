@@ -5,24 +5,24 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BurritoKing_A2.ProfileController">
+<AnchorPane prefHeight="318.0" prefWidth="423.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BurritoKing_A2.ProfileController">
    <children>
-      <Label layoutX="117.0" layoutY="100.0" text="Username:">
+      <Label layoutX="117.0" layoutY="112.0" text="Username:">
          <font>
             <Font name="Georgia" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="currentUName" layoutX="231.0" layoutY="100.0" prefHeight="21.0" prefWidth="143.0" text="Label">
+      <Label fx:id="currentUName" layoutX="231.0" layoutY="112.0" prefHeight="21.0" prefWidth="143.0">
          <font>
             <Font name="Georgia" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="117.0" layoutY="152.0" text="First Name:">
+      <Label layoutX="117.0" layoutY="158.0" text="First Name:">
          <font>
             <Font name="Georgia" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="currentFName" layoutX="231.0" layoutY="152.0" text="Label">
+      <Label fx:id="currentFName" layoutX="232.0" layoutY="158.0" prefHeight="24.0" prefWidth="141.0">
          <font>
             <Font name="Georgia" size="20.0" />
          </font>
@@ -32,25 +32,35 @@
             <Font name="Georgia" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="currentLName" layoutX="231.0" layoutY="202.0">
+      <Label fx:id="currentLName" layoutX="234.0" layoutY="202.0" prefHeight="24.0" prefWidth="141.0">
          <font>
             <Font name="Georgia" size="20.0" />
          </font>
       </Label>
-      <Button layoutX="136.0" layoutY="272.0" mnemonicParsing="false" onAction="#openEditProfile" style="-fx-background-color: #263F73;" text="Edit Profile" textFill="WHITE">
+      <Button layoutX="14.0" layoutY="272.0" mnemonicParsing="false" onAction="#openEditFirstName" style="-fx-background-color: #263F73;" text="Edit First Name" textFill="WHITE">
          <font>
-            <Font name="Georgia" size="20.0" />
+            <Font name="Georgia" size="15.0" />
          </font>
       </Button>
-      <Button layoutX="138.0" layoutY="335.0" mnemonicParsing="false" onAction="#openDashboardPage" style="-fx-background-color: #263F73;" text="Dashboard" textFill="WHITE">
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#openDashboardPage" style="-fx-background-color: #263F73;" text="&lt;- Back" textFill="WHITE">
          <font>
-            <Font name="Georgia" size="20.0" />
+            <Font name="Georgia" size="15.0" />
          </font>
       </Button>
-      <Label layoutX="130.0" layoutY="23.0" text="User Details">
+      <Label layoutX="130.0" layoutY="58.0" text="User Details">
          <font>
             <Font name="Georgia Bold Italic" size="22.0" />
          </font>
       </Label>
+      <Button layoutX="150.0" layoutY="272.0" mnemonicParsing="false" onAction="#openEditLastName" style="-fx-background-color: #263F73;" text="Edit Last Name" textFill="WHITE">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font>
+      </Button>
+      <Button layoutX="285.0" layoutY="272.0" mnemonicParsing="false" onAction="#openEditPassword" style="-fx-background-color: #263F73;" text="Edit Password" textFill="WHITE">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

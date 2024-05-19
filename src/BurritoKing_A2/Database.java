@@ -37,12 +37,6 @@ public class Database
             if (rs.next()) 
             {
             	validUser = true;
-                /*user.setUsername(rs.getString("username"));
-                user.setPassword(rs.getString("password"));
-                user.setFirstName(rs.getString("first_name"));
-                user.setLastName(rs.getString("last_name"));
-                user.setVIP(rs.getBoolean("is_vip"));
-                user.setCredits(rs.getInt("credits"));*/
             }
             else
             {
@@ -73,4 +67,71 @@ public class Database
             return false;
         }
     }
+	
+	public static void updateFirstName(String newFirstName, String username)
+	{
+		try (Connection conn = getConnection())
+		{
+			String query = "UPDATE Customer SET FirstName = ? WHERE Username = ?";
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setString(1, newFirstName);
+			stmt.setString(2, username);
+			int updateCount = stmt.executeUpdate();
+		}
+		catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+	}
+	
+	
+	public static void updateLastName(String newLastName, String username)
+	{
+		try (Connection conn = getConnection())
+		{
+			String query = "UPDATE Customer SET LastName = ? WHERE Username = ?";
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setString(1, newLastName);
+			stmt.setString(2, username);
+			int updateCount = stmt.executeUpdate();
+		}
+		catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+	}
+	
+	
+	public static void updatePassword(String newPassword, String username)
+	{
+		try (Connection conn = getConnection())
+		{
+			String query = "UPDATE Customer SET Password = ? WHERE Username = ?";
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setString(1, newPassword);
+			stmt.setString(2, username);
+			int updateCount = stmt.executeUpdate();
+		}
+		catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+	}
+	
+	
+	public static void upgradeUser(String email, String username)
+	{
+		try (Connection conn = getConnection())
+		{
+			String query = "UPDATE Customer SET IsVIP = 1, Email = ? WHERE Username = ?";
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setString(1, email);
+			stmt.setString(2, username);
+			int updateCount = stmt.executeUpdate();
+		}
+		catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+	}
 }

@@ -1,6 +1,9 @@
 package BurritoKing_A2;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -9,10 +12,8 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.fxml.*;
 
-public class DashboardController 
+public class DashboardController implements Initializable
 {
-	Main main = new Main();
-	
 	Scene profilePageScene;
 	Stage profilePageStage;
 	
@@ -20,11 +21,13 @@ public class DashboardController
 	
 	String currentFName = UserSingleton.getInstance().getCurrentFName();
 	String currentLName = UserSingleton.getInstance().getCurrentLName();
+	boolean currentIsVIP = UserSingleton.getInstance().getCurrentVIPStatus();
 	
 	
 	@FXML
 	private Button profilePageButton;
 	public Label userFullName;
+	public Button upgradeUserButton;
 	
 	public void displayFullName()
 	{
@@ -33,6 +36,19 @@ public class DashboardController
 		//currentUsername = firstname;
 		userFullName.setText(currentFName + " " + currentLName);
 	}
+	
+	
+	public void openCart(ActionEvent event) throws IOException
+	{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Cart.fxml"));
+		Parent root = loader.load();
+		Scene cartScene = new Scene(root);
+		Stage cartStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		cartStage.setTitle("Cart");
+		cartStage.setScene(cartScene);
+		cartStage.show();
+	}
+	
 
 	public void openProfilePage(ActionEvent event) throws IOException
 	{
@@ -72,5 +88,32 @@ public class DashboardController
 		loginStage.setScene(loginScene);
 		loginStage.setTitle("Login Page");
 		loginStage.show();
+	}
+	
+	
+	public void openUpgradeProfile(ActionEvent event) throws IOException
+	{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/UpgradeProfilePage.fxml"));
+		Parent root = loader.load();
+		Scene upgradeProfileScene = new Scene(root);
+		Stage upgradeProfileStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		upgradeProfileStage.setScene(upgradeProfileScene);
+		upgradeProfileStage.setTitle("Upgrade Profile Page");
+		upgradeProfileStage.show();
+	}
+
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) 
+	{
+		if (currentIsVIP)
+		{
+			upgradeUserButton.setDisable(true);
+		}
+		else
+		{
+			upgradeUserButton.setDisable(false);
+		}
+		
 	}
 }

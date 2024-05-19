@@ -18,19 +18,14 @@ public class LoginController
 {	
 	public Scene profilePageScene;
 	public Stage profilePageStage;
-	//private Parent root;
 	
-	private boolean usernameExists = false;
-	private String passwordExists;
-	private String firstName = "";
-	private String lastName = "";
+	private String firstName;
+	private String lastName;
+	private boolean vipStatus;
 	
 	@FXML
 	public TextField usernameTF;
 	public PasswordField passwordTF;
-	public Label errorMessage;
-	
-	Pages pages = new Pages();
 	
 	public void openDashboard(ActionEvent event) throws IOException
 	{	
@@ -38,7 +33,8 @@ public class LoginController
 		{	
 			firstName = getFirstName();
 			lastName = getLastName();
-			UserSingleton.getInstance().setCurrentUserDetails(usernameTF.getText(), firstName, lastName);
+			vipStatus = getVIPStatus();
+			UserSingleton.getInstance().setCurrentUserDetails(usernameTF.getText(), firstName, lastName, vipStatus);
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Dashboard.fxml"));
 			Scene dashboardScene = new Scene(loader.load());
 			DashboardController dc = loader.getController();
@@ -136,5 +132,37 @@ public class LoginController
          }
          return lastName;
 		 
+	 }
+	 
+	 public boolean getVIPStatus()
+	 {
+		 String sql = "SELECT isVIP FROM Customer WHERE Username = ?" ;
+		 
+		 try
+         {  
+             Connection conn = this.connect();
+             PreparedStatement pstmt  = conn.prepareStatement(sql);
+             pstmt.setString(1, usernameTF.getText());
+             ResultSet rs = pstmt.executeQuery();  
+             
+             while (rs.next())
+             {
+            	 int test = rs.getInt("isVIP");
+            	 
+            	 if (test == 0)
+            	 {
+            		 vipStatus = false;
+            	 }
+            	 else
+            	 {
+            		 vipStatus = true;
+            	 }
+             }
+         } 
+         catch (SQLException e) 
+         {  
+            System.out.println(e.getMessage());  
+         }
+		 return vipStatus;
 	 }
 }

@@ -10,11 +10,12 @@ class UserSingleton
 	private boolean currentIsVIP;
 	private int currentCredits;
 	
-	public void setCurrentUserDetails(String username, String fName, String lName)
+	public void setCurrentUserDetails(String username, String fName, String lName, boolean vipStatus)
 	{
 		currentUsername = username;
 		currentFName = fName;
 		currentLName = lName;
+		currentIsVIP = vipStatus;
 	}
 	
 	public String getCurrentUsername()
@@ -30,6 +31,11 @@ class UserSingleton
 	public String getCurrentLName()
 	{
 		return currentLName;
+	}
+	
+	public boolean getCurrentVIPStatus()
+	{
+		return currentIsVIP;
 	}
 	
 	public static synchronized UserSingleton getInstance()
