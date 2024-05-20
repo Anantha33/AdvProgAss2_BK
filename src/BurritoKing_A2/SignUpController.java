@@ -17,6 +17,7 @@ import javafx.fxml.*;
 
 public class SignUpController 
 {	
+	Pages pages = new Pages();
 	@FXML
 	public TextField usernameTF;
 	public PasswordField passwordTF;
@@ -54,23 +55,13 @@ public class SignUpController
 
 		            showAlert("Success", "Registration successful. You can now log in.");
 		            
-		            FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginPage.fxml"));
-			   		Parent root = loader.load();
-			   		Scene loginScene = new Scene(root);
-			   		LoginController lc = loader.getController();
-			   		Stage loginStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-			   		loginStage.setScene(loginScene);
-			   		loginStage.setTitle("Login Page");
-			   		loginStage.show();
+		            pages.loginPage(event);
 		        } 
 		        catch (SQLException e) 
 		        {
 		            e.printStackTrace();
 		            showAlert("Error", "An error occurred during registration.");
 		        }
-			 //insertCustomer(usernameTF.getText(), passwordTF.getText(), firstNameTF.getText(), lastNameTF.getText());
-			 /*Pages pages = new Pages();
-			 pages.loginPage(event);*/
 		 }
 	 }
 	
@@ -88,15 +79,7 @@ public class SignUpController
 	{
 		try
 		{
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/WelcomePage.fxml"));
-			Parent root = loader.load();
-			Scene welcomeScene = new Scene(root);
-			WelcomeController wc = loader.getController();
-			Stage welcomeStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-			welcomeStage.setScene(welcomeScene);
-			welcomeStage.setTitle("Welcome Page");
-			welcomeStage.show();
-			/*mainApp.openWelcomePage();*/
+			pages.welcomePage(event);
 		}
 		catch (Exception e)
 		{

@@ -10,36 +10,16 @@ import javafx.stage.Stage;
 
 public class WelcomeController 
 {
-	 private Main mainApp;
-	 //Main mainApp = new Main();
-	 
+	Pages pages = new Pages();
+	
 	 public void openSignUpPage(ActionEvent event) throws IOException
 	 { 
-		 FXMLLoader loader = new FXMLLoader(getClass().getResource("/SignUpPage.fxml"));
-		 Parent root = loader.load();
-		 Scene signUpScene = new Scene(root);
-		 SignUpController lc = loader.getController();
-		 Stage signUpStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		 signUpStage.setScene(signUpScene);
-		 signUpStage.setTitle("Sign Up Page");
-		 signUpStage.show();
+		 pages.signUpPage(event);
 	 }
 	 
 	 
 	 public void openLoginPage(ActionEvent event) throws IOException
 	 {
-		 FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginPage.fxml"));
-		 Parent root = loader.load();
-		 Scene loginScene = new Scene(root);
-		 LoginController lc = loader.getController();
-		 Stage loginStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		 loginStage.setScene(loginScene);
-		 loginStage.setTitle("Login Page");
-		 loginStage.show();
-	 }
-	 
-	 public void setMainApp(Main mainApp)
-	 {
-		 this.mainApp = mainApp;
+		 pages.loginPage(event);
 	 }
 }

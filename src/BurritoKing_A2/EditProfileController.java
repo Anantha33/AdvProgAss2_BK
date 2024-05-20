@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 
 public class EditProfileController 
 {
+	Pages pages = new Pages();
 	
 	@FXML
 	public TextField newFirstNameTF;
@@ -22,7 +23,11 @@ public class EditProfileController
 	
 	public void updateFirstName(ActionEvent event) throws IOException
 	{
-		if (newFirstNameTF.getText() != null)
+		if (newFirstNameTF.getText().isBlank())
+		{
+			showAlert("Error", "New first name cannot be null");
+		}
+		else
 		{
 			Database.updateFirstName(newFirstNameTF.getText(), UserSingleton.getInstance().getCurrentUsername());
 			UserSingleton.getInstance().setCurrentUserDetails(UserSingleton.getInstance().getCurrentUsername(), 
@@ -30,26 +35,22 @@ public class EditProfileController
 					UserSingleton.getInstance().getCurrentVIPStatus());
 			showAlert("Success", "First name updated successfully!");
 		}
-		else
-		{
-			showAlert("Error", "New first name cannot be null");
-		}
 	}
 	
 	
 	public void updateLastName(ActionEvent event) throws IOException
 	{
-		if (newLastNameTF.getText() != null)
+		if (newLastNameTF.getText().isBlank())
+		{
+			showAlert("Error", "New last name cannot be null");
+		}
+		else
 		{
 			Database.updateLastName(newLastNameTF.getText(), UserSingleton.getInstance().getCurrentUsername());
 			UserSingleton.getInstance().setCurrentUserDetails(UserSingleton.getInstance().getCurrentUsername(), 
 					UserSingleton.getInstance().getCurrentFName(), newLastNameTF.getText(), 
 					UserSingleton.getInstance().getCurrentVIPStatus());
 			showAlert("Success", "Last name updated successfully!");
-		}
-		else
-		{
-			showAlert("Error", "New last name cannot be null");
 		}
 	}
 	
@@ -59,9 +60,6 @@ public class EditProfileController
 		if (newPasswordTF.getText().isBlank() || cNewPasswordTF.getText().isBlank())
 		{
 			showAlert("Error", "Fields cannot be empty!");
-			/*Database.updateLastName(newLastNameTF.getText(), UserSingleton.getInstance().getCurrentUsername());
-			UserSingleton.getInstance().setCurrentUserDetails(UserSingleton.getInstance().getCurrentUsername(), UserSingleton.getInstance().getCurrentFName(), newLastNameTF.getText());
-			showAlert("Success", "Last name updated successfully!");*/
 		}
 		
 		else if (!cNewPasswordTF.getText().equals(newPasswordTF.getText()))
@@ -79,17 +77,7 @@ public class EditProfileController
 	
 	public void openProfilePage(ActionEvent event) throws IOException
 	{
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ProfilePage.fxml"));
-		Parent root = loader.load();
-		Scene profileScene = new Scene(root);
-		ProfileController pc = loader.getController();
-		pc.displayCurrentUsername();
-		pc.displayCurrentFName();
-		pc.displayCurrentLName();
-		Stage profileStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		profileStage.setTitle("Profile Page");
-		profileStage.setScene(profileScene);
-		profileStage.show();
+		pages.profilePage(event);
 	}
 	
 	private void showAlert(String title, String message) 

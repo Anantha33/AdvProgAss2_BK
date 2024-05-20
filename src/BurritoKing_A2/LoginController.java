@@ -16,9 +16,7 @@ import java.sql.SQLException;
 
 public class LoginController 
 {	
-	public Scene profilePageScene;
-	public Stage profilePageStage;
-	
+	Pages pages = new Pages();
 	private String firstName;
 	private String lastName;
 	private boolean vipStatus;
@@ -31,18 +29,11 @@ public class LoginController
 	{	
 		if (Database.authenticateUser(usernameTF.getText(), passwordTF.getText()))
 		{	
-			firstName = getFirstName();
-			lastName = getLastName();
-			vipStatus = getVIPStatus();
+			firstName = Database.getFirstName(usernameTF.getText());
+			lastName = Database.getLastName(usernameTF.getText());
+			vipStatus = Database.getVIPStatus(usernameTF.getText());
 			UserSingleton.getInstance().setCurrentUserDetails(usernameTF.getText(), firstName, lastName, vipStatus);
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Dashboard.fxml"));
-			Scene dashboardScene = new Scene(loader.load());
-			DashboardController dc = loader.getController();
-			dc.displayFullName();
-			Stage dashboardStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-			dashboardStage.setTitle("Dashboard");
-			dashboardStage.setScene(dashboardScene);
-			dashboardStage.show();
+			pages.dashboardPage(event);
 		}
 		else
 		{
@@ -57,112 +48,6 @@ public class LoginController
 	
 	public void openWelcomePage(ActionEvent event) throws IOException
 	 {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/WelcomePage.fxml"));
-		Parent root = loader.load();
-		Scene welcomeScene = new Scene(root);
-		WelcomeController wc = loader.getController();
-		Stage welcomeStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		welcomeStage.setScene(welcomeScene);
-		welcomeStage.setTitle("Welcome Page");
-		welcomeStage.show();
-	 }
-	
-	
-	private Connection connect() 
-	{  
-	     //SQLite connection string  
-	     String url = "jdbc:sqlite:C:/Sqlite/AdvProgA2.db";  
-	     Connection conn = null;  
-	     try 
-	     {  
-	        conn = DriverManager.getConnection(url);  
-	     } 
-	     catch (SQLException e)
-	     {  
-	        System.out.println(e.getMessage());  
-	     }  
-	     return conn;  
-    }
-	
-	
-	 public String getFirstName()
-	 {
-		 String sql = "SELECT FirstName FROM Customer WHERE Username = ?" ;  
-         
-         try
-         {  
-             Connection conn = this.connect();
-             PreparedStatement pstmt  = conn.prepareStatement(sql);
-             pstmt.setString(1, usernameTF.getText());
-             ResultSet rs = pstmt.executeQuery();  
-             
-             while (rs.next())
-             {
-            	 firstName = rs.getString("FirstName");
-             }
-         } 
-         catch (SQLException e) 
-         {  
-            System.out.println(e.getMessage());  
-         }
-         return firstName;
-		 
-	 }
-	 
-	 
-	 public String getLastName()
-	 {
-		 String sql = "SELECT LastName FROM Customer WHERE Username = ?" ;  
-         
-         try
-         {  
-             Connection conn = this.connect();
-             PreparedStatement pstmt  = conn.prepareStatement(sql);
-             pstmt.setString(1, usernameTF.getText());
-             ResultSet rs = pstmt.executeQuery();  
-             
-             while (rs.next())
-             {
-            	 lastName = rs.getString("LastName");
-             }
-         } 
-         catch (SQLException e) 
-         {  
-            System.out.println(e.getMessage());  
-         }
-         return lastName;
-		 
-	 }
-	 
-	 public boolean getVIPStatus()
-	 {
-		 String sql = "SELECT isVIP FROM Customer WHERE Username = ?" ;
-		 
-		 try
-         {  
-             Connection conn = this.connect();
-             PreparedStatement pstmt  = conn.prepareStatement(sql);
-             pstmt.setString(1, usernameTF.getText());
-             ResultSet rs = pstmt.executeQuery();  
-             
-             while (rs.next())
-             {
-            	 int test = rs.getInt("isVIP");
-            	 
-            	 if (test == 0)
-            	 {
-            		 vipStatus = false;
-            	 }
-            	 else
-            	 {
-            		 vipStatus = true;
-            	 }
-             }
-         } 
-         catch (SQLException e) 
-         {  
-            System.out.println(e.getMessage());  
-         }
-		 return vipStatus;
+		pages.welcomePage(event);
 	 }
 }

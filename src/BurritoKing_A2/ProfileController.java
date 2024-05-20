@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 
 public class ProfileController 
 {	
+	Pages pages = new Pages();
 	String currentusername = UserSingleton.getInstance().getCurrentUsername();
 	String currentFirstName = UserSingleton.getInstance().getCurrentFName();
 	String currentLastName = UserSingleton.getInstance().getCurrentLName();
@@ -24,47 +25,25 @@ public class ProfileController
 	
 	public void openEditFirstName(ActionEvent event) throws IOException
 	{
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/EditFNamePage.fxml"));
-		Scene editFNameScene = new Scene(loader.load());
-		Stage editFNameStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		editFNameStage.setTitle("Edit First Name");
-		editFNameStage.setScene(editFNameScene);
-		editFNameStage.show();
+		pages.editFNamePage(event);
 	}
 	
 	
 	public void openEditLastName(ActionEvent event) throws IOException
 	{
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/EditLNamePage.fxml"));
-		Scene editLNameScene = new Scene(loader.load());
-		Stage editLNameStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		editLNameStage.setTitle("Edit Last Name");
-		editLNameStage.setScene(editLNameScene);
-		editLNameStage.show();
+		pages.editLNamePage(event);
 	}
 	
 	
 	public void openEditPassword(ActionEvent event) throws IOException
 	{
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/EditPasswordPage.fxml"));
-		Scene editPasswordScene = new Scene(loader.load());
-		Stage editPasswordStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		editPasswordStage.setTitle("Edit Last Name");
-		editPasswordStage.setScene(editPasswordScene);
-		editPasswordStage.show();
+		pages.editPasswordPage(event);
 	}
 	
 	
 	public void openDashboardPage(ActionEvent event) throws IOException
 	{
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Dashboard.fxml"));
-		Scene dashboardScene = new Scene(loader.load());
-		DashboardController dc = loader.getController();
-		dc.displayFullName();
-		Stage dashboardStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		dashboardStage.setTitle("Dashboard");
-		dashboardStage.setScene(dashboardScene);
-		dashboardStage.show();
+		pages.dashboardPage(event);
 	}
 	
 	

@@ -134,4 +134,85 @@ public class Database
             e.printStackTrace();
         }
 	}
+	
+	
+	public static String getFirstName(String username)
+	 {
+		 String sql = "SELECT FirstName FROM Customer WHERE Username = ?" ;  
+		String firstName = "";
+        try (Connection conn = getConnection())
+        {  
+            PreparedStatement pstmt  = conn.prepareStatement(sql);
+            pstmt.setString(1, username);
+            ResultSet rs = pstmt.executeQuery();  
+            
+            while (rs.next())
+            {
+           	 firstName = rs.getString("FirstName");
+            }
+        } 
+        catch (SQLException e) 
+        {  
+           System.out.println(e.getMessage());  
+        }
+        return firstName;
+		 
+	 }
+	
+	
+	public static String getLastName(String username)
+	 {
+		 String sql = "SELECT LastName FROM Customer WHERE Username = ?" ;  
+        String lastName = "";
+        try (Connection conn = getConnection())
+        {  
+            PreparedStatement pstmt  = conn.prepareStatement(sql);
+            pstmt.setString(1, username);
+            ResultSet rs = pstmt.executeQuery();  
+            
+            while (rs.next())
+            {
+           	 lastName = rs.getString("LastName");
+            }
+        } 
+        catch (SQLException e) 
+        {  
+           System.out.println(e.getMessage());  
+        }
+        return lastName;
+		 
+	 }
+	
+	
+	 public static boolean getVIPStatus(String username)
+	 {
+		 String sql = "SELECT isVIP FROM Customer WHERE Username = ?" ;
+		 boolean vipStatus = false;
+		 
+		 try (Connection conn = getConnection())
+		 {  
+            PreparedStatement pstmt  = conn.prepareStatement(sql);
+            pstmt.setString(1, username);
+            ResultSet rs = pstmt.executeQuery();  
+            
+            while (rs.next())
+            {
+           	 int status = rs.getInt("isVIP");
+           	 
+           	 if (status == 0)
+           	 {
+           		 vipStatus = false;
+           	 }
+           	 else
+           	 {
+           		 vipStatus = true;
+           	 }
+            }
+        } 
+        catch (SQLException e) 
+        {  
+           System.out.println(e.getMessage());  
+        }
+		return vipStatus;
+	 }
 }
