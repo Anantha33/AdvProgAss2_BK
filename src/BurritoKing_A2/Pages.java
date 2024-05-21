@@ -72,6 +72,7 @@ public class Pages
 		Scene dashboardScene = new Scene(loader.load());
 		DashboardController dc = loader.getController();
 		dc.displayFullName();
+		//dc.displayCurrentTime();
 		Stage dashboardStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		dashboardStage.setTitle("Dashboard");
 		dashboardStage.setScene(dashboardScene);
@@ -102,6 +103,17 @@ public class Pages
 		cartStage.setTitle("Cart");
 		cartStage.setScene(cartScene);
 		cartStage.show();
+	}
+	
+	public void orderDetailsPage(ActionEvent event) throws IOException
+	{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/OrderDetailsPage.fxml"));
+		Parent root = loader.load();
+		Scene orderDetailsScene = new Scene(root);
+		Stage orderDetailsStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		orderDetailsStage.setTitle("Order Details");
+		orderDetailsStage.setScene(orderDetailsScene);
+		orderDetailsStage.show();
 	}
 	
 	public void allOrdersPage(ActionEvent event) throws IOException

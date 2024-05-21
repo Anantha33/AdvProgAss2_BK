@@ -2,6 +2,7 @@ package BurritoKing_A2;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -58,6 +59,11 @@ public class DashboardController implements Initializable
 	{
 		pages.upgradeProfilePage(event);
 	}
+	
+	public void displayCurrentTime()
+	{
+		System.out.println(currentDateTime);
+	}
 
 
 	@Override
@@ -73,4 +79,10 @@ public class DashboardController implements Initializable
 		}
 		
 	}
+	
+	long currentTimeInMillis = System.currentTimeMillis();
+
+	Date currentDate = new Date(currentTimeInMillis);
+
+	String currentDateTime = currentDate.toString();
 }
