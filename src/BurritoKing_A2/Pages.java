@@ -167,4 +167,14 @@ public class Pages
 		editPasswordStage.setScene(editPasswordScene);
 		editPasswordStage.show();
 	}
+	
+	public void paymentPage(ActionEvent event) throws IOException
+	{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/PaymentPage.fxml"));
+		Scene paymentScene = new Scene(loader.load());
+		Stage paymentStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		paymentStage.setTitle("Edit Last Name");
+		paymentStage.setScene(paymentScene);
+		paymentStage.show();
+	}
 }

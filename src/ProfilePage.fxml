@@ -1,66 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="318.0" prefWidth="423.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BurritoKing_A2.ProfileController">
-   <children>
-      <Label layoutX="117.0" layoutY="112.0" text="Username:">
-         <font>
-            <Font name="Georgia" size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="currentUName" layoutX="231.0" layoutY="112.0" prefHeight="21.0" prefWidth="143.0">
-         <font>
-            <Font name="Georgia" size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="117.0" layoutY="158.0" text="First Name:">
-         <font>
-            <Font name="Georgia" size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="currentFName" layoutX="232.0" layoutY="158.0" prefHeight="24.0" prefWidth="141.0">
-         <font>
-            <Font name="Georgia" size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="119.0" layoutY="202.0" text="Last Name:">
-         <font>
-            <Font name="Georgia" size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="currentLName" layoutX="234.0" layoutY="202.0" prefHeight="24.0" prefWidth="141.0">
-         <font>
-            <Font name="Georgia" size="20.0" />
-         </font>
-      </Label>
-      <Button layoutX="14.0" layoutY="272.0" mnemonicParsing="false" onAction="#openEditFirstName" style="-fx-background-color: #263F73;" text="Edit First Name" textFill="WHITE">
-         <font>
-            <Font name="Georgia" size="15.0" />
-         </font>
-      </Button>
-      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#openDashboardPage" style="-fx-background-color: #263F73;" text="&lt;- Back" textFill="WHITE">
-         <font>
-            <Font name="Georgia" size="15.0" />
-         </font>
-      </Button>
-      <Label layoutX="130.0" layoutY="58.0" text="User Details">
-         <font>
-            <Font name="Georgia Bold Italic" size="22.0" />
-         </font>
-      </Label>
-      <Button layoutX="150.0" layoutY="272.0" mnemonicParsing="false" onAction="#openEditLastName" style="-fx-background-color: #263F73;" text="Edit Last Name" textFill="WHITE">
-         <font>
-            <Font name="Georgia" size="15.0" />
-         </font>
-      </Button>
-      <Button layoutX="285.0" layoutY="272.0" mnemonicParsing="false" onAction="#openEditPassword" style="-fx-background-color: #263F73;" text="Edit Password" textFill="WHITE">
-         <font>
-            <Font name="Georgia" size="15.0" />
-         </font>
-      </Button>
-   </children>
-</AnchorPane>
+<BorderPane maxHeight="Infinity" maxWidth="Infinity" minHeight="400.0" minWidth="500.0" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BurritoKing_A2.ProfileController">
+  <top>
+     <Button mnemonicParsing="false" onAction="#openDashboardPage" style="-fx-background-color: #263F73;" text="&lt;- Back" textFill="WHITE" BorderPane.alignment="CENTER_LEFT">
+        <font>
+           <Font name="Georgia" size="15.0" />
+        </font>
+        <BorderPane.margin>
+           <Insets left="10.0" top="10.0" />
+        </BorderPane.margin>
+     </Button>
+  </top>
+  <center>
+     <GridPane alignment="CENTER" hgap="20.0" vgap="10.0" BorderPane.alignment="CENTER">
+        <children>
+           <Label text="User Details">
+              <font>
+                 <Font name="Georgia Bold Italic" size="22.0" />
+              </font>
+           </Label>
+           <Label text="Username:" GridPane.rowIndex="1">
+              <font>
+                 <Font name="Georgia" size="20.0" />
+              </font>
+           </Label>
+           <Label fx:id="currentUName" GridPane.columnIndex="1" GridPane.rowIndex="1">
+              <font>
+                 <Font name="Georgia" size="20.0" />
+              </font>
+           </Label>
+           <Label text="First Name:" GridPane.rowIndex="2">
+              <font>
+                 <Font name="Georgia" size="20.0" />
+              </font>
+           </Label>
+           <Label fx:id="currentFName" GridPane.columnIndex="1" GridPane.rowIndex="2">
+              <font>
+                 <Font name="Georgia" size="20.0" />
+              </font>
+           </Label>
+           <Label text="Last Name:" GridPane.rowIndex="3">
+              <font>
+                 <Font name="Georgia" size="20.0" />
+              </font>
+           </Label>
+           <Label fx:id="currentLName" GridPane.columnIndex="1" GridPane.rowIndex="3">
+              <font>
+                 <Font name="Georgia" size="20.0" />
+              </font>
+           </Label>
+        </children>
+        <padding>
+           <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+        </padding>
+     </GridPane>
+  </center>
+  <bottom>
+     <HBox alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
+        <children>
+           <Button mnemonicParsing="false" onAction="#openEditFirstName" style="-fx-background-color: #263F73;" text="Edit First Name" textFill="WHITE">
+              <font>
+                 <Font name="Georgia" size="15.0" />
+              </font>
+           </Button>
+           <Button mnemonicParsing="false" onAction="#openEditLastName" style="-fx-background-color: #263F73;" text="Edit Last Name" textFill="WHITE">
+              <font>
+                 <Font name="Georgia" size="15.0" />
+              </font>
+           </Button>
+           <Button mnemonicParsing="false" onAction="#openEditPassword" style="-fx-background-color: #263F73;" text="Edit Password" textFill="WHITE">
+              <font>
+                 <Font name="Georgia" size="15.0" />
+              </font>
+           </Button>
+        </children>
+        <BorderPane.margin>
+           <Insets bottom="10.0" />
+        </BorderPane.margin>
+     </HBox>
+  </bottom>
+</BorderPane>

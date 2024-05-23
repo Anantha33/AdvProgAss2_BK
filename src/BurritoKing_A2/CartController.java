@@ -26,16 +26,19 @@ public class CartController implements Initializable
 	public TextField sodaTF;
 	public TextField mealTF;
 	
-	private int numOfBurritos;
-	private int numOfFries;
-	private int numOfSodas;
-	private int numOfMeals;
+	private int numOfBurritosOrdered;
+	private int numOfFriesOrdered;
+	private int numOfSodasOrdered;
+	private int numOfMealsOrdered;
+
 	
 	private double burritosMaxPerBatch = 2;
 	private int timeForBurrito = 9;
 	private double timeForBurritoPreparation;
 	
-	private double numOfFriesToBePrepared;
+	private double numOfFriesLeft = OrderDetailsSingleton.getInstance().getCurrentNumOfFriesLeft();
+	private double numOfFriesBatchesToBePrepared;
+	private static double numOfFriesRemainingAfterCurrentOrder;
 	private double timeForFriesPreparation;
 	private double friesMaxPerBatch = 5;
 	private int timeForFries = 8;
@@ -45,42 +48,53 @@ public class CartController implements Initializable
 	
 	public void openOrderDetailsPage(ActionEvent event) throws IOException
 	{
-		numOfBurritos = Integer.parseInt(burritoTF.getText());
-		numOfFries = Integer.parseInt(friesTF.getText());
-		numOfSodas = Integer.parseInt(sodaTF.getText());
+		numOfBurritosOrdered = Integer.parseInt(burritoTF.getText());
+		numOfFriesOrdered = Integer.parseInt(friesTF.getText());
+		numOfSodasOrdered = Integer.parseInt(sodaTF.getText());
 		
 		if (UserSingleton.getInstance().getCurrentVIPStatus())
 		{
-			numOfMeals = Integer.parseInt(mealTF.getText());
+			numOfMealsOrdered = Integer.parseInt(mealTF.getText());
 		}
 		else
 		{
-			numOfMeals = 0;
+			numOfMealsOrdered = 0;
 		}
 		
 		//Burrito preparation time
-		timeForBurritoPreparation = (Math.ceil(numOfBurritos/burritosMaxPerBatch) * timeForBurrito);
+		timeForBurritoPreparation = (Math.ceil(numOfBurritosOrdered/burritosMaxPerBatch) * timeForBurrito);
 		//System.out.println(timeForBurritoPreparation);
 		
 		//Fries preparation time
-		if (numOfFries > OrderDetailsSingleton.getInstance().getCurrentNumOfFriesLeft())
+		if (numOfFriesOrdered > numOfFriesLeft)
 		{
-			timeForFriesPreparation = (Math.ceil(numOfFries/friesMaxPerBatch) * timeForFries);
+			numOfFriesBatchesToBePrepared = Math.ceil(numOfFriesOrdered/friesMaxPerBatch);
+			
+			numOfFriesRemainingAfterCurrentOrder = (numOfFriesBatchesToBePrepared * friesMaxPerBatch) - (numOfFriesOrdered) + 
+					(numOfFriesLeft);
+			
+			timeForFriesPreparation = (numOfFriesBatchesToBePrepared * timeForFries);
 		}
-		else
+		
+		else if (numOfFriesOrdered <= numOfFriesLeft)
 		{
+			numOfFriesRemainingAfterCurrentOrder = numOfFriesLeft - numOfFriesOrdered;
 			timeForFriesPreparation = 0;
 		}
-		//System.out.println(timeForFriesPreparation);
 		
-		timeForMealPrep = (Math.ceil(numOfMeals/burritosMaxPerBatch) * timeForBurrito);
+		timeForMealPrep = (Math.ceil(numOfMealsOrdered/burritosMaxPerBatch) * timeForBurrito);
 		
-		//System.out.println(totalOrderCost());
+		System.out.println(getFriesRemainingAfterCurrentOrder());
 		
-		//System.out.println(getTimeForOrder());
-		
-		OrderDetailsSingleton.getInstance().setCurrentOrderDetails(numOfBurritos, numOfFries, numOfSodas, numOfMeals, totalOrderCost(), OrderDetailsSingleton.getInstance().getCurrentNumOfFriesLeft());
+		OrderDetailsSingleton.getInstance().setCurrentOrderDetails(numOfBurritosOrdered, numOfFriesOrdered, 
+				numOfSodasOrdered, numOfMealsOrdered, OrderDetailsSingleton.getInstance().getCurrentNumOfFriesLeft(), 
+				totalOrderCost());
 		pages.orderDetailsPage(event);
+	}
+	
+	public static double getFriesRemainingAfterCurrentOrder()
+	{	
+		return numOfFriesRemainingAfterCurrentOrder;
 	}
 	
 	public double getTimeForOrder()
@@ -102,8 +116,8 @@ public class CartController implements Initializable
 	
 	public double totalOrderCost()
 	{
-		double totalCost = numOfBurritos * Price.priceOfBurrito + numOfFries * Price.priceOfFries + 
-				numOfSodas * Price.priceOfSoda + numOfMeals * Price.priceOfMeal;
+		double totalCost = numOfBurritosOrdered * Price.priceOfBurrito + numOfFriesOrdered * Price.priceOfFries + 
+				numOfSodasOrdered * Price.priceOfSoda + numOfMealsOrdered * Price.priceOfMeal;
 		return totalCost;
 	}
 	
@@ -119,13 +133,6 @@ public class CartController implements Initializable
 		burritoTF.setText(String.valueOf(OrderDetailsSingleton.getInstance().getCurrentNumOfBurritos()));
 		friesTF.setText(String.valueOf(OrderDetailsSingleton.getInstance().getCurrentNumOfFries()));
 		sodaTF.setText(String.valueOf(OrderDetailsSingleton.getInstance().getCurrentNumOfSodas()));
-		
-		/*SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE);
-		valueFactory.setValue(0);
-		
-		burritoSpinner.setValueFactory(valueFactory);
-		friesSpinner.setValueFactory(valueFactory);
-		sodaSpinner.setValueFactory(valueFactory);*/
 		
 		if (UserSingleton.getInstance().getCurrentVIPStatus())
 		{

@@ -24,6 +24,11 @@ public class OrderDetailsController implements Initializable
 	{
 		pages.cartPage(event);
 	}
+	
+	public void openPaymentPage(ActionEvent event) throws IOException
+	{
+		pages.paymentPage(event);
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 

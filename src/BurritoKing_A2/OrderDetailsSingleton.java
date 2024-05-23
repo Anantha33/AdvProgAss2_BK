@@ -8,11 +8,11 @@ public class OrderDetailsSingleton
 	private int currentNumOfFries;
 	private int currentNumOfSodas;
 	private int currentNumOfMeals;
-	private int currentNumOfFriesLeft;
+	private double currentNumOfFriesLeft = 0;
 	private double currentTotalCost;
 	
-	public void setCurrentOrderDetails(int numOfBurritos, int numOfFries, int numOfSodas, int numOfMeals, double totalOrderCost, 
-			int numOfFriesLeft)
+	public void setCurrentOrderDetails(int numOfBurritos, int numOfFries, int numOfSodas, int numOfMeals, double numOfFriesLeft,
+			double totalOrderCost)
 	{
 		currentNumOfBurritos = numOfBurritos;
 		currentNumOfFries = numOfFries;
@@ -42,7 +42,7 @@ public class OrderDetailsSingleton
 		return currentNumOfMeals;
 	}
 	
-	public int getCurrentNumOfFriesLeft()
+	public double getCurrentNumOfFriesLeft()
 	{
 		return currentNumOfFriesLeft;
 	}
