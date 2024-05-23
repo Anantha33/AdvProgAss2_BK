@@ -43,6 +43,7 @@ public class PaymentController
 		}
 		else
 		{
+			Database.newOrder();
 			System.out.println(CartController.getFriesRemainingAfterCurrentOrder());
 			OrderDetailsSingleton.getInstance().setCurrentOrderDetails(0, 0, 0, 0, CartController.getFriesRemainingAfterCurrentOrder(), 0);
 		}

@@ -215,4 +215,31 @@ public class Database
         }
 		return vipStatus;
 	 }
+	 
+	 public static void newOrder()
+	 {
+//		 System.out.println(OrderDetailsSingleton.getInstance().getCurrentNumOfBurritos());
+		 String sql = "INSERT INTO Orders ('NumOfBurritos', 'NumOfFries', 'NumOfSodas', 'NumOfMeals', 'TotalCost', "
+		 		+ "'OrderDate', 'OrderTime', 'PrepTime', 'OrderStatus', 'User') VALUES (?,?,?,?,?,?,?,?,?,?)" ;
+		 
+		 try (Connection conn = getConnection())
+		 {
+			 PreparedStatement pstmt  = conn.prepareStatement(sql);
+			 pstmt.setInt(1, OrderDetailsSingleton.getInstance().getCurrentNumOfBurritos());
+			 pstmt.setInt(2, OrderDetailsSingleton.getInstance().getCurrentNumOfFries());
+			 pstmt.setInt(3, OrderDetailsSingleton.getInstance().getCurrentNumOfSodas());
+			 pstmt.setInt(4, OrderDetailsSingleton.getInstance().getCurrentNumOfMeals());
+			 pstmt.setDouble(5, OrderDetailsSingleton.getInstance().getCurrentTotalCost());
+			 pstmt.setString(6, "12/12/2012");
+			 pstmt.setString(7, "18.49");
+			 pstmt.setString(8, "9");
+			 pstmt.setString(9, "Await for collection");
+			 pstmt.setString(10, UserSingleton.getInstance().getCurrentUsername());
+			 pstmt.executeUpdate();
+		 }
+		 catch (SQLException e) 
+         {  
+           System.out.println(e.getMessage());  
+         }
+	 }
 }
