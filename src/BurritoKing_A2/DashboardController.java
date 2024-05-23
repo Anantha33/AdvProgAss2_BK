@@ -6,11 +6,7 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import javafx.fxml.*;
 
 public class DashboardController implements Initializable

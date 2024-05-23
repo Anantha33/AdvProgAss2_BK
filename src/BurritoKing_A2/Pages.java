@@ -7,29 +7,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.event.ActionEvent;
-import java.lang.*;
 
 public class Pages 
-{
-	private Stage welcomeStage;
-	private Scene welcomeScene;
-	
-	private Stage loginStage;
-	private Scene loginScene;
-	
-	private Stage signUpStage;
-	private Scene signUpScene;
-	
-	private Stage dashboardStage;
-	private Scene dashboardScene;
-	
-	private Stage profileStage;
-	private Scene profileScene;
-	
-	private Parent root;
-	
-	
-	
+{		
 	public void welcomePage(ActionEvent event) throws IOException
 	 {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/WelcomePage.fxml"));
@@ -72,7 +52,6 @@ public class Pages
 		Scene dashboardScene = new Scene(loader.load());
 		DashboardController dc = loader.getController();
 		dc.displayFullName();
-		//dc.displayCurrentTime();
 		Stage dashboardStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		dashboardStage.setTitle("Dashboard");
 		dashboardStage.setScene(dashboardScene);

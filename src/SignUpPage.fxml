@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
-<?import javafx.geometry.Insets?>
 
 <BorderPane maxHeight="Infinity" maxWidth="Infinity" minHeight="400.0" minWidth="500.0" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BurritoKing_A2.SignUpController">
   <top>
@@ -47,15 +50,26 @@
                  <Font name="Georgia" size="20.0" />
               </font>
            </Label>
-           <TextField fx:id="usernameTF" promptText="Enter username" style="-fx-border-width: 0px 0px 2px 0px; -fx-border-color: #263F73;" GridPane.columnIndex="1" />
+           <TextField fx:id="usernameTF" onKeyTyped="#usernameTyped" promptText="Enter username" style="-fx-border-width: 0px 0px 2px 0px; -fx-border-color: #263F73;" GridPane.columnIndex="1" />
            <PasswordField fx:id="passwordTF" promptText="Enter password" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
            <PasswordField fx:id="cPasswordTF" promptText="Re-enter password" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-           <TextField fx:id="firstNameTF" promptText="Enter first name" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-           <TextField fx:id="lastNameTF" promptText="Enter last name" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+           <TextField fx:id="firstNameTF" onKeyTyped="#firstNameTyped" promptText="Enter first name" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+           <TextField fx:id="lastNameTF" onKeyTyped="#lastNameTyped" promptText="Enter last name" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
         </children>
         <padding>
            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
         </padding>
+         <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+         </rowConstraints>
      </GridPane>
   </center>
   <bottom>

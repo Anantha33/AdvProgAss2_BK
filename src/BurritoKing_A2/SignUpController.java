@@ -2,16 +2,10 @@ package BurritoKing_A2;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
+import javafx.scene.input.KeyEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
 
@@ -84,6 +78,39 @@ public class SignUpController
 		catch (Exception e)
 		{
 			e.printStackTrace();
+		}
+	}
+	
+	public void firstNameTyped(KeyEvent event) throws IOException
+	{
+		if (event.getCharacter().matches("[^a-zA-Z]"))
+		{
+			event.consume();
+			
+			firstNameTF.backward();
+			firstNameTF.deleteNextChar();
+		}
+	}
+	
+	public void lastNameTyped(KeyEvent event) throws IOException
+	{
+		if (event.getCharacter().matches("[^a-zA-Z]"))
+		{
+			event.consume();
+			
+			lastNameTF.backward();
+			lastNameTF.deleteNextChar();
+		}
+	}
+	
+	public void usernameTyped(KeyEvent event) throws IOException
+	{
+		if (event.getCharacter().matches("[^a-zA-Z0-9_.]"))
+		{
+			event.consume();
+			
+			usernameTF.backward();
+			usernameTF.deleteNextChar();
 		}
 	}
 }

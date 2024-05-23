@@ -84,6 +84,7 @@
            </GridPane>
            <HBox alignment="CENTER" spacing="20.0">
               <children>
+                 <VBox alignment="CENTER_LEFT" />
                  <VBox alignment="CENTER_LEFT">
                     <children>
                        <Label text="Total Cost">
@@ -91,29 +92,25 @@
                              <Font name="Georgia Bold Italic" size="24.0" />
                           </font>
                        </Label>
-                       <Label fx:id="totalCost" text="Label">
-                          <font>
-                             <Font name="Georgia" size="20.0" />
-                          </font>
-                       </Label>
-                    </children>
-                 </VBox>
-                 <VBox alignment="CENTER_LEFT">
-                    <children>
-                       <Label text="Total Preparation Time">
-                          <font>
-                             <Font name="Georgia Bold Italic" size="24.0" />
-                          </font>
-                       </Label>
-                       <Label fx:id="totalPrepTime" text="Label">
-                          <font>
-                             <Font name="Georgia" size="20.0" />
-                          </font>
-                       </Label>
                     </children>
                  </VBox>
               </children>
            </HBox>
+           <Label fx:id="totalCost" text="Label">
+              <font>
+                 <Font name="Georgia" size="20.0" />
+              </font>
+           </Label>
+           <Label text="Total Preparation Time">
+              <font>
+                 <Font name="Georgia Bold Italic" size="24.0" />
+              </font>
+           </Label>
+           <Label fx:id="totalPrepTime" text="Label">
+              <font>
+                 <Font name="Georgia" size="20.0" />
+              </font>
+           </Label>
         </children>
         <padding>
            <Insets left="20.0" right="20.0" />

@@ -2,17 +2,9 @@ package BurritoKing_A2;
 
 import java.io.IOException;
 import javafx.event.ActionEvent;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
+import javafx.scene.input.KeyEvent;
 import javafx.fxml.*;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.Connection;  
-import java.sql.ResultSet;  
-import java.sql.SQLException; 
 
 public class LoginController 
 {	
@@ -50,4 +42,15 @@ public class LoginController
 	 {
 		pages.welcomePage(event);
 	 }
+	
+	public void usernameTyped(KeyEvent event) throws IOException
+	{
+		if (event.getCharacter().matches("[^a-zA-Z0-9_.]"))
+		{
+			event.consume();
+			
+			usernameTF.backward();
+			usernameTF.deleteNextChar();
+		}
+	}
 }

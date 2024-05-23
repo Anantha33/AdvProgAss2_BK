@@ -216,9 +216,8 @@ public class Database
 		return vipStatus;
 	 }
 	 
-	 public static void newOrder()
+	 public static void newOrder(String orderTime)
 	 {
-//		 System.out.println(OrderDetailsSingleton.getInstance().getCurrentNumOfBurritos());
 		 String sql = "INSERT INTO Orders ('NumOfBurritos', 'NumOfFries', 'NumOfSodas', 'NumOfMeals', 'TotalCost', "
 		 		+ "'OrderDate', 'OrderTime', 'PrepTime', 'OrderStatus', 'User') VALUES (?,?,?,?,?,?,?,?,?,?)" ;
 		 
@@ -231,8 +230,8 @@ public class Database
 			 pstmt.setInt(4, OrderDetailsSingleton.getInstance().getCurrentNumOfMeals());
 			 pstmt.setDouble(5, OrderDetailsSingleton.getInstance().getCurrentTotalCost());
 			 pstmt.setString(6, "12/12/2012");
-			 pstmt.setString(7, "18.49");
-			 pstmt.setString(8, "9");
+			 pstmt.setString(7, orderTime);
+			 pstmt.setDouble(8, OrderDetailsSingleton.getInstance().getCurrentPrepTime());
 			 pstmt.setString(9, "Await for collection");
 			 pstmt.setString(10, UserSingleton.getInstance().getCurrentUsername());
 			 pstmt.executeUpdate();
@@ -241,5 +240,31 @@ public class Database
          {  
            System.out.println(e.getMessage());  
          }
+	 }
+	 
+	 
+	 public static int latestOrderID()
+	 {
+		 String sql = "SELECT OrderID FROM Orders ORDER BY OrderID DESC LIMIT 1";
+		 int latestOrderID = 0;
+		 try (Connection conn = getConnection())
+		 {
+			 PreparedStatement pstmt  = conn.prepareStatement(sql);
+			 ResultSet rs = pstmt.executeQuery();
+			 
+			 if (rs.next())
+			 {
+				 latestOrderID = rs.getInt("OrderID");
+			 }
+			 else
+			 {
+				 latestOrderID = 0;
+			 }
+		 }
+		 catch (SQLException e) 
+         {  
+           System.out.println(e.getMessage());  
+         }
+		 return latestOrderID;
 	 }
 }

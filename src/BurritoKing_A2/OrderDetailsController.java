@@ -38,5 +38,6 @@ public class OrderDetailsController implements Initializable
 		sodasLabel.setText(String.valueOf(OrderDetailsSingleton.getInstance().getCurrentNumOfSodas()));
 		mealsLabel.setText(String.valueOf(OrderDetailsSingleton.getInstance().getCurrentNumOfMeals()));
 		totalCost.setText("$" + String.valueOf(OrderDetailsSingleton.getInstance().getCurrentTotalCost()));
+		totalPrepTime.setText(String.valueOf(OrderDetailsSingleton.getInstance().getCurrentPrepTime()) + " minutes");
 	}
 }

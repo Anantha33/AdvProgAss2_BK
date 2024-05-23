@@ -6,15 +6,8 @@ import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 public class CartController implements Initializable
 {
@@ -63,7 +56,7 @@ public class CartController implements Initializable
 		
 		//Burrito preparation time
 		timeForBurritoPreparation = (Math.ceil(numOfBurritosOrdered/burritosMaxPerBatch) * timeForBurrito);
-		//System.out.println(timeForBurritoPreparation);
+		
 		
 		//Fries preparation time
 		if (numOfFriesOrdered > numOfFriesLeft)
@@ -82,13 +75,14 @@ public class CartController implements Initializable
 			timeForFriesPreparation = 0;
 		}
 		
-		timeForMealPrep = (Math.ceil(numOfMealsOrdered/burritosMaxPerBatch) * timeForBurrito);
+		timeForMealPrep = (Math.ceil((numOfMealsOrdered + numOfBurritosOrdered)/burritosMaxPerBatch) * timeForBurrito);
 		
-		System.out.println(getFriesRemainingAfterCurrentOrder());
+		//System.out.println(getTimeForOrder());
+		//System.out.println(getFriesRemainingAfterCurrentOrder());
 		
 		OrderDetailsSingleton.getInstance().setCurrentOrderDetails(numOfBurritosOrdered, numOfFriesOrdered, 
 				numOfSodasOrdered, numOfMealsOrdered, OrderDetailsSingleton.getInstance().getCurrentNumOfFriesLeft(), 
-				totalOrderCost());
+				totalOrderCost(), getTimeForOrder());
 		pages.orderDetailsPage(event);
 	}
 	
