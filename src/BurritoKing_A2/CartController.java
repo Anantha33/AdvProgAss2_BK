@@ -30,7 +30,8 @@ public class CartController implements Initializable
 	private double timeForBurritoPreparation;
 	
 	private double numOfFriesLeft = OrderDetailsSingleton.getInstance().getCurrentNumOfFriesLeft();
-	private double numOfFriesBatchesToBePrepared;
+	private double numOfFriesOrderedInTotal;
+	private double numOfFriesBatchesInTotal;
 	private static double numOfFriesRemainingAfterCurrentOrder;
 	private double timeForFriesPreparation;
 	private double friesMaxPerBatch = 5;
@@ -57,28 +58,26 @@ public class CartController implements Initializable
 		//Burrito preparation time
 		timeForBurritoPreparation = (Math.ceil(numOfBurritosOrdered/burritosMaxPerBatch) * timeForBurrito);
 		
+		numOfFriesOrderedInTotal = numOfFriesOrdered + numOfMealsOrdered;
 		
-		//Fries preparation time
-		if (numOfFriesOrdered > numOfFriesLeft)
+		//Fries preparation time (Total number of fries also accounted for)
+		if (numOfFriesOrderedInTotal > numOfFriesLeft)
 		{
-			numOfFriesBatchesToBePrepared = Math.ceil(numOfFriesOrdered/friesMaxPerBatch);
+			numOfFriesBatchesInTotal = Math.ceil(numOfFriesOrderedInTotal/friesMaxPerBatch);
 			
-			numOfFriesRemainingAfterCurrentOrder = (numOfFriesBatchesToBePrepared * friesMaxPerBatch) - (numOfFriesOrdered) + 
+			numOfFriesRemainingAfterCurrentOrder = (numOfFriesBatchesInTotal * friesMaxPerBatch) - (numOfFriesOrderedInTotal) + 
 					(numOfFriesLeft);
 			
-			timeForFriesPreparation = (numOfFriesBatchesToBePrepared * timeForFries);
+			timeForFriesPreparation = (numOfFriesBatchesInTotal * timeForFries);
 		}
 		
-		else if (numOfFriesOrdered <= numOfFriesLeft)
+		else if (numOfFriesOrderedInTotal <= numOfFriesLeft)
 		{
-			numOfFriesRemainingAfterCurrentOrder = numOfFriesLeft - numOfFriesOrdered;
+			numOfFriesRemainingAfterCurrentOrder = numOfFriesLeft - numOfFriesOrderedInTotal;
 			timeForFriesPreparation = 0;
 		}
 		
 		timeForMealPrep = (Math.ceil((numOfMealsOrdered + numOfBurritosOrdered)/burritosMaxPerBatch) * timeForBurrito);
-		
-		//System.out.println(getTimeForOrder());
-		//System.out.println(getFriesRemainingAfterCurrentOrder());
 		
 		OrderDetailsSingleton.getInstance().setCurrentOrderDetails(numOfBurritosOrdered, numOfFriesOrdered, 
 				numOfSodasOrdered, numOfMealsOrdered, OrderDetailsSingleton.getInstance().getCurrentNumOfFriesLeft(), 

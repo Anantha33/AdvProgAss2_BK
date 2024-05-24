@@ -45,6 +45,14 @@ public class PaymentController
             alert.setContentText("Invalid card details!");
             alert.showAndWait();
 		}
+		else if (!isValidDate(expDateTF.getText()))
+		{
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Wrong date format!");
+            alert.showAndWait();
+		}
 		else if (orderTimeTF.getText().isBlank())
 		{
 			Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -133,6 +141,18 @@ public class PaymentController
             return false;
         }
 		Matcher m = p.matcher(time);
+		return m.matches();
+	}
+	
+	public static boolean isValidDate(String date)
+	{
+		String regex = "([0]?[1-9]|1[0-2])/[0-9][0-9]";
+		Pattern p = Pattern.compile(regex);
+		if (date == null)
+		{
+			return false;
+		}
+		Matcher m = p.matcher(date);
 		return m.matches();
 	}
 }
