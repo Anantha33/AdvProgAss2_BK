@@ -152,7 +152,7 @@ public class Pages
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/PaymentPage.fxml"));
 		Scene paymentScene = new Scene(loader.load());
 		Stage paymentStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		paymentStage.setTitle("Edit Last Name");
+		paymentStage.setTitle("Payment Page");
 		paymentStage.setScene(paymentScene);
 		paymentStage.show();
 	}

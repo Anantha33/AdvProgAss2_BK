@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -27,43 +28,52 @@
         </padding>
      </HBox>
   </top>
-  <left>
-     <VBox alignment="TOP_CENTER" spacing="10.0" BorderPane.alignment="CENTER">
+   <right>
+     <VBox alignment="TOP_CENTER" prefHeight="259.0" prefWidth="118.0" spacing="10.0" BorderPane.alignment="CENTER">
         <children>
-           <Button mnemonicParsing="false" onAction="#openCart" prefHeight="38.0" prefWidth="75.0" style="-fx-background-color: #263F73;" text="Cart" textFill="WHITE">
-              <font>
-                 <Font name="Georgia" size="20.0" />
-              </font>
-           </Button>
-           <Button alignment="CENTER" mnemonicParsing="false" onAction="#openProfilePage" style="-fx-background-color: #263F73;" text="Profile" textFill="WHITE">
-              <font>
-                 <Font name="Georgia" size="20.0" />
-              </font>
-           </Button>
-           <Button mnemonicParsing="false" onAction="#viewAllOrders" prefHeight="33.0" prefWidth="213.0" style="-fx-background-color: #263F73;" text="All Orders" textFill="WHITE">
+           <Button alignment="CENTER" mnemonicParsing="false" onAction="#openProfilePage" prefHeight="0.0" prefWidth="164.0" style="-fx-background-color: #263F73;" text="Profile" textFill="WHITE">
               <font>
                  <Font name="Georgia" size="18.0" />
               </font>
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
            </Button>
-           <Button fx:id="upgradeUserButton" disable="true" mnemonicParsing="false" onAction="#openUpgradeProfile" style="-fx-background-color: #263F73;" text="Upgrade" textFill="WHITE">
+           <Button mnemonicParsing="false" onAction="#openCart" prefHeight="0.0" prefWidth="173.0" style="-fx-background-color: #263F73;" text="Cart" textFill="WHITE">
+              <font>
+                 <Font name="Georgia" size="18.0" />
+              </font>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+           </Button>
+           <Button mnemonicParsing="false" onAction="#viewAllOrders" prefHeight="0.0" prefWidth="123.0" style="-fx-background-color: #263F73;" text="All Orders" textFill="WHITE">
+              <font>
+                 <Font name="Georgia" size="18.0" />
+              </font>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+           </Button>
+           <Button fx:id="upgradeUserButton" disable="true" mnemonicParsing="false" onAction="#openUpgradeProfile" prefHeight="38.0" prefWidth="108.0" style="-fx-background-color: #263F73;" text="Upgrade" textFill="WHITE">
               <font>
                  <Font name="Georgia" size="20.0" />
               </font>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
            </Button>
         </children>
         <padding>
            <Insets left="10.0" top="10.0" />
         </padding>
      </VBox>
-  </left>
-  <bottom>
-     <Button mnemonicParsing="false" onAction="#openLoginPage" style="-fx-background-color: #263F73;" text="Logout" textFill="WHITE" BorderPane.alignment="CENTER_RIGHT">
+   </right>
+   <bottom>
+     <Button mnemonicParsing="false" onAction="#openLoginPage" style="-fx-background-color: #263F73;" text="Logout" textFill="WHITE" BorderPane.alignment="CENTER">
         <font>
            <Font name="Georgia" size="20.0" />
         </font>
-        <BorderPane.margin>
-           <Insets bottom="10.0" right="10.0" />
-        </BorderPane.margin>
      </Button>
-  </bottom>
+   </bottom>
 </BorderPane>

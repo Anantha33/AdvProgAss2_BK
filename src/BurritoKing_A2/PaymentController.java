@@ -1,17 +1,23 @@
 package BurritoKing_A2;
 
 import java.io.IOException;
+import java.net.URL;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
-public class PaymentController 
+public class PaymentController implements Initializable
 {
 	Pages pages = new Pages();
 	
@@ -20,6 +26,12 @@ public class PaymentController
 	public TextField expDateTF;
 	public PasswordField cvvTF;
 	public TextField orderTimeTF;
+	
+	public int inputMonth;
+	public int inputYear;
+	
+	int year;
+	int month;
 	
 	public void openOrderDetailsPage(ActionEvent event) throws IOException
 	{
@@ -71,19 +83,48 @@ public class PaymentController
 		}
 		else
 		{
-			Database.newOrder(orderTimeTF.getText());
-			OrderDetailsSingleton.getInstance().setCurrentOrderDetails(0, 0, 0, 0, CartController.getFriesRemainingAfterCurrentOrder(), 
-					0, 0);
-			
-			String latestOrderID = String.valueOf(Database.latestOrderID());
-			
-			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Success");
-            alert.setHeaderText(null);
-            alert.setContentText("Order placed successfully! \n" + "Order ID: " + latestOrderID);
-            alert.showAndWait();
-            
-            pages.dashboardPage(event);
+			try
+			{
+				inputMonth = Integer.parseInt(expDateTF.getText().substring(0,2));
+				inputYear = Integer.parseInt(expDateTF.getText().substring(3,7));
+				
+				if (inputYear < year)
+				{
+					System.out.println("Card is invalid");
+				}
+				else if (inputYear == year && inputMonth < month)
+				{
+					System.out.println("Card is invalid");
+				}
+				else
+				{
+					System.out.println("Card is valid");
+					Database.newOrder(orderTimeTF.getText());
+					OrderDetailsSingleton.getInstance().setCurrentOrderDetails(0, 0, 0, 0, 
+					CartController.getFriesRemainingAfterCurrentOrder(), 0, 0);
+					
+					String latestOrderID = String.valueOf(Database.latestOrderID());
+					
+					Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+		            alert.setTitle("Success");
+		            alert.setHeaderText(null);
+		            alert.setContentText("Order placed successfully! \n" + "Order ID: " + latestOrderID);
+		            alert.showAndWait();
+		            
+		            pages.dashboardPage(event);
+				}
+				/*System.out.println(expDateTF.getText().substring(0,2));
+				System.out.println(expDateTF.getText().substring(3,5));*/
+				
+			}
+			catch (NumberFormatException e)
+			{
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+	            alert.setTitle("Error");
+	            alert.setHeaderText(null);
+	            alert.setContentText("Wrong input date!");
+	            alert.showAndWait();
+			}
 		}
 	}
 	
@@ -146,7 +187,7 @@ public class PaymentController
 	
 	public static boolean isValidDate(String date)
 	{
-		String regex = "([0]?[1-9]|1[0-2])/[0-9][0-9]";
+		String regex = "([0]?[1-9]|1[0-2])/[0-9][0-9][0-9][0-9]";
 		Pattern p = Pattern.compile(regex);
 		if (date == null)
 		{
@@ -154,5 +195,14 @@ public class PaymentController
 		}
 		Matcher m = p.matcher(date);
 		return m.matches();
+	}
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) 
+	{
+		Date date = new Date();
+		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		year = localDate.getYear();
+		month= localDate.getMonthValue();
 	}
 }
