@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 
 public class EditProfileController 
 {
@@ -83,4 +84,27 @@ public class EditProfileController
         alert.setContentText(message);
         alert.showAndWait();
     }
+	
+	public void newFNameTyped(KeyEvent event) throws IOException
+	{
+		if (event.getCharacter().matches("[^a-zA-Z]"))
+		{
+			event.consume();
+			
+			newFirstNameTF.backward();
+			newFirstNameTF.deleteNextChar();
+		}
+	}
+	
+	
+	public void newLNameTyped(KeyEvent event) throws IOException
+	{
+		if (event.getCharacter().matches("[^a-zA-Z]"))
+		{
+			event.consume();
+			
+			newLastNameTF.backward();
+			newLastNameTF.deleteNextChar();
+		}
+	}
 }

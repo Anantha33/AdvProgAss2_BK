@@ -18,7 +18,7 @@
             <Font name="Georgia" size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="newFirstNameTF" layoutX="186.0" layoutY="149.0" promptText="Enter new first name" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;">
+      <TextField fx:id="newFirstNameTF" layoutX="186.0" layoutY="149.0" onKeyTyped="#newFNameTyped" promptText="Enter new first name" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;">
          <font>
             <Font name="Georgia" size="14.0" />
          </font>
