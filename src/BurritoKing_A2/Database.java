@@ -5,10 +5,26 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 
 public class Database 
 {
 	private static final String DATABASE_URL = "jdbc:sqlite:C:/Sqlite/AdvProgA2.db";
+	
+	static Date date = new Date();
+	static LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+	
+	static int day = localDate.getDayOfMonth();
+	static String dayString = String.valueOf(day);
+	
+	static int month= localDate.getMonthValue();
+	static String monthString = String.valueOf(month);
+	
+	static int year = localDate.getYear();
+	static String yearString = String.valueOf(year);
+	
 	
 	public static Connection getConnection() throws SQLException 
     {
@@ -26,14 +42,14 @@ public class Database
 	
 	public static boolean authenticateUser(String username, String password) 
     {
+		String sql = "SELECT * FROM Customer WHERE Username = ? AND Password = ?";
 		boolean validUser = false;
         try (Connection conn = getConnection()) 
         {
-            String query = "SELECT * FROM Customer WHERE Username = ? AND Password = ?";
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, username);
-            stmt.setString(2, password);
-            ResultSet rs = stmt.executeQuery();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, username);
+            pstmt.setString(2, password);
+            ResultSet rs = pstmt.executeQuery();
             if (rs.next()) 
             {
             	validUser = true;
@@ -52,12 +68,12 @@ public class Database
 	
 	public static boolean isUsernameExists(String username) 
 	{
+		String sql = "SELECT COUNT(*) FROM Customer WHERE Username = ?";
         try (Connection conn = getConnection()) 
         {
-            String query = "SELECT COUNT(*) FROM Customer WHERE Username = ?";
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, username);
-            ResultSet rs = stmt.executeQuery();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, username);
+            ResultSet rs = pstmt.executeQuery();
             rs.next();
             return rs.getInt(1) > 0;
         } 
@@ -70,13 +86,13 @@ public class Database
 	
 	public static void updateFirstName(String newFirstName, String username)
 	{
+		String sql = "UPDATE Customer SET FirstName = ? WHERE Username = ?";
 		try (Connection conn = getConnection())
 		{
-			String query = "UPDATE Customer SET FirstName = ? WHERE Username = ?";
-			PreparedStatement stmt = conn.prepareStatement(query);
-			stmt.setString(1, newFirstName);
-			stmt.setString(2, username);
-			int updateCount = stmt.executeUpdate();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, newFirstName);
+			pstmt.setString(2, username);
+			int updateCount = pstmt.executeUpdate();
 		}
 		catch (SQLException e) 
         {
@@ -87,13 +103,13 @@ public class Database
 	
 	public static void updateLastName(String newLastName, String username)
 	{
+		String sql = "UPDATE Customer SET LastName = ? WHERE Username = ?";
 		try (Connection conn = getConnection())
 		{
-			String query = "UPDATE Customer SET LastName = ? WHERE Username = ?";
-			PreparedStatement stmt = conn.prepareStatement(query);
-			stmt.setString(1, newLastName);
-			stmt.setString(2, username);
-			int updateCount = stmt.executeUpdate();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, newLastName);
+			pstmt.setString(2, username);
+			int updateCount = pstmt.executeUpdate();
 		}
 		catch (SQLException e) 
         {
@@ -104,13 +120,13 @@ public class Database
 	
 	public static void updatePassword(String newPassword, String username)
 	{
+		String sql = "UPDATE Customer SET Password = ? WHERE Username = ?";
 		try (Connection conn = getConnection())
 		{
-			String query = "UPDATE Customer SET Password = ? WHERE Username = ?";
-			PreparedStatement stmt = conn.prepareStatement(query);
-			stmt.setString(1, newPassword);
-			stmt.setString(2, username);
-			int updateCount = stmt.executeUpdate();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, newPassword);
+			pstmt.setString(2, username);
+			int updateCount = pstmt.executeUpdate();
 		}
 		catch (SQLException e) 
         {
@@ -121,13 +137,13 @@ public class Database
 	
 	public static void upgradeUser(String email, String username)
 	{
+		String sql = "UPDATE Customer SET IsVIP = 1, Email = ? WHERE Username = ?";
 		try (Connection conn = getConnection())
 		{
-			String query = "UPDATE Customer SET IsVIP = 1, Email = ? WHERE Username = ?";
-			PreparedStatement stmt = conn.prepareStatement(query);
-			stmt.setString(1, email);
-			stmt.setString(2, username);
-			int updateCount = stmt.executeUpdate();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, email);
+			pstmt.setString(2, username);
+			int updateCount = pstmt.executeUpdate();
 		}
 		catch (SQLException e) 
         {
@@ -138,7 +154,7 @@ public class Database
 	
 	public static String getFirstName(String username)
 	 {
-		 String sql = "SELECT FirstName FROM Customer WHERE Username = ?" ;  
+		String sql = "SELECT FirstName FROM Customer WHERE Username = ?" ;  
 		String firstName = "";
         try (Connection conn = getConnection())
         {  
@@ -162,7 +178,7 @@ public class Database
 	
 	public static String getLastName(String username)
 	 {
-		 String sql = "SELECT LastName FROM Customer WHERE Username = ?" ;  
+		String sql = "SELECT LastName FROM Customer WHERE Username = ?" ;  
         String lastName = "";
         try (Connection conn = getConnection())
         {  
@@ -229,7 +245,7 @@ public class Database
 			 pstmt.setInt(3, OrderDetailsSingleton.getInstance().getCurrentNumOfSodas());
 			 pstmt.setInt(4, OrderDetailsSingleton.getInstance().getCurrentNumOfMeals());
 			 pstmt.setDouble(5, OrderDetailsSingleton.getInstance().getCurrentTotalCost());
-			 pstmt.setString(6, "12/12/2012");
+			 pstmt.setString(6, dayString + "/" + monthString + "/" + yearString);
 			 pstmt.setString(7, orderTime);
 			 pstmt.setDouble(8, OrderDetailsSingleton.getInstance().getCurrentPrepTime());
 			 pstmt.setString(9, "Await for collection");
@@ -266,5 +282,34 @@ public class Database
            System.out.println(e.getMessage());  
          }
 		 return latestOrderID;
+	 }
+	 
+	 public static boolean cancelOrder(String orderID)
+	 {
+		 String sql = "UPDATE Orders SET OrderStatus = 'Cancelled' WHERE OrderID = ? AND OrderStatus = ? AND User = ?";
+		 boolean result = false;
+		 
+		 try (Connection conn = getConnection())
+		 {
+			 PreparedStatement pstmt  = conn.prepareStatement(sql);
+			 pstmt.setString(1, orderID);
+			 pstmt.setString(2, "Await for collection");
+			 pstmt.setString(3, UserSingleton.getInstance().getCurrentUsername());
+			 int updateCount = pstmt.executeUpdate();
+			 if (updateCount == 1)
+			 {
+				 result = true;
+			 }
+			 else
+			 {
+				 result = false;
+			 }
+		 }
+		 catch (SQLException e) 
+         { 
+		   result = false;
+           System.out.println(e.getMessage());  
+         }
+		 return result;
 	 }
 }
