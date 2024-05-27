@@ -10,28 +10,13 @@ public class AllOrdersController
 {
 	Pages pages = new Pages();
 	
-	@FXML
-	public TextField cancelOrderIDTF;
+	public void openDashboardPage(ActionEvent event) throws IOException
+	{
+		pages.dashboardPage(event);
+	}
 	
 	public void openCancelOrderPage(ActionEvent event) throws IOException
-	{
-		if (Database.cancelOrder(cancelOrderIDTF.getText()))
-		{
-			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Success");
-            alert.setHeaderText(null);
-            alert.setContentText("Order cancelled successfully!");
-            alert.showAndWait();
-		}
-		else
-		{
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Order already cancelled");
-            alert.showAndWait();
-		}
-				
-		
+	{		
+		pages.cancelOrderPage(event);
 	}
 }

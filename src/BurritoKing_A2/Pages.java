@@ -156,4 +156,14 @@ public class Pages
 		paymentStage.setScene(paymentScene);
 		paymentStage.show();
 	}
+	
+	public void cancelOrderPage(ActionEvent event) throws IOException
+	{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/CancelOrderPage.fxml"));
+		Scene cancelOrderScene = new Scene(loader.load());
+		Stage cancelOrderStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		cancelOrderStage.setTitle("Payment Page");
+		cancelOrderStage.setScene(cancelOrderScene);
+		cancelOrderStage.show();
+	}
 }
