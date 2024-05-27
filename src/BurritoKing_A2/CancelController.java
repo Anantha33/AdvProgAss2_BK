@@ -4,14 +4,31 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 
 public class CancelController 
 {
+	public String test = "hello";
 	Pages pages = new Pages();
 	
 	@FXML
 	public TextField cancelOrderIDTF;
+	
+	@FXML
+	public TableView<DataClass> cancelOrderTable;
+	
+	public void showData()
+	{
+		TableColumn<DataClass, String> OrderID = new TableColumn<>("Order ID");
+		OrderID.setCellValueFactory(new PropertyValueFactory<>("OrderID"));
+		
+		cancelOrderTable.getColumns().add(OrderID);
+		cancelOrderTable.getItems().add(new DataClass(1));
+	}
 	
 	public void openAllOrdersPage(ActionEvent event) throws IOException
 	{
@@ -28,13 +45,24 @@ public class CancelController
             alert.setContentText("Order cancelled successfully!");
             alert.showAndWait();
 		}
-		else
+		else		
 		{
 			Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
-            alert.setContentText("Order already cancelled");
+            alert.setContentText("Invalid Order ID!");
             alert.showAndWait();
+		}
+	}
+	
+	public void orderIDTyped(KeyEvent event) throws IOException
+	{
+		if (event.getCharacter().matches("[^0-9]"))
+		{
+			event.consume();
+			
+			cancelOrderIDTF.backward();
+			cancelOrderIDTF.deleteNextChar();
 		}
 	}
 }
