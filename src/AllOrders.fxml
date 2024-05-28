@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
@@ -13,14 +15,25 @@
          </font></Button>
    </bottom>
    <top>
-      <HBox prefHeight="40.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <HBox prefHeight="59.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#openDashboardPage" style="-fx-background-color: #263F73;" text="&lt;- Back" textFill="WHITE">
                <font>
-                  <Font name="Georgia" size="20.0" />
+                  <Font name="Georgia" size="16.0" />
                </font>
             </Button>
          </children>
       </HBox>
    </top>
+   <center>
+      <TableView fx:id="allOrdersTable" prefHeight="275.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <columns>
+            <TableColumn fx:id="colOrderID" prefWidth="75.0" text="Order ID" />
+            <TableColumn fx:id="colOrderDate" prefWidth="75.0" text="Order Date" />
+            <TableColumn fx:id="colOrderTime" prefWidth="75.0" text="Order Time" />
+            <TableColumn fx:id="colOrderTotalCost" prefWidth="75.0" text="Total Cost" />
+            <TableColumn fx:id="colOrderStatus" prefWidth="149.0" text="Status" />
+         </columns>
+      </TableView>
+   </center>
 </BorderPane>

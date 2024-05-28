@@ -12,22 +12,21 @@ import javafx.scene.input.KeyEvent;
 
 public class CancelController 
 {
-	public String test = "hello";
 	Pages pages = new Pages();
 	
 	@FXML
 	public TextField cancelOrderIDTF;
 	
 	@FXML
-	public TableView<DataClass> cancelOrderTable;
+	public TableView<OrderClass> cancelOrderTable;
 	
 	public void showData()
 	{
-		TableColumn<DataClass, String> OrderID = new TableColumn<>("Order ID");
+		TableColumn<OrderClass, String> OrderID = new TableColumn<>("Order ID");
 		OrderID.setCellValueFactory(new PropertyValueFactory<>("OrderID"));
 		
 		cancelOrderTable.getColumns().add(OrderID);
-		cancelOrderTable.getItems().add(new DataClass(1));
+		//cancelOrderTable.getItems().add(new OrderClass(1, 10));
 	}
 	
 	public void openAllOrdersPage(ActionEvent event) throws IOException

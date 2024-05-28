@@ -8,6 +8,11 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Database 
 {
@@ -24,6 +29,8 @@ public class Database
 	
 	static int year = localDate.getYear();
 	static String yearString = String.valueOf(year);
+	
+	public static List<OrderClass> ll = new LinkedList<OrderClass>();
 	
 	
 	public static Connection getConnection() throws SQLException 
@@ -312,4 +319,48 @@ public class Database
          }
 		 return result;
 	 }
+	 
+	 public static ObservableList<OrderClass> getAllOrders()
+	 {
+		 ObservableList<OrderClass> orderslist = FXCollections.observableArrayList();
+		 String sql = "SELECT OrderID, TotalCost, OrderDate, OrderTime, OrderStatus FROM Orders WHERE User = ?"
+		 		+ "ORDER BY OrderTime DESC";
+		 try (Connection conn =  getConnection())
+		 {
+			 PreparedStatement pstmt  = conn.prepareStatement(sql);
+			 pstmt.setString(1, UserSingleton.getInstance().getCurrentUsername());
+			 ResultSet rs = pstmt.executeQuery();
+			 orderslist = getOrderObjects(rs);
+		 }
+		 catch (SQLException e) 
+         { 
+           System.out.println(e.getMessage());  
+         }
+		 return orderslist;
+	 }
+
+	private static ObservableList<OrderClass> getOrderObjects(ResultSet rs) throws SQLException
+	{
+		try
+		{
+			ObservableList<OrderClass> orderslist = FXCollections.observableArrayList();
+			
+			while (rs.next())
+			{
+				OrderClass oc = new OrderClass();
+				oc.setOrderID(rs.getInt("OrderID"));
+				oc.setOrderTotalCost(rs.getDouble("TotalCost"));
+				oc.setOrderDate(rs.getString("OrderDate"));
+				oc.setOrderTime(rs.getString("OrderTime"));
+				oc.setOrderStatus(rs.getString("OrderStatus"));
+				orderslist.add(oc);
+			}
+			return orderslist;
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
