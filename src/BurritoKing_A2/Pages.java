@@ -161,10 +161,8 @@ public class Pages
 	{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/CancelOrderPage.fxml"));
 		Scene cancelOrderScene = new Scene(loader.load());
-		CancelController cc = loader.getController();
-		cc.showData();
 		Stage cancelOrderStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		cancelOrderStage.setTitle("Payment Page");
+		cancelOrderStage.setTitle("Cancel Order Page");
 		cancelOrderStage.setScene(cancelOrderScene);
 		cancelOrderStage.show();
 	}

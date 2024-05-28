@@ -1,8 +1,13 @@
 package BurritoKing_A2;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -10,7 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 
-public class CancelController 
+public class CancelController implements Initializable
 {
 	Pages pages = new Pages();
 	
@@ -18,16 +23,22 @@ public class CancelController
 	public TextField cancelOrderIDTF;
 	
 	@FXML
-	public TableView<OrderClass> cancelOrderTable;
+	public TableColumn<OrderClass, Integer> colOrderID;
 	
-	public void showData()
-	{
-		TableColumn<OrderClass, String> OrderID = new TableColumn<>("Order ID");
-		OrderID.setCellValueFactory(new PropertyValueFactory<>("OrderID"));
-		
-		cancelOrderTable.getColumns().add(OrderID);
-		//cancelOrderTable.getItems().add(new OrderClass(1, 10));
-	}
+	@FXML
+	public TableColumn<OrderClass, Double> colOrderTotalCost;
+	
+	@FXML
+	public TableColumn<OrderClass, String> colOrderDate;
+	
+	@FXML
+	public TableColumn<OrderClass, String> colOrderTime;
+	
+	@FXML
+	public TableColumn<OrderClass, String> colOrderStatus;
+	
+	@FXML
+	public TableView cancelOrderTable;
 	
 	public void openAllOrdersPage(ActionEvent event) throws IOException
 	{
@@ -43,6 +54,9 @@ public class CancelController
             alert.setHeaderText(null);
             alert.setContentText("Order cancelled successfully!");
             alert.showAndWait();
+            
+            ObservableList<OrderClass> orderslist = Database.getAllAwaitingOrders();
+    		populateTable(orderslist);
 		}
 		else		
 		{
@@ -63,5 +77,23 @@ public class CancelController
 			cancelOrderIDTF.backward();
 			cancelOrderIDTF.deleteNextChar();
 		}
+	}
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) 
+	{
+		colOrderID.setCellValueFactory(cellData -> cellData.getValue().getOrderID().asObject());
+		colOrderDate.setCellValueFactory(cellData -> cellData.getValue().getOrderDate());
+		colOrderTime.setCellValueFactory(cellData -> cellData.getValue().getOrderTime());
+		colOrderTotalCost.setCellValueFactory(cellData -> cellData.getValue().getOrderTotalCost().asObject());
+		colOrderStatus.setCellValueFactory(cellData -> cellData.getValue().getOrderStatus());
+		
+		ObservableList<OrderClass> orderslist = Database.getAllAwaitingOrders();
+		populateTable(orderslist);
+	}
+	
+	private void populateTable(ObservableList<OrderClass> orderslist) 
+	{
+		cancelOrderTable.setItems(orderslist);
 	}
 }

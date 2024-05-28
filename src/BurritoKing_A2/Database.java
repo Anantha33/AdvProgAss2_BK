@@ -338,6 +338,25 @@ public class Database
          }
 		 return orderslist;
 	 }
+	 
+	 public static ObservableList<OrderClass> getAllAwaitingOrders()
+	 {
+		 ObservableList<OrderClass> orderslist = FXCollections.observableArrayList();
+		 String sql = "SELECT OrderID, TotalCost, OrderDate, OrderTime, OrderStatus FROM Orders WHERE User = ?"
+		 		+ "AND OrderStatus = 'Await for collection'";
+		 try (Connection conn =  getConnection())
+		 {
+			 PreparedStatement pstmt  = conn.prepareStatement(sql);
+			 pstmt.setString(1, UserSingleton.getInstance().getCurrentUsername());
+			 ResultSet rs = pstmt.executeQuery();
+			 orderslist = getOrderObjects(rs);
+		 }
+		 catch (SQLException e) 
+         { 
+           System.out.println(e.getMessage());  
+         }
+		 return orderslist;
+	 }
 
 	private static ObservableList<OrderClass> getOrderObjects(ResultSet rs) throws SQLException
 	{
