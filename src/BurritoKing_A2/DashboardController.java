@@ -89,6 +89,7 @@ public class DashboardController implements Initializable
 		
 		
 		colOrderID.setCellValueFactory(cellData -> cellData.getValue().getOrderID().asObject());
+		colOrderedItems.setCellValueFactory(cellData -> cellData.getValue().getOrderAllItems());
 		colOrderTotalCost.setCellValueFactory(cellData -> cellData.getValue().getOrderTotalCost().asObject());
 		colOrderStatus.setCellValueFactory(cellData -> cellData.getValue().getOrderStatus());
 		

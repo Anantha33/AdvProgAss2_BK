@@ -10,19 +10,33 @@ import javafx.beans.property.StringProperty;
 public class OrderClass 
 {
 	private IntegerProperty orderIDProperty;
+	
+	private IntegerProperty orderNumOfBurritosProperty;
+	private IntegerProperty orderNumOfFriesProperty;
+	private IntegerProperty orderNumOfSodasProperty;
+	private IntegerProperty orderNumOfMealsProperty;
+	private StringProperty orderAllItemsProperty;
+	
 	private StringProperty orderDateProperty;
 	private StringProperty orderTimeProperty;
+	
 	private DoubleProperty orderTotalCostProperty;
 	private StringProperty orderStatusProperty;
 	
 	public OrderClass()
 	{
 		this.orderIDProperty = new SimpleIntegerProperty();
+		
+		this.orderNumOfBurritosProperty = new SimpleIntegerProperty();
+		this.orderNumOfFriesProperty = new SimpleIntegerProperty();
+		this.orderNumOfSodasProperty = new SimpleIntegerProperty();
+		this.orderNumOfMealsProperty = new SimpleIntegerProperty();
 		this.orderDateProperty = new SimpleStringProperty();
 		this.orderTimeProperty = new SimpleStringProperty();
 		this.orderTotalCostProperty = new SimpleDoubleProperty();
 		this.orderStatusProperty = new SimpleStringProperty();
 	}
+	
 	
 	//This is for order ID
 	public int getID()
@@ -39,6 +53,92 @@ public class OrderClass
 	{
 		return orderIDProperty;
 	}
+	
+	//This is for number of burritos
+	public int getNumOfBurritos()
+	{
+		return orderNumOfBurritosProperty.get();
+	}
+	
+	public void setOrderNumOfBurritos(int orderNumOfBurritos)
+	{
+		this.orderNumOfBurritosProperty.set(orderNumOfBurritos);
+	}
+	
+	public IntegerProperty getOrderNumOfBurritos()
+	{
+		return orderNumOfBurritosProperty;
+	}
+	
+	
+	//This is for number of fries
+	public int getNumOfFries()
+	{
+		return orderNumOfFriesProperty.get();
+	}
+	
+	public void setOrderNumOfFries(int orderNumOfFries)
+	{
+		this.orderNumOfFriesProperty.set(orderNumOfFries);
+	}
+	
+	public IntegerProperty getOrderNumOfFries()
+	{
+		return orderNumOfFriesProperty;
+	}
+	
+	
+	//This is for number of sodas
+	public int getNumOfSodas()
+	{
+		return orderNumOfSodasProperty.get();
+	}
+	
+	public void setOrderNumOfSodas(int orderNumOfSodas)
+	{
+		this.orderNumOfSodasProperty.set(orderNumOfSodas);
+	}
+	
+	public IntegerProperty getOrderNumOfSodas()
+	{
+		return orderNumOfSodasProperty;
+	}
+	
+	
+	//This is for number of meals
+	public int getNumOfMeals()
+	{
+		return orderNumOfMealsProperty.get();
+	}
+	
+	public void setOrderNumOfMeals(int orderNumOfMeals)
+	{
+		this.orderNumOfMealsProperty.set(orderNumOfMeals);
+	}
+	
+	public IntegerProperty getOrderNumOfMeals()
+	{
+		return orderNumOfMealsProperty;
+	}
+	
+	
+	//This is for all order items
+	public void setOrderAllItems()
+	{
+		String numOfBurritos = String.valueOf(getNumOfBurritos());
+		String numOfFries = String.valueOf(getNumOfFries());
+		String numOfSodas = String.valueOf(getNumOfSodas());
+		String numOfMeals = String.valueOf(getNumOfMeals());
+		
+		this.orderAllItemsProperty = new SimpleStringProperty(numOfBurritos + " x Burritos, " + numOfFries + " x Fries, "
+				+ numOfSodas + " x Sodas, " + numOfMeals + " x Meals.");
+	}
+	
+	public StringProperty getOrderAllItems()
+	{
+		return orderAllItemsProperty;
+	}
+	
 	
 	//This is for order date
 	public String getDate()

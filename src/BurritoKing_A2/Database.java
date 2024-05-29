@@ -323,8 +323,8 @@ public class Database
 	 public static ObservableList<OrderClass> getAllOrders()
 	 {
 		 ObservableList<OrderClass> orderslist = FXCollections.observableArrayList();
-		 String sql = "SELECT OrderID, TotalCost, OrderDate, OrderTime, OrderStatus FROM Orders WHERE User = ?"
-		 		+ "ORDER BY OrderTime DESC";
+		 String sql = "SELECT OrderID, NumOfBurritos, NumOfFries, NumOfSodas, NumOfMeals, TotalCost, OrderDate, OrderTime,"
+			 		+ " OrderStatus FROM Orders WHERE User = ? AND OrderStatus = 'Await for collection'";
 		 try (Connection conn =  getConnection())
 		 {
 			 PreparedStatement pstmt  = conn.prepareStatement(sql);
@@ -342,8 +342,8 @@ public class Database
 	 public static ObservableList<OrderClass> getAllAwaitingOrders()
 	 {
 		 ObservableList<OrderClass> orderslist = FXCollections.observableArrayList();
-		 String sql = "SELECT OrderID, TotalCost, OrderDate, OrderTime, OrderStatus FROM Orders WHERE User = ?"
-		 		+ "AND OrderStatus = 'Await for collection'";
+		 String sql = "SELECT OrderID, NumOfBurritos, NumOfFries, NumOfSodas, NumOfMeals, TotalCost, OrderDate, OrderTime,"
+		 		+ " OrderStatus FROM Orders WHERE User = ? AND OrderStatus = 'Await for collection'";
 		 try (Connection conn =  getConnection())
 		 {
 			 PreparedStatement pstmt  = conn.prepareStatement(sql);
@@ -368,6 +368,11 @@ public class Database
 			{
 				OrderClass oc = new OrderClass();
 				oc.setOrderID(rs.getInt("OrderID"));
+				oc.setOrderNumOfBurritos(rs.getInt("NumOfBurritos"));
+				oc.setOrderNumOfFries(rs.getInt("NumOfFries"));
+				oc.setOrderNumOfSodas(rs.getInt("NumOfSodas"));
+				oc.setOrderNumOfMeals(rs.getInt("NumOfMeals"));
+				oc.setOrderAllItems();
 				oc.setOrderTotalCost(rs.getDouble("TotalCost"));
 				oc.setOrderDate(rs.getString("OrderDate"));
 				oc.setOrderTime(rs.getString("OrderTime"));
