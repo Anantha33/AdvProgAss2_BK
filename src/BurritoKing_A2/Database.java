@@ -16,7 +16,7 @@ import javafx.collections.ObservableList;
 
 public class Database 
 {
-	private static final String DATABASE_URL = "jdbc:sqlite:C:/Sqlite/AdvProgA2.db";
+	private static final String DATABASE_URL = "jdbc:sqlite:src/AdvProgA2.db";
 	
 	static Date date = new Date();
 	static LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
