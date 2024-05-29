@@ -33,6 +33,8 @@ public class PaymentController implements Initializable
 	int year;
 	int month;
 	
+	private double totalCredits;
+	
 	public void openOrderDetailsPage(ActionEvent event) throws IOException
 	{
 		pages.orderDetailsPage(event);
@@ -40,6 +42,11 @@ public class PaymentController implements Initializable
 	
 	public void openConfirmationPage(ActionEvent event) throws IOException
 	{
+		if (UserSingleton.getInstance().getCurrentVIPStatus())
+		{
+			totalCredits = Database.getCurrentCredits() + Math.floor(OrderDetailsSingleton.getInstance().getCurrentTotalCost());
+		}
+		
 		if (cardNumberTF.getText().isBlank() || cvvTF.getText().isBlank() || expDateTF.getText().isBlank())
 		{
 			Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -96,6 +103,7 @@ public class PaymentController implements Initializable
 		            alert.setContentText("Expired card used!");
 		            alert.showAndWait();
 				}
+				
 				else if (inputYear == year && inputMonth < month)
 				{
 					Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -106,19 +114,39 @@ public class PaymentController implements Initializable
 				}
 				else
 				{
-					Database.newOrder(orderTimeTF.getText());
-					OrderDetailsSingleton.getInstance().setCurrentOrderDetails(0, 0, 0, 0, 
-					CartController.getFriesRemainingAfterCurrentOrder(), 0, 0);
-					
-					String latestOrderID = String.valueOf(Database.latestOrderID());
-					
-					Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-		            alert.setTitle("Success");
-		            alert.setHeaderText(null);
-		            alert.setContentText("Order placed successfully! \n" + "Order ID: " + latestOrderID);
-		            alert.showAndWait();
-		            
-		            pages.dashboardPage(event);
+					if (UserSingleton.getInstance().getCurrentVIPStatus())
+					{
+						Database.updateCredits(totalCredits);
+						Database.newOrder(orderTimeTF.getText());
+						OrderDetailsSingleton.getInstance().setCurrentOrderDetails(0, 0, 0, 0, 
+						CartController.getFriesRemainingAfterCurrentOrder(), 0, 0);
+						
+						String latestOrderID = String.valueOf(Database.latestOrderID());
+						
+						Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+			            alert.setTitle("Success");
+			            alert.setHeaderText(null);
+			            alert.setContentText("Order placed successfully! \n" + "Order ID: " + latestOrderID);
+			            alert.showAndWait();
+			            
+			            pages.dashboardPage(event);
+					}
+					else
+					{
+						Database.newOrder(orderTimeTF.getText());
+						OrderDetailsSingleton.getInstance().setCurrentOrderDetails(0, 0, 0, 0, 
+						CartController.getFriesRemainingAfterCurrentOrder(), 0, 0);
+						
+						String latestOrderID = String.valueOf(Database.latestOrderID());
+						
+						Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+			            alert.setTitle("Success");
+			            alert.setHeaderText(null);
+			            alert.setContentText("Order placed successfully! \n" + "Order ID: " + latestOrderID);
+			            alert.showAndWait();
+			            
+			            pages.dashboardPage(event);
+					}
 				}
 				/*System.out.println(expDateTF.getText().substring(0,2));
 				System.out.println(expDateTF.getText().substring(3,5));*/

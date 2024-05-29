@@ -58,6 +58,12 @@ public class DashboardController implements Initializable
 	
 	public void openLoginPage(ActionEvent event) throws IOException
 	{
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Logout Successful");
+        alert.setHeaderText(null);
+        alert.setContentText("Successfully logged out!");
+        alert.showAndWait();
+        
 		pages.loginPage(event);
 	}
 	

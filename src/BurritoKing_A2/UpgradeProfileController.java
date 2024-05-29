@@ -41,7 +41,7 @@ public class UpgradeProfileController
 		{
 			if (isValidEmail(emailTF.getText()))
 			{
-				Database.upgradeUser(emailTF.getText(), UserSingleton.getInstance().getCurrentUsername());
+				Database.upgradeUser(emailTF.getText());
 				Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 	            alert.setTitle("Success");
 	            alert.setHeaderText(null);

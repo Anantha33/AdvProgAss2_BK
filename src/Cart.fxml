@@ -43,22 +43,22 @@
             <Font name="Georgia" size="20.0" />
          </font>
       </Button>
-      <TextField fx:id="burritoTF" layoutX="310.0" layoutY="76.0" promptText="Enter number of burritos">
+      <TextField fx:id="burritoTF" layoutX="310.0" layoutY="76.0" onKeyTyped="#numOfBurritosTyped" promptText="Enter number of burritos">
          <font>
             <Font name="Georgia" size="16.0" />
          </font>
       </TextField>
-      <TextField fx:id="mealTF" disable="true" layoutX="310.0" layoutY="201.0" promptText="Enter number of meals">
+      <TextField fx:id="mealTF" disable="true" layoutX="310.0" layoutY="201.0" onKeyTyped="#numOfMealsTyped" promptText="Enter number of meals">
          <font>
             <Font name="Georgia" size="16.0" />
          </font>
       </TextField>
-      <TextField fx:id="sodaTF" layoutX="310.0" layoutY="156.0" promptText="Enter number of sodas">
+      <TextField fx:id="sodaTF" layoutX="310.0" layoutY="156.0" onKeyTyped="#numOfSodasTyped" promptText="Enter number of sodas">
          <font>
             <Font name="Georgia" size="16.0" />
          </font>
       </TextField>
-      <TextField fx:id="friesTF" layoutX="310.0" layoutY="116.0" prefHeight="29.0" prefWidth="206.0" promptText="Enter number of fries">
+      <TextField fx:id="friesTF" layoutX="310.0" layoutY="116.0" onKeyTyped="#numOfFriesTyped" prefHeight="29.0" prefWidth="206.0" promptText="Enter number of fries">
          <font>
             <Font name="Georgia" size="16.0" />
          </font>

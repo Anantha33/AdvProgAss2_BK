@@ -25,6 +25,13 @@ public class LoginController
 			lastName = Database.getLastName(usernameTF.getText());
 			vipStatus = Database.getVIPStatus(usernameTF.getText());
 			UserSingleton.getInstance().setCurrentUserDetails(usernameTF.getText(), firstName, lastName, vipStatus);
+            
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Login Successful");
+            alert.setHeaderText(null);
+            alert.setContentText("Successfully logged in!");
+            alert.showAndWait();
+            
 			pages.dashboardPage(event);
 		}
 		else

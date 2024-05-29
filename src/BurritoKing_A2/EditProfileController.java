@@ -25,7 +25,7 @@ public class EditProfileController
 		}
 		else
 		{
-			Database.updateFirstName(newFirstNameTF.getText(), UserSingleton.getInstance().getCurrentUsername());
+			Database.updateFirstName(newFirstNameTF.getText());
 			UserSingleton.getInstance().setCurrentUserDetails(UserSingleton.getInstance().getCurrentUsername(), 
 					newFirstNameTF.getText(), UserSingleton.getInstance().getCurrentLName(), 
 					UserSingleton.getInstance().getCurrentVIPStatus());
@@ -42,7 +42,7 @@ public class EditProfileController
 		}
 		else
 		{
-			Database.updateLastName(newLastNameTF.getText(), UserSingleton.getInstance().getCurrentUsername());
+			Database.updateLastName(newLastNameTF.getText());
 			UserSingleton.getInstance().setCurrentUserDetails(UserSingleton.getInstance().getCurrentUsername(), 
 					UserSingleton.getInstance().getCurrentFName(), newLastNameTF.getText(), 
 					UserSingleton.getInstance().getCurrentVIPStatus());
@@ -65,7 +65,7 @@ public class EditProfileController
 		
 		else
 		{
-			Database.updatePassword(newPasswordTF.getText(), UserSingleton.getInstance().getCurrentUsername());
+			Database.updatePassword(newPasswordTF.getText());
 			showAlert("Success", "Password updated successfully!");
 		}
 	}

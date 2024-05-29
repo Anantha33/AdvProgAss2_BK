@@ -91,14 +91,14 @@ public class Database
         }
     }
 	
-	public static void updateFirstName(String newFirstName, String username)
+	public static void updateFirstName(String newFirstName)
 	{
 		String sql = "UPDATE Customer SET FirstName = ? WHERE Username = ?";
 		try (Connection conn = getConnection())
 		{
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, newFirstName);
-			pstmt.setString(2, username);
+			pstmt.setString(2, UserSingleton.getInstance().getCurrentUsername());
 			int updateCount = pstmt.executeUpdate();
 		}
 		catch (SQLException e) 
@@ -108,14 +108,14 @@ public class Database
 	}
 	
 	
-	public static void updateLastName(String newLastName, String username)
+	public static void updateLastName(String newLastName)
 	{
 		String sql = "UPDATE Customer SET LastName = ? WHERE Username = ?";
 		try (Connection conn = getConnection())
 		{
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, newLastName);
-			pstmt.setString(2, username);
+			pstmt.setString(2, UserSingleton.getInstance().getCurrentUsername());
 			int updateCount = pstmt.executeUpdate();
 		}
 		catch (SQLException e) 
@@ -125,14 +125,14 @@ public class Database
 	}
 	
 	
-	public static void updatePassword(String newPassword, String username)
+	public static void updatePassword(String newPassword)
 	{
 		String sql = "UPDATE Customer SET Password = ? WHERE Username = ?";
 		try (Connection conn = getConnection())
 		{
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, newPassword);
-			pstmt.setString(2, username);
+			pstmt.setString(2, UserSingleton.getInstance().getCurrentUsername());
 			int updateCount = pstmt.executeUpdate();
 		}
 		catch (SQLException e) 
@@ -142,20 +142,59 @@ public class Database
 	}
 	
 	
-	public static void upgradeUser(String email, String username)
+	public static void upgradeUser(String email)
 	{
 		String sql = "UPDATE Customer SET IsVIP = 1, Email = ? WHERE Username = ?";
 		try (Connection conn = getConnection())
 		{
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, email);
-			pstmt.setString(2, username);
+			pstmt.setString(2, UserSingleton.getInstance().getCurrentUsername());
 			int updateCount = pstmt.executeUpdate();
 		}
 		catch (SQLException e) 
         {
             e.printStackTrace();
         }
+	}
+	
+	public static void updateCredits(double totalCredits)
+	{
+		String sql = "UPDATE Customer SET Credits = ? WHERE Username = ?";
+		try (Connection conn = getConnection())
+		{
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setDouble(1, totalCredits);
+			pstmt.setString(2, UserSingleton.getInstance().getCurrentUsername());
+			int updateCount = pstmt.executeUpdate();
+		}
+		catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+	}
+	
+	public static double getCurrentCredits()
+	{
+		String sql = "SELECT Credits FROM Customer WHERE Username = ?";
+		double currentCredits = 0;
+		
+		try (Connection conn = getConnection())
+		{
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, UserSingleton.getInstance().getCurrentUsername());
+			ResultSet rs = pstmt.executeQuery();  
+			
+			while (rs.next())
+			{
+				currentCredits = rs.getDouble("Credits");
+			}
+		}
+		catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+		return currentCredits;
 	}
 	
 	
@@ -324,7 +363,7 @@ public class Database
 	 {
 		 ObservableList<OrderClass> orderslist = FXCollections.observableArrayList();
 		 String sql = "SELECT OrderID, NumOfBurritos, NumOfFries, NumOfSodas, NumOfMeals, TotalCost, OrderDate, OrderTime,"
-			 		+ " OrderStatus FROM Orders WHERE User = ? AND OrderStatus = 'Await for collection'";
+			 		+ " OrderStatus FROM Orders WHERE User = ?";
 		 try (Connection conn =  getConnection())
 		 {
 			 PreparedStatement pstmt  = conn.prepareStatement(sql);
@@ -380,7 +419,7 @@ public class Database
 				orderslist.add(oc);
 			}
 			return orderslist;
-		}
+		}	
 		catch (SQLException e)
 		{
 			e.printStackTrace();

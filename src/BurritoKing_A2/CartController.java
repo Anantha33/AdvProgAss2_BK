@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 
 public class CartController implements Initializable
 {
@@ -42,9 +43,32 @@ public class CartController implements Initializable
 	
 	public void openOrderDetailsPage(ActionEvent event) throws IOException
 	{
-		numOfBurritosOrdered = Integer.parseInt(burritoTF.getText());
-		numOfFriesOrdered = Integer.parseInt(friesTF.getText());
-		numOfSodasOrdered = Integer.parseInt(sodaTF.getText());
+		if (burritoTF.getText().isBlank())
+		{
+			numOfBurritosOrdered = 0;
+		}
+		else
+		{
+			numOfBurritosOrdered = Integer.parseInt(burritoTF.getText());
+		}
+		
+		if (friesTF.getText().isBlank())
+		{
+			numOfFriesOrdered = 0;
+		}
+		else
+		{
+			numOfFriesOrdered = Integer.parseInt(friesTF.getText());
+		}
+		
+		if (sodaTF.getText().isBlank())
+		{
+			numOfSodasOrdered = 0;
+		}
+		else
+		{
+			numOfSodasOrdered = Integer.parseInt(sodaTF.getText());
+		}
 		
 		if (UserSingleton.getInstance().getCurrentVIPStatus())
 		{
@@ -118,6 +142,51 @@ public class CartController implements Initializable
 	public void openDashboardPage(ActionEvent event) throws IOException
 	{
 		pages.dashboardPage(event);
+	}
+	
+	
+	public void numOfBurritosTyped(KeyEvent event) throws IOException
+	{
+		if (event.getCharacter().matches("[^0-9]"))
+		{
+			event.consume();
+			
+			burritoTF.backward();
+			burritoTF.deleteNextChar();
+		}
+	}
+	
+	public void numOfFriesTyped(KeyEvent event) throws IOException
+	{
+		if (event.getCharacter().matches("[^0-9]"))
+		{
+			event.consume();
+			
+			friesTF.backward();
+			friesTF.deleteNextChar();
+		}
+	}
+	
+	public void numOfSodasTyped(KeyEvent event) throws IOException
+	{
+		if (event.getCharacter().matches("[^0-9]"))
+		{
+			event.consume();
+			
+			sodaTF.backward();
+			sodaTF.deleteNextChar();
+		}
+	}
+	
+	public void numOfMealsTyped(KeyEvent event) throws IOException
+	{
+		if (event.getCharacter().matches("[^0-9]"))
+		{
+			event.consume();
+			
+			mealTF.backward();
+			mealTF.deleteNextChar();
+		}
 	}
 
 	@Override
