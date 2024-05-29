@@ -1,11 +1,15 @@
 package BurritoKing_A2;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
-public class ProfileController 
+public class ProfileController implements Initializable
 {	
 	Pages pages = new Pages();
 	String currentusername = UserSingleton.getInstance().getCurrentUsername();
@@ -40,20 +44,13 @@ public class ProfileController
 	{
 		pages.dashboardPage(event);
 	}
-	
-	
-	public void displayCurrentUsername()
+
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
 		currentUName.setText(currentusername);
-	}
-	
-	public void displayCurrentFName()
-	{
 		currentFName.setText(currentFirstName);
-	}
-	
-	public void displayCurrentLName()
-	{
 		currentLName.setText(currentLastName);
 	}
 }

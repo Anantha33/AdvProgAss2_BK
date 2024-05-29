@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.fxml.*;
@@ -21,10 +22,20 @@ public class DashboardController implements Initializable
 	public Label userFullName;
 	public Button upgradeUserButton;
 	
-	public void displayFullName()
-	{
-		userFullName.setText(currentFName + " " + currentLName);
-	}
+	@FXML
+	public TableColumn<OrderClass, Integer> colOrderID;
+	
+	@FXML
+	public TableColumn<OrderClass, Double> colOrderTotalCost;
+	
+	@FXML
+	public TableColumn<OrderClass, String> colOrderStatus;
+	
+	@FXML
+	public TableColumn<OrderClass, String> colOrderedItems;
+	
+	@FXML
+	public TableView awaitingOrdersTable;
 	
 	
 	public void openCart(ActionEvent event) throws IOException
@@ -65,6 +76,8 @@ public class DashboardController implements Initializable
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
+		userFullName.setText(currentFName + " " + currentLName);
+		
 		if (currentIsVIP)
 		{
 			upgradeUserButton.setDisable(true);
@@ -74,6 +87,18 @@ public class DashboardController implements Initializable
 			upgradeUserButton.setDisable(false);
 		}
 		
+		
+		colOrderID.setCellValueFactory(cellData -> cellData.getValue().getOrderID().asObject());
+		colOrderTotalCost.setCellValueFactory(cellData -> cellData.getValue().getOrderTotalCost().asObject());
+		colOrderStatus.setCellValueFactory(cellData -> cellData.getValue().getOrderStatus());
+		
+		ObservableList<OrderClass> orderslist = Database.getAllAwaitingOrders();
+		populateTable(orderslist);
+	}
+	
+	private void populateTable(ObservableList<OrderClass> orderslist) 
+	{
+		awaitingOrdersTable.setItems(orderslist);
 	}
 	
 	long currentTimeInMillis = System.currentTimeMillis();

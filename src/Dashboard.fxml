@@ -67,12 +67,12 @@
       </HBox>
    </bottom>
    <center>
-      <TableView prefHeight="399.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="awaitingOrdersTable" prefHeight="399.0" prefWidth="700.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn prefWidth="100.0" text="Order ID" />
-          <TableColumn prefWidth="100.0" text="Ordered Items" />
-            <TableColumn prefWidth="100.0" text="Total Cost" />
-            <TableColumn prefWidth="100.0" text="Status" />
+          <TableColumn fx:id="colOrderID" prefWidth="100.0" text="Order ID" />
+          <TableColumn fx:id="colOrderedItems" prefWidth="100.0" text="Ordered Items" />
+            <TableColumn fx:id="colOrderTotalCost" prefWidth="100.0" text="Total Cost" />
+            <TableColumn fx:id="colOrderStatus" prefWidth="130.0" text="Status" />
         </columns>
       </TableView>
    </center>

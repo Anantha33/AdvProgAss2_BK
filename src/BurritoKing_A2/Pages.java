@@ -50,8 +50,6 @@ public class Pages
 	{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Dashboard.fxml"));
 		Scene dashboardScene = new Scene(loader.load());
-		DashboardController dc = loader.getController();
-		dc.displayFullName();
 		Stage dashboardStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		dashboardStage.setTitle("Dashboard");
 		dashboardStage.setScene(dashboardScene);
@@ -63,10 +61,6 @@ public class Pages
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ProfilePage.fxml"));
 		Parent root = loader.load();
 		Scene profileScene = new Scene(root);
-		ProfileController pc = loader.getController();
-		pc.displayCurrentUsername();
-		pc.displayCurrentFName();
-		pc.displayCurrentLName();
 		Stage profileStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		profileStage.setTitle("Profile Page");
 		profileStage.setScene(profileScene);

@@ -62,7 +62,7 @@ public class PaymentController implements Initializable
 			Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
-            alert.setContentText("Wrong date format!");
+            alert.setContentText("Invalid Date!");
             alert.showAndWait();
 		}
 		else if (orderTimeTF.getText().isBlank())
@@ -78,7 +78,7 @@ public class PaymentController implements Initializable
 			Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
-            alert.setContentText("Wrong time format!");
+            alert.setContentText("Invalid Time!");
             alert.showAndWait();
 		}
 		else
@@ -90,15 +90,22 @@ public class PaymentController implements Initializable
 				
 				if (inputYear < year)
 				{
-					System.out.println("Card is invalid");
+					Alert alert = new Alert(Alert.AlertType.ERROR);
+		            alert.setTitle("Error");
+		            alert.setHeaderText(null);
+		            alert.setContentText("Expired card used!");
+		            alert.showAndWait();
 				}
 				else if (inputYear == year && inputMonth < month)
 				{
-					System.out.println("Card is invalid");
+					Alert alert = new Alert(Alert.AlertType.ERROR);
+		            alert.setTitle("Error");
+		            alert.setHeaderText(null);
+		            alert.setContentText("Expired card used!");
+		            alert.showAndWait();
 				}
 				else
 				{
-					System.out.println("Card is valid");
 					Database.newOrder(orderTimeTF.getText());
 					OrderDetailsSingleton.getInstance().setCurrentOrderDetails(0, 0, 0, 0, 
 					CartController.getFriesRemainingAfterCurrentOrder(), 0, 0);

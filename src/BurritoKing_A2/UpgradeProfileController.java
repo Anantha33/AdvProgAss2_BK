@@ -15,20 +15,15 @@ import javafx.stage.Stage;
 
 public class UpgradeProfileController
 {
+	Pages pages = new Pages();
+	
 	@FXML
 	public CheckBox promotionCheckbox;
 	public TextField emailTF;
 	
 	public void openDashboardPage(ActionEvent event) throws IOException
 	{
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Dashboard.fxml"));
-		Scene dashboardScene = new Scene(loader.load());
-		DashboardController dc = loader.getController();
-		dc.displayFullName();
-		Stage dashboardStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		dashboardStage.setTitle("Dashboard");
-		dashboardStage.setScene(dashboardScene);
-		dashboardStage.show();
+		pages.dashboardPage(event);
 	}
 	
 	
