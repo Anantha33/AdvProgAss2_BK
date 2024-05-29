@@ -11,7 +11,7 @@
    <bottom>
       <Button mnemonicParsing="false" onAction="#openCancelOrderPage" style="-fx-background-color: #263F73;" text="Cancel Order" textFill="WHITE" BorderPane.alignment="CENTER">
          <font>
-            <Font name="Georgia" size="20.0" />
+            <Font name="Georgia" size="18.0" />
          </font></Button>
    </bottom>
    <top>
@@ -28,11 +28,11 @@
    <center>
       <TableView fx:id="allOrdersTable" prefHeight="275.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <columns>
-            <TableColumn fx:id="colOrderID" prefWidth="75.0" text="Order ID" />
-            <TableColumn fx:id="colOrderDate" prefWidth="75.0" text="Order Date" />
-            <TableColumn fx:id="colOrderTime" prefWidth="75.0" text="Order Time" />
-            <TableColumn fx:id="colOrderTotalCost" prefWidth="75.0" text="Total Cost" />
-            <TableColumn fx:id="colOrderStatus" prefWidth="149.0" text="Status" />
+            <TableColumn fx:id="colOrderID" prefWidth="100.0" text="Order ID" />
+            <TableColumn fx:id="colOrderDate" prefWidth="100.0" text="Order Date" />
+            <TableColumn fx:id="colOrderTime" prefWidth="100.0" text="Order Time" />
+            <TableColumn fx:id="colOrderTotalCost" prefWidth="100.0" text="Total Cost" />
+            <TableColumn fx:id="colOrderStatus" prefWidth="150.0" text="Status" />
          </columns>
       </TableView>
    </center>

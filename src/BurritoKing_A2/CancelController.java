@@ -12,7 +12,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 
 public class CancelController implements Initializable
@@ -58,7 +57,7 @@ public class CancelController implements Initializable
             ObservableList<OrderClass> orderslist = Database.getAllAwaitingOrders();
     		populateTable(orderslist);
 		}
-		else		
+		else
 		{
 			Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
