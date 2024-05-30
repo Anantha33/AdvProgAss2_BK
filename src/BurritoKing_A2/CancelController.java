@@ -39,9 +39,9 @@ public class CancelController implements Initializable
 	@FXML
 	public TableView cancelOrderTable;
 	
-	public void openAllOrdersPage(ActionEvent event) throws IOException
+	public void openDashboardPage(ActionEvent event) throws IOException
 	{
-		pages.allOrdersPage(event);
+		pages.dashboardPage(event);
 	}
 	
 	public void cancelOrder(ActionEvent event) throws IOException

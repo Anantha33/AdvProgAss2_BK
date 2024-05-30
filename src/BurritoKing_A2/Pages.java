@@ -107,7 +107,7 @@ public class Pages
 		Scene upgradeProfileScene = new Scene(root);
 		Stage upgradeProfileStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		upgradeProfileStage.setScene(upgradeProfileScene);
-		upgradeProfileStage.setTitle("Upgrade Profile Page");
+		upgradeProfileStage.setTitle("Upgrade User Page");
 		upgradeProfileStage.show();
 	}
 	
@@ -136,7 +136,7 @@ public class Pages
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/EditPasswordPage.fxml"));
 		Scene editPasswordScene = new Scene(loader.load());
 		Stage editPasswordStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		editPasswordStage.setTitle("Edit Last Name");
+		editPasswordStage.setTitle("Edit Password");
 		editPasswordStage.setScene(editPasswordScene);
 		editPasswordStage.show();
 	}

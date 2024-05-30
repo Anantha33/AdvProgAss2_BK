@@ -32,7 +32,7 @@
    <top>
       <HBox prefHeight="40.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#openAllOrdersPage" style="-fx-background-color: #263F73;" text="&lt;- Back" textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#openDashboardPage" style="-fx-background-color: #263F73;" text="&lt;- Back" textFill="WHITE">
                <font>
                   <Font name="Georgia" size="16.0" />
                </font>

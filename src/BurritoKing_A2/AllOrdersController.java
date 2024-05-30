@@ -41,11 +41,6 @@ public class AllOrdersController implements Initializable
 	{
 		pages.dashboardPage(event);
 	}
-	
-	public void openCancelOrderPage(ActionEvent event) throws IOException
-	{		
-		pages.cancelOrderPage(event);
-	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 

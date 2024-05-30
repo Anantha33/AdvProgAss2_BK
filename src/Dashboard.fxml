@@ -10,52 +10,30 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="Infinity" maxWidth="Infinity" minHeight="450.0" minWidth="450.0" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BurritoKing_A2.DashboardController">
-  <top>
-     <HBox alignment="CENTER" prefHeight="71.0" prefWidth="700.0" spacing="10.0" BorderPane.alignment="CENTER">
-        <children>
-           <Label alignment="CENTER" text="Hey there,">
-              <font>
-                 <Font name="Georgia" size="20.0" />
-              </font>
-           </Label>
-           <Label fx:id="userFullName">
-              <font>
-                 <Font name="Georgia" size="20.0" />
-              </font>
-           </Label>
-        </children>
-        <padding>
-           <Insets top="10.0" />
-        </padding>
-     </HBox>
-  </top>
    <bottom>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-           <Button alignment="CENTER" mnemonicParsing="false" onAction="#openProfilePage" prefHeight="0.0" prefWidth="100.0" style="-fx-background-color: #263F73;" text="Profile" textFill="WHITE">
-              <font>
-                 <Font name="Georgia" size="18.0" />
-              </font>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-           </Button>
-           <Button mnemonicParsing="false" onAction="#openCart" prefHeight="0.0" prefWidth="100.0" style="-fx-background-color: #263F73;" text="Cart" textFill="WHITE">
+           <Button mnemonicParsing="false" onAction="#openCart" prefHeight="33.0" prefWidth="68.0" style="-fx-background-color: #263F73;" text="Cart" textFill="WHITE">
               <font>
                  <Font name="Georgia" size="18.0" />
               </font>
            </Button>
-           <Button mnemonicParsing="false" onAction="#viewAllOrders" prefHeight="0.0" prefWidth="120.0" style="-fx-background-color: #263F73;" text="All Orders" textFill="WHITE">
+           <Button mnemonicParsing="false" onAction="#viewAllOrders" prefHeight="33.0" prefWidth="106.0" style="-fx-background-color: #263F73;" text="All Orders" textFill="WHITE">
               <font>
                  <Font name="Georgia" size="18.0" />
               </font>
            </Button>
-           <Button fx:id="upgradeUserButton" disable="true" mnemonicParsing="false" onAction="#openUpgradeProfile" prefHeight="0.0" prefWidth="105.0" style="-fx-background-color: #263F73;" text="Upgrade" textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#openCancelOrderPage" prefHeight="33.0" prefWidth="129.0" style="-fx-background-color: #263F73;" text="Cancel Order" textFill="WHITE">
+               <font>
+                  <Font name="Georgia" size="18.0" />
+               </font>
+            </Button>
+           <Button fx:id="upgradeUserButton" disable="true" mnemonicParsing="false" onAction="#openUpgradeProfile" prefHeight="33.0" prefWidth="99.0" style="-fx-background-color: #263F73;" text="Upgrade" textFill="WHITE">
               <font>
                  <Font name="Georgia" size="18.0" />
               </font>
            </Button>
-           <Button mnemonicParsing="false" onAction="#openLoginPage" style="-fx-background-color: #FF2222;" text="Logout" textFill="WHITE">
+           <Button mnemonicParsing="false" onAction="#openLoginPage" prefHeight="33.0" prefWidth="83.0" style="-fx-background-color: #FF2222;" text="Logout" textFill="WHITE">
               <font>
                  <Font name="Georgia" size="18.0" />
               </font>
@@ -76,4 +54,39 @@
         </columns>
       </TableView>
    </center>
+   <top>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="251.0">
+               <children>
+                 <Label alignment="CENTER" text="Hey there, ">
+                    <font>
+                       <Font name="Georgia" size="20.0" />
+                    </font>
+                 </Label>
+                 <Label fx:id="userFullName">
+                    <font>
+                       <Font name="Georgia" size="20.0" />
+                    </font>
+                 </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#openProfilePage" prefHeight="33.0" prefWidth="79.0" style="-fx-background-color: #263F73;" text="Profile" textFill="WHITE">
+                    <font>
+                       <Font name="Georgia" size="18.0" />
+                    </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                 </Button>
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </HBox>
+         </children>
+      </HBox>
+   </top>
 </BorderPane>

@@ -371,7 +371,7 @@ public class Database
 			 ResultSet rs = pstmt.executeQuery();
 			 orderslist = getOrderObjects(rs);
 		 }
-		 catch (SQLException e) 
+		 catch (SQLException e)
          { 
            System.out.println(e.getMessage());  
          }

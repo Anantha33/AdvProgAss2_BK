@@ -55,6 +55,10 @@ public class DashboardController implements Initializable
 		pages.allOrdersPage(event);
 	}
 	
+	public void openCancelOrderPage(ActionEvent event) throws IOException
+	{		
+		pages.cancelOrderPage(event);
+	}
 	
 	public void openLoginPage(ActionEvent event) throws IOException
 	{
