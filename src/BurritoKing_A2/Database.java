@@ -363,7 +363,7 @@ public class Database
 	 {
 		 ObservableList<OrderClass> orderslist = FXCollections.observableArrayList();
 		 String sql = "SELECT OrderID, NumOfBurritos, NumOfFries, NumOfSodas, NumOfMeals, TotalCost, OrderDate, OrderTime,"
-			 		+ " OrderStatus FROM Orders WHERE User = ?";
+			 		+ " OrderStatus FROM Orders WHERE User = ? ORDER BY OrderDate DESC, OrderTime DESC";
 		 try (Connection conn =  getConnection())
 		 {
 			 PreparedStatement pstmt  = conn.prepareStatement(sql);
