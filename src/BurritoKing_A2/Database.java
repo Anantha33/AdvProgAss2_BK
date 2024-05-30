@@ -24,14 +24,25 @@ public class Database
 	static int day = localDate.getDayOfMonth();
 	static String dayString = String.valueOf(day);
 	
-	static int month= localDate.getMonthValue();
+	static int month = localDate.getMonthValue();
 	static String monthString = String.valueOf(month);
+	
+	static int monthLength = monthString.length();
 	
 	static int year = localDate.getYear();
 	static String yearString = String.valueOf(year);
 	
 	public static List<OrderClass> ll = new LinkedList<OrderClass>();
 	
+	
+	private static String checkMonthLength() 
+	{
+		if (monthLength == 1)
+		{
+			monthString = "0" + monthString;
+		}
+		return monthString;
+	}
 	
 	public static Connection getConnection() throws SQLException 
     {
@@ -291,6 +302,7 @@ public class Database
 			 pstmt.setInt(3, OrderDetailsSingleton.getInstance().getCurrentNumOfSodas());
 			 pstmt.setInt(4, OrderDetailsSingleton.getInstance().getCurrentNumOfMeals());
 			 pstmt.setDouble(5, OrderDetailsSingleton.getInstance().getCurrentTotalCost());
+			 checkMonthLength();
 			 pstmt.setString(6, dayString + "/" + monthString + "/" + yearString);
 			 pstmt.setString(7, orderTime);
 			 pstmt.setDouble(8, OrderDetailsSingleton.getInstance().getCurrentPrepTime());
@@ -362,17 +374,18 @@ public class Database
 	 
 	 public static boolean collectOrder(String orderID, String collectTime)
 	 {
-		 String sql = "UPDATE Orders SET OrderStatus = 'Collected', PickupTime = ?"
+		 String sql = "UPDATE Orders SET OrderStatus = 'Collected', PickupDate = ?, PickupTime = ?"
 		 		+ " WHERE OrderID = ? AND OrderStatus = ? AND User = ?";
 		 boolean result = false;
 		 
 		 try (Connection conn = getConnection())
 		 {
 			 PreparedStatement pstmt  = conn.prepareStatement(sql);
-			 pstmt.setString(1, collectTime);
-			 pstmt.setString(2, orderID);
-			 pstmt.setString(3, "Await for collection");
-			 pstmt.setString(4, UserSingleton.getInstance().getCurrentUsername());
+			 pstmt.setString(1, dayString + "/" + monthString + "/" + yearString);
+			 pstmt.setString(2, collectTime);
+			 pstmt.setString(3, orderID);
+			 pstmt.setString(4, "Await for collection");
+			 pstmt.setString(5, UserSingleton.getInstance().getCurrentUsername());
 			 int updateCount = pstmt.executeUpdate();
 			 if (updateCount == 1)
 			 {
@@ -391,6 +404,28 @@ public class Database
 		 return result;
 	 }
 	 
+	 
+	 public static String getOrderDate(String orderID)
+	 {
+		 String sql = "SELECT OrderDate FROM Orders WHERE OrderID = ?";
+		 String orderDate = "";
+		 try (Connection conn = getConnection())
+		 {
+			 PreparedStatement pstmt  = conn.prepareStatement(sql);
+			 pstmt.setString(1, orderID);
+			 ResultSet rs = pstmt.executeQuery();
+			 
+			 while (rs.next())
+			 {
+				 orderDate = rs.getString("OrderDate");
+			 }
+		 }
+		 catch (SQLException e) 
+         {
+			 System.out.println(e.getMessage());  
+         }
+		 return orderDate;
+	 }
 	 
 	 
 	 public static ObservableList<OrderClass> getAllOrders()

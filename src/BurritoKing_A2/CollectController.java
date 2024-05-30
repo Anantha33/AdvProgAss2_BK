@@ -2,6 +2,9 @@ package BurritoKing_A2;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,6 +21,20 @@ import javafx.scene.input.KeyEvent;
 
 public class CollectController implements Initializable
 {
+	
+	static Date date = new Date();
+	static LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+	
+	static int day = localDate.getDayOfMonth();
+	static String dayString = String.valueOf(day);
+	
+	static int month= localDate.getMonthValue();
+	static String monthString = String.valueOf(month);
+	
+	static int year = localDate.getYear();
+	static String yearString = String.valueOf(year);
+	
+	
 	Pages pages = new Pages();
 	
 	@FXML
@@ -47,6 +64,19 @@ public class CollectController implements Initializable
 	
 	public void collectOrder(ActionEvent event) throws IOException
 	{
+		String currentOrderDate = Database.getOrderDate(collectOrderIDTF.getText());
+		
+		System.out.println(currentOrderDate);
+		
+		String currentOrderDay = currentOrderDate.substring(0,2);
+		System.out.println(currentOrderDay);
+		
+		String currentOrderMonth = currentOrderDate.substring(3,5);
+		System.out.println(currentOrderMonth);
+		
+		String currentOrderYear = currentOrderDate.substring(6,10);
+		System.out.println(currentOrderYear);
+		
 		if (collectOrderTimeTF.getText().isBlank())
 		{
 			Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -63,6 +93,7 @@ public class CollectController implements Initializable
             alert.setContentText("Invalid Time!");
             alert.showAndWait();
 		}
+		
 		else
 		{
 			if (Database.collectOrder(collectOrderIDTF.getText(), collectOrderTimeTF.getText()))
