@@ -151,6 +151,16 @@ public class Pages
 		paymentStage.show();
 	}
 	
+	public void collectOrderPage(ActionEvent event) throws IOException
+	{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/CollectOrderPage.fxml"));
+		Scene collectOrderScene = new Scene(loader.load());
+		Stage collectOrderStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		collectOrderStage.setTitle("Collect Order Page");
+		collectOrderStage.setScene(collectOrderScene);
+		collectOrderStage.show();
+	}
+	
 	public void cancelOrderPage(ActionEvent event) throws IOException
 	{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/CancelOrderPage.fxml"));

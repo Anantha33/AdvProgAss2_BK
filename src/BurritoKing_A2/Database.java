@@ -359,6 +359,40 @@ public class Database
 		 return result;
 	 }
 	 
+	 
+	 public static boolean collectOrder(String orderID, String collectTime)
+	 {
+		 String sql = "UPDATE Orders SET OrderStatus = 'Collected', PickupTime = ?"
+		 		+ " WHERE OrderID = ? AND OrderStatus = ? AND User = ?";
+		 boolean result = false;
+		 
+		 try (Connection conn = getConnection())
+		 {
+			 PreparedStatement pstmt  = conn.prepareStatement(sql);
+			 pstmt.setString(1, collectTime);
+			 pstmt.setString(2, orderID);
+			 pstmt.setString(3, "Await for collection");
+			 pstmt.setString(4, UserSingleton.getInstance().getCurrentUsername());
+			 int updateCount = pstmt.executeUpdate();
+			 if (updateCount == 1)
+			 {
+				 result = true;
+			 }
+			 else
+			 {
+				 result = false;
+			 }
+		 }
+		 catch (SQLException e) 
+         { 
+		   result = false;
+           System.out.println(e.getMessage());  
+         }
+		 return result;
+	 }
+	 
+	 
+	 
 	 public static ObservableList<OrderClass> getAllOrders()
 	 {
 		 ObservableList<OrderClass> orderslist = FXCollections.observableArrayList();

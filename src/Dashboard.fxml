@@ -23,6 +23,11 @@
                  <Font name="Georgia" size="18.0" />
               </font>
            </Button>
+            <Button mnemonicParsing="false" onAction="#openCollectOrderPage" prefHeight="33.0" prefWidth="132.0" style="-fx-background-color: #263F73;" text="Collect Order" textFill="WHITE">
+               <font>
+                  <Font name="Georgia" size="18.0" />
+               </font>
+            </Button>
             <Button mnemonicParsing="false" onAction="#openCancelOrderPage" prefHeight="33.0" prefWidth="129.0" style="-fx-background-color: #263F73;" text="Cancel Order" textFill="WHITE">
                <font>
                   <Font name="Georgia" size="18.0" />
