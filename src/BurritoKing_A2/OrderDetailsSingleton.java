@@ -11,9 +11,10 @@ public class OrderDetailsSingleton
 	private double currentNumOfFriesLeft = 0;
 	private double currentTotalCost;
 	private double currentPrepTime;
+	private double currentOrderCredits = 0;
 	
 	public void setCurrentOrderDetails(int numOfBurritos, int numOfFries, int numOfSodas, int numOfMeals, double numOfFriesLeft,
-			double totalOrderCost, double prepTime)
+			double totalOrderCost, double prepTime, double credits)
 	{
 		currentNumOfBurritos = numOfBurritos;
 		currentNumOfFries = numOfFries;
@@ -22,6 +23,7 @@ public class OrderDetailsSingleton
 		currentNumOfFriesLeft = numOfFriesLeft;
 		currentTotalCost = totalOrderCost;
 		currentPrepTime = prepTime;
+		currentOrderCredits = credits;
 	}
 	
 	public int getCurrentNumOfBurritos()
@@ -57,6 +59,11 @@ public class OrderDetailsSingleton
 	public double getCurrentPrepTime()
 	{
 		return currentPrepTime;
+	}
+	
+	public double getCurrentOrderCredits()
+	{
+		return currentOrderCredits;
 	}
 	
 	public static synchronized OrderDetailsSingleton getInstance()

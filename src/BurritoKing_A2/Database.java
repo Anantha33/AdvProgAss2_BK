@@ -185,7 +185,7 @@ public class Database
         }
 	}
 	
-	public static double getCurrentCredits()
+	public static double getCurrentCredits(String username)
 	{
 		String sql = "SELECT Credits FROM Customer WHERE Username = ?";
 		double currentCredits = 0;
@@ -193,7 +193,7 @@ public class Database
 		try (Connection conn = getConnection())
 		{
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, UserSingleton.getInstance().getCurrentUsername());
+			pstmt.setString(1, username);
 			ResultSet rs = pstmt.executeQuery();  
 			
 			while (rs.next())

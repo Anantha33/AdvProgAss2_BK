@@ -12,6 +12,7 @@ public class LoginController
 	private String firstName;
 	private String lastName;
 	private boolean vipStatus;
+	private double credits;
 	
 	@FXML
 	public TextField usernameTF;
@@ -24,7 +25,8 @@ public class LoginController
 			firstName = Database.getFirstName(usernameTF.getText());
 			lastName = Database.getLastName(usernameTF.getText());
 			vipStatus = Database.getVIPStatus(usernameTF.getText());
-			UserSingleton.getInstance().setCurrentUserDetails(usernameTF.getText(), firstName, lastName, vipStatus);
+			credits = Database.getCurrentCredits(usernameTF.getText());
+			UserSingleton.getInstance().setCurrentUserDetails(usernameTF.getText(), firstName, lastName, vipStatus, credits);
             
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Login Successful");

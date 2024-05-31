@@ -28,7 +28,7 @@ public class EditProfileController
 			Database.updateFirstName(newFirstNameTF.getText());
 			UserSingleton.getInstance().setCurrentUserDetails(UserSingleton.getInstance().getCurrentUsername(), 
 					newFirstNameTF.getText(), UserSingleton.getInstance().getCurrentLName(), 
-					UserSingleton.getInstance().getCurrentVIPStatus());
+					UserSingleton.getInstance().getCurrentVIPStatus(), UserSingleton.getInstance().getCurrentCredits());
 			showAlert("Success", "First name updated successfully!");
 		}
 	}
@@ -45,7 +45,7 @@ public class EditProfileController
 			Database.updateLastName(newLastNameTF.getText());
 			UserSingleton.getInstance().setCurrentUserDetails(UserSingleton.getInstance().getCurrentUsername(), 
 					UserSingleton.getInstance().getCurrentFName(), newLastNameTF.getText(), 
-					UserSingleton.getInstance().getCurrentVIPStatus());
+					UserSingleton.getInstance().getCurrentVIPStatus(), UserSingleton.getInstance().getCurrentCredits());
 			showAlert("Success", "Last name updated successfully!");
 		}
 	}

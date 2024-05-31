@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
@@ -79,34 +80,46 @@ public class CartController implements Initializable
 			numOfMealsOrdered = 0;
 		}
 		
-		//Burrito preparation time
-		timeForBurritoPreparation = (Math.ceil(numOfBurritosOrdered/burritosMaxPerBatch) * timeForBurrito);
-		
-		numOfFriesOrderedInTotal = numOfFriesOrdered + numOfMealsOrdered;
-		
-		//Fries preparation time (Total number of fries also accounted for)
-		if (numOfFriesOrderedInTotal > numOfFriesLeft)
+		if (numOfBurritosOrdered == 0 && numOfFriesOrdered == 0 && numOfSodasOrdered == 0 && numOfMealsOrdered == 0)
 		{
-			numOfFriesBatchesInTotal = Math.ceil(numOfFriesOrderedInTotal/friesMaxPerBatch);
-			
-			numOfFriesRemainingAfterCurrentOrder = (numOfFriesBatchesInTotal * friesMaxPerBatch) - (numOfFriesOrderedInTotal) + 
-					(numOfFriesLeft);
-			
-			timeForFriesPreparation = (numOfFriesBatchesInTotal * timeForFries);
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Cart can't have 0 items!");
+            alert.showAndWait();
 		}
-		
-		else if (numOfFriesOrderedInTotal <= numOfFriesLeft)
+		else
 		{
-			numOfFriesRemainingAfterCurrentOrder = numOfFriesLeft - numOfFriesOrderedInTotal;
-			timeForFriesPreparation = 0;
+		
+			//Burrito preparation time
+			timeForBurritoPreparation = (Math.ceil(numOfBurritosOrdered/burritosMaxPerBatch) * timeForBurrito);
+			
+			numOfFriesOrderedInTotal = numOfFriesOrdered + numOfMealsOrdered;
+			
+			//Fries preparation time (Total number of fries also accounted for)
+			if (numOfFriesOrderedInTotal > numOfFriesLeft)
+			{
+				numOfFriesBatchesInTotal = Math.ceil(numOfFriesOrderedInTotal/friesMaxPerBatch);
+				
+				numOfFriesRemainingAfterCurrentOrder = (numOfFriesBatchesInTotal * friesMaxPerBatch) - (numOfFriesOrderedInTotal) + 
+						(numOfFriesLeft);
+				
+				timeForFriesPreparation = (numOfFriesBatchesInTotal * timeForFries);
+			}
+			
+			else if (numOfFriesOrderedInTotal <= numOfFriesLeft)
+			{
+				numOfFriesRemainingAfterCurrentOrder = numOfFriesLeft - numOfFriesOrderedInTotal;
+				timeForFriesPreparation = 0;
+			}
+			
+			timeForMealPrep = (Math.ceil((numOfMealsOrdered + numOfBurritosOrdered)/burritosMaxPerBatch) * timeForBurrito);
+			
+			OrderDetailsSingleton.getInstance().setCurrentOrderDetails(numOfBurritosOrdered, numOfFriesOrdered, 
+					numOfSodasOrdered, numOfMealsOrdered, OrderDetailsSingleton.getInstance().getCurrentNumOfFriesLeft(), 
+					totalOrderCost(), getTimeForOrder(), OrderDetailsSingleton.getInstance().getCurrentOrderCredits());
+			pages.orderDetailsPage(event);
 		}
-		
-		timeForMealPrep = (Math.ceil((numOfMealsOrdered + numOfBurritosOrdered)/burritosMaxPerBatch) * timeForBurrito);
-		
-		OrderDetailsSingleton.getInstance().setCurrentOrderDetails(numOfBurritosOrdered, numOfFriesOrdered, 
-				numOfSodasOrdered, numOfMealsOrdered, OrderDetailsSingleton.getInstance().getCurrentNumOfFriesLeft(), 
-				totalOrderCost(), getTimeForOrder());
-		pages.orderDetailsPage(event);
 	}
 	
 	public static double getFriesRemainingAfterCurrentOrder()

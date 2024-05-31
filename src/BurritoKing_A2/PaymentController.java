@@ -44,8 +44,14 @@ public class PaymentController implements Initializable
 	{
 		if (UserSingleton.getInstance().getCurrentVIPStatus())
 		{
-			totalCredits = Database.getCurrentCredits() + Math.floor(OrderDetailsSingleton.getInstance().getCurrentTotalCost());
+			System.out.println(CreditsController.currentOrderCreditsRedeemed);
+			System.out.println(CreditsController.newTotalOrderCost);
+			
+			totalCredits = Database.getCurrentCredits(UserSingleton.getInstance().getCurrentUsername())
+					- CreditsController.currentOrderCreditsRedeemed + Math.floor(CreditsController.newTotalOrderCost);
+					/*Math.floor(OrderDetailsSingleton.getInstance().getCurrentTotalCost())*/;
 		}
+		
 		
 		if (cardNumberTF.getText().isBlank() || cvvTF.getText().isBlank() || expDateTF.getText().isBlank())
 		{
@@ -115,11 +121,11 @@ public class PaymentController implements Initializable
 				else
 				{
 					if (UserSingleton.getInstance().getCurrentVIPStatus())
-					{
+					{	
 						Database.updateCredits(totalCredits);
 						Database.newOrder(orderTimeTF.getText());
 						OrderDetailsSingleton.getInstance().setCurrentOrderDetails(0, 0, 0, 0, 
-						CartController.getFriesRemainingAfterCurrentOrder(), 0, 0);
+						CartController.getFriesRemainingAfterCurrentOrder(), 0, 0, 0);
 						
 						String latestOrderID = String.valueOf(Database.latestOrderID());
 						
@@ -135,7 +141,7 @@ public class PaymentController implements Initializable
 					{
 						Database.newOrder(orderTimeTF.getText());
 						OrderDetailsSingleton.getInstance().setCurrentOrderDetails(0, 0, 0, 0, 
-						CartController.getFriesRemainingAfterCurrentOrder(), 0, 0);
+						CartController.getFriesRemainingAfterCurrentOrder(), 0, 0, 0);
 						
 						String latestOrderID = String.valueOf(Database.latestOrderID());
 						
@@ -148,9 +154,6 @@ public class PaymentController implements Initializable
 			            pages.dashboardPage(event);
 					}
 				}
-				/*System.out.println(expDateTF.getText().substring(0,2));
-				System.out.println(expDateTF.getText().substring(3,5));*/
-				
 			}
 			catch (NumberFormatException e)
 			{

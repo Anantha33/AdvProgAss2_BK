@@ -67,6 +67,9 @@ public class DashboardController implements Initializable
 	
 	public void openLoginPage(ActionEvent event) throws IOException
 	{
+		OrderDetailsSingleton.getInstance().setCurrentOrderDetails(0, 0, 0, 0, 
+				CartController.getFriesRemainingAfterCurrentOrder(), 0, 0, 0);
+		
 		Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Logout Successful");
         alert.setHeaderText(null);

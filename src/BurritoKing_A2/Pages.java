@@ -170,4 +170,14 @@ public class Pages
 		cancelOrderStage.setScene(cancelOrderScene);
 		cancelOrderStage.show();
 	}
+	
+	public void redeemCreditsPage(ActionEvent event) throws IOException
+	{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/RedeemCreditsPage.fxml"));
+		Scene redeemCreditsScene = new Scene(loader.load());
+		Stage redeemCreditsStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		redeemCreditsStage.setTitle("Redeem Credits Page");
+		redeemCreditsStage.setScene(redeemCreditsScene);
+		redeemCreditsStage.show();
+	}
 }

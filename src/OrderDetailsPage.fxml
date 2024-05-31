@@ -25,7 +25,7 @@
   <center>
      <VBox alignment="TOP_CENTER" spacing="20.0" BorderPane.alignment="CENTER">
         <children>
-           <GridPane hgap="20.0" vgap="10.0">
+           <GridPane alignment="CENTER" hgap="20.0" vgap="10.0">
               <children>
                  <Label text="Number of Burritos ordered:">
                     <font>
@@ -117,14 +117,23 @@
         </padding>
      </VBox>
   </center>
-  <bottom>
-     <Button mnemonicParsing="false" onAction="#openPaymentPage" style="-fx-background-color: #263F73;" text="Confirm Order" textFill="WHITE" BorderPane.alignment="CENTER">
-        <font>
-           <Font name="Georgia" size="20.0" />
-        </font>
-        <BorderPane.margin>
-           <Insets bottom="10.0" />
-        </BorderPane.margin>
-     </Button>
-  </bottom>
+   <bottom>
+      <VBox alignment="CENTER" prefHeight="115.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+           <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#openPaymentPage" style="-fx-background-color: #263F73;" text="Confirm Order" textFill="WHITE">
+              <font>
+                 <Font name="Georgia" size="18.0" />
+              </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+           </Button>
+            <Button fx:id="redeemCreditsButton" disable="true" mnemonicParsing="false" onAction="#openRedeemCreditsPage" prefHeight="33.0" prefWidth="167.0" style="-fx-background-color: #263F73;" text="Redeem Credits" textFill="WHITE">
+               <font>
+                  <Font name="Georgia" size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+   </bottom>
 </BorderPane>
