@@ -20,8 +20,8 @@ public class CreditsController implements Initializable
 	public Label currentCreditsLabel;
 	public TextField creditsTF;
 	
-	public static double currentOrderCreditsRedeemed = 0;
-	public static double newTotalOrderCost = OrderDetailsSingleton.getInstance().getCurrentTotalCost();
+	public static double currentOrderCreditsRedeemed;
+	public static double newTotalOrderCost;
 	
 	public void openOrderDetailsPage(ActionEvent event) throws IOException
 	{
@@ -38,21 +38,22 @@ public class CreditsController implements Initializable
             alert.setContentText("Please enter credits!");
             alert.showAndWait();
 		}
+		else if (Double.parseDouble(creditsTF.getText()) > Database.getCurrentCredits(UserSingleton.getInstance().getCurrentUsername())
+				|| Database.getCurrentCredits(UserSingleton.getInstance().getCurrentUsername()) == 0)
+		{
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("You don't have enough credits!");
+            alert.showAndWait();
+		}
 		else
 		{
 			currentOrderCreditsRedeemed = Double.parseDouble(creditsTF.getText());
 			newTotalOrderCost -= (currentOrderCreditsRedeemed / 100);
-			System.out.println(currentOrderCreditsRedeemed);
-			System.out.printf("%,.2f \n", newTotalOrderCost);
-			System.out.printf("You will be getting a discount of %,.2f \n", Double.parseDouble(creditsTF.getText()) / 100 );
 			pages.paymentPage(event);
 		}
-		
-		
-//			System.out.println(currentOrderCreditsRedeemed);
-//			System.out.printf("%,.2f \n", newTotalOrderCost);
 	}
-	
 	
 	public void creditsTyped(KeyEvent event) throws IOException
 	{
@@ -69,7 +70,8 @@ public class CreditsController implements Initializable
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
 		currentCreditsLabel.setText(String.valueOf(Database.getCurrentCredits(UserSingleton.getInstance().getCurrentUsername())));
-		
+		currentOrderCreditsRedeemed = 0;
+		newTotalOrderCost = OrderDetailsSingleton.getInstance().getCurrentTotalCost();
 	}
 
 }

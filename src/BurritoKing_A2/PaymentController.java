@@ -43,13 +43,10 @@ public class PaymentController implements Initializable
 	public void openConfirmationPage(ActionEvent event) throws IOException
 	{
 		if (UserSingleton.getInstance().getCurrentVIPStatus())
-		{
-			System.out.println(CreditsController.currentOrderCreditsRedeemed);
-			System.out.println(CreditsController.newTotalOrderCost);
-			
+		{	
 			totalCredits = Database.getCurrentCredits(UserSingleton.getInstance().getCurrentUsername())
-					- CreditsController.currentOrderCreditsRedeemed + Math.floor(CreditsController.newTotalOrderCost);
-					/*Math.floor(OrderDetailsSingleton.getInstance().getCurrentTotalCost())*/;
+					- CreditsController.currentOrderCreditsRedeemed + 
+					Math.floor(CreditsController.newTotalOrderCost);
 		}
 		
 		
@@ -123,9 +120,20 @@ public class PaymentController implements Initializable
 					if (UserSingleton.getInstance().getCurrentVIPStatus())
 					{	
 						Database.updateCredits(totalCredits);
+						
+						OrderDetailsSingleton.getInstance().setCurrentOrderDetails
+						(OrderDetailsSingleton.getInstance().getCurrentNumOfBurritos(), 
+								OrderDetailsSingleton.getInstance().getCurrentNumOfFries(), 
+								OrderDetailsSingleton.getInstance().getCurrentNumOfSodas(), 
+								OrderDetailsSingleton.getInstance().getCurrentNumOfMeals(), 
+								OrderDetailsSingleton.getInstance().getCurrentNumOfFriesLeft(), 
+								CreditsController.newTotalOrderCost, 
+								OrderDetailsSingleton.getInstance().getCurrentPrepTime());
+						
 						Database.newOrder(orderTimeTF.getText());
+						
 						OrderDetailsSingleton.getInstance().setCurrentOrderDetails(0, 0, 0, 0, 
-						CartController.getFriesRemainingAfterCurrentOrder(), 0, 0, 0);
+						CartController.getFriesRemainingAfterCurrentOrder(), 0, 0);
 						
 						String latestOrderID = String.valueOf(Database.latestOrderID());
 						
@@ -140,8 +148,9 @@ public class PaymentController implements Initializable
 					else
 					{
 						Database.newOrder(orderTimeTF.getText());
+						
 						OrderDetailsSingleton.getInstance().setCurrentOrderDetails(0, 0, 0, 0, 
-						CartController.getFriesRemainingAfterCurrentOrder(), 0, 0, 0);
+						CartController.getFriesRemainingAfterCurrentOrder(), 0, 0);
 						
 						String latestOrderID = String.valueOf(Database.latestOrderID());
 						

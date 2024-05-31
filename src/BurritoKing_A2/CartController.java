@@ -117,7 +117,8 @@ public class CartController implements Initializable
 			
 			OrderDetailsSingleton.getInstance().setCurrentOrderDetails(numOfBurritosOrdered, numOfFriesOrdered, 
 					numOfSodasOrdered, numOfMealsOrdered, OrderDetailsSingleton.getInstance().getCurrentNumOfFriesLeft(), 
-					totalOrderCost(), getTimeForOrder(), OrderDetailsSingleton.getInstance().getCurrentOrderCredits());
+					totalOrderCost(), getTimeForOrder());
+			
 			pages.orderDetailsPage(event);
 		}
 	}

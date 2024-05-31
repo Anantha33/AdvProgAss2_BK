@@ -56,5 +56,8 @@ public class OrderDetailsController implements Initializable
 		{
 			redeemCreditsButton.setDisable(true);
 		}
+		
+		CreditsController.currentOrderCreditsRedeemed = 0;
+		CreditsController.newTotalOrderCost = OrderDetailsSingleton.getInstance().getCurrentTotalCost();
 	}
 }
