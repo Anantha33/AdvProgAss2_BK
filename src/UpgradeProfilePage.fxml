@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="250.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="BurritoKing_A2.UpgradeProfileController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="250.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BurritoKing_A2.UpgradeProfileController">
    <children>
       <Label layoutX="208.0" layoutY="41.0" text="Upgrade Profile">
          <font>
@@ -20,7 +19,10 @@
             <Font name="Georgia" size="18.0" />
          </font>
       </CheckBox>
-      <TextField fx:id="emailTF" disable="true" layoutX="200.0" layoutY="140.0" prefWidth="200.0" promptText="Enter e-mail address" />
+      <TextField fx:id="emailTF" disable="true" layoutX="200.0" layoutY="140.0" prefWidth="200.0" promptText="Enter e-mail address" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;">
+         <font>
+            <Font name="Georgia Bold" size="12.0" />
+         </font></TextField>
       <Button layoutX="14.0" layoutY="12.0" mnemonicParsing="false" onAction="#openDashboardPage" style="-fx-background-color: #263F73;" text="&lt;- Back" textFill="WHITE">
          <font>
             <Font name="Georgia" size="15.0" />

@@ -10,7 +10,7 @@
    <children>
       <Label layoutX="257.0" layoutY="14.0" text="Your Cart">
          <font>
-            <Font name="Georgia" size="20.0" />
+            <Font name="Georgia Bold Italic" size="20.0" />
          </font>
       </Label>
       <Button layoutX="14.0" layoutY="12.0" mnemonicParsing="false" onAction="#openDashboardPage" style="-fx-background-color: #263F73;" text="&lt;- Back" textFill="WHITE">
@@ -43,24 +43,24 @@
             <Font name="Georgia" size="20.0" />
          </font>
       </Button>
-      <TextField fx:id="burritoTF" layoutX="310.0" layoutY="76.0" onKeyTyped="#numOfBurritosTyped" promptText="Enter number of burritos">
+      <TextField fx:id="burritoTF" layoutX="310.0" layoutY="76.0" onKeyTyped="#numOfBurritosTyped" promptText="Enter number of burritos" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;">
          <font>
-            <Font name="Georgia" size="16.0" />
+            <Font name="Georgia Bold" size="16.0" />
          </font>
       </TextField>
-      <TextField fx:id="mealTF" disable="true" layoutX="310.0" layoutY="201.0" onKeyTyped="#numOfMealsTyped" promptText="Enter number of meals">
+      <TextField fx:id="mealTF" disable="true" layoutX="310.0" layoutY="201.0" onKeyTyped="#numOfMealsTyped" promptText="Enter number of meals" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;">
          <font>
-            <Font name="Georgia" size="16.0" />
+            <Font name="Georgia Bold" size="16.0" />
          </font>
       </TextField>
-      <TextField fx:id="sodaTF" layoutX="310.0" layoutY="156.0" onKeyTyped="#numOfSodasTyped" promptText="Enter number of sodas">
+      <TextField fx:id="sodaTF" layoutX="310.0" layoutY="156.0" onKeyTyped="#numOfSodasTyped" promptText="Enter number of sodas" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;">
          <font>
-            <Font name="Georgia" size="16.0" />
+            <Font name="Georgia Bold" size="16.0" />
          </font>
       </TextField>
-      <TextField fx:id="friesTF" layoutX="310.0" layoutY="116.0" onKeyTyped="#numOfFriesTyped" prefHeight="29.0" prefWidth="206.0" promptText="Enter number of fries">
+      <TextField fx:id="friesTF" layoutX="310.0" layoutY="116.0" onKeyTyped="#numOfFriesTyped" prefHeight="29.0" prefWidth="235.0" promptText="Enter number of fries" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;">
          <font>
-            <Font name="Georgia" size="16.0" />
+            <Font name="Georgia Bold" size="16.0" />
          </font>
       </TextField>
    </children>
