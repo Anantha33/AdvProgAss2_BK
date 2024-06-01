@@ -51,6 +51,14 @@ public class CreditsController implements Initializable
 		{
 			currentOrderCreditsRedeemed = Double.parseDouble(creditsTF.getText());
 			newTotalOrderCost -= (currentOrderCreditsRedeemed / 100);
+			
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Congratulations!");
+            alert.setHeaderText(null);
+            alert.setContentText("You get a discount of $" + (currentOrderCreditsRedeemed / 100) + " \n" +
+            "New Total Cost = $" + newTotalOrderCost);
+            alert.showAndWait();
+            
 			pages.paymentPage(event);
 		}
 	}

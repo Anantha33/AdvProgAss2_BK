@@ -2,6 +2,8 @@ package BurritoKing_A2;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -42,6 +44,21 @@ public class PaymentController implements Initializable
 	
 	public void openConfirmationPage(ActionEvent event) throws IOException
 	{
+		double orderPrepTime = OrderDetailsSingleton.getInstance().getCurrentPrepTime();
+		int hours = 21*60;
+		int minutes = 21;
+		int totalTime = hours + minutes;
+		System.out.println("Input time: " + totalTime);
+		
+		double updatedTime = totalTime + orderPrepTime;
+		System.out.println("Ready time: " + updatedTime);
+		
+		System.out.println(updatedTime /60);
+		
+		
+		//System.out.printf("%f", minutes);
+		
+		
 		if (UserSingleton.getInstance().getCurrentVIPStatus())
 		{	
 			totalCredits = Database.getCurrentCredits(UserSingleton.getInstance().getCurrentUsername())
