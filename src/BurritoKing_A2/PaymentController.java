@@ -123,8 +123,6 @@ public class PaymentController implements Initializable
 				{	
 					String currentOrderReadyTime = getOrderReadyTime(orderTimeTF.getText(), orderPrepTimeInMinutes);
 					
-					System.out.println(currentOrderReadyTime);
-					
 					if (UserSingleton.getInstance().getCurrentVIPStatus())
 					{	
 						Database.updateCredits(totalCredits);

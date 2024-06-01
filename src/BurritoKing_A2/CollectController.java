@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
@@ -19,9 +20,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
+//This class implements the functionality of collecting an order.
+//It initializes the collect order page with a table consisting of orders to be collected.
+//It checks the date and time of the order and the collection date and time; based on that, it displays an error message
+//or a success message to the user.
+
+
 public class CollectController implements Initializable
 {
-	
 	static Date date = new Date();
 	static LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 	
@@ -33,6 +39,16 @@ public class CollectController implements Initializable
 	
 	static int year = localDate.getYear();
 	static String yearString = String.valueOf(year);
+	
+	String orderDay;
+	String orderMonth;
+	String orderYear;
+	
+	String orderReadyTimeHH;
+	String orderReadyTimemm;
+	
+	String collectTimeHH;
+	String collectTimemm;
 	
 	
 	Pages pages = new Pages();
@@ -64,20 +80,16 @@ public class CollectController implements Initializable
 	
 	public void collectOrder(ActionEvent event) throws IOException
 	{
-		String currentOrderDate = Database.getOrderDate(collectOrderIDTF.getText());
+		if (collectOrderIDTF.getText().isBlank())
+		{
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Please enter an order ID!");
+            alert.showAndWait();
+		}
 		
-		System.out.println(currentOrderDate);
-		
-		String currentOrderDay = currentOrderDate.substring(0,2);
-		System.out.println(currentOrderDay);
-		
-		String currentOrderMonth = currentOrderDate.substring(3,5);
-		System.out.println(currentOrderMonth);
-		
-		String currentOrderYear = currentOrderDate.substring(6,10);
-		System.out.println(currentOrderYear);
-		
-		if (collectOrderTimeTF.getText().isBlank())
+		else if (collectOrderTimeTF.getText().isBlank())
 		{
 			Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -96,24 +108,102 @@ public class CollectController implements Initializable
 		
 		else
 		{
-			if (Database.collectOrder(collectOrderIDTF.getText(), collectOrderTimeTF.getText()))
+			String currentOrderDate = Database.getOrderDate(collectOrderIDTF.getText());
+			
+			Matcher datePattern = Pattern.compile("([^/]+)/([^/]+)/([^/]+)").matcher(currentOrderDate);
+			
+			if (datePattern.matches())
 			{
-				Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-	            alert.setTitle("Success");
-	            alert.setHeaderText(null);
-	            alert.setContentText("Order collected successfully!");
-	            alert.showAndWait();
-	            
-	            ObservableList<OrderClass> orderslist = Database.getAllAwaitingOrders();
-	    		populateTable(orderslist);
+				orderDay = datePattern.group(1);
+				orderMonth = datePattern.group(2);
+				orderYear = datePattern.group(3);
+			}
+			
+			if (orderDay.equals(dayString) && orderMonth.equals(monthString) && orderYear.equals(yearString))
+			{
+				String orderReadyTime = Database.getOrderReadyTime(collectOrderIDTF.getText());
+				
+				Matcher readyTimePattern = Pattern.compile("([^:]+):([^:]+)").matcher(orderReadyTime);
+				
+				if (readyTimePattern.matches())
+				{
+					orderReadyTimeHH = readyTimePattern.group(1);
+					orderReadyTimemm = readyTimePattern.group(2);
+				}
+				
+				double orderReadyTimeInMinutes = (Double.parseDouble(orderReadyTimeHH)*60) + (Double.parseDouble(orderReadyTimemm));
+				
+				
+				Matcher collectTimePattern = Pattern.compile("([^:]+):([^:]+)").matcher(collectOrderTimeTF.getText());
+				
+				if (collectTimePattern.matches())
+				{
+					collectTimeHH = collectTimePattern.group(1);
+					collectTimemm = collectTimePattern.group(2);
+				}
+				
+				double collectTimeInMinutes = (Double.parseDouble(collectTimeHH)*60) + (Double.parseDouble(collectTimemm));
+				
+				if (collectTimeInMinutes < orderReadyTimeInMinutes)
+				{
+					Alert alert = new Alert(Alert.AlertType.ERROR);
+		            alert.setTitle("Error");
+		            alert.setHeaderText(null);
+		            alert.setContentText("Order is not ready yet!");
+		            alert.showAndWait();
+				}
+				else
+				{
+					if (Database.collectOrder(collectOrderIDTF.getText(), collectOrderTimeTF.getText()))
+					{
+						Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+			            alert.setTitle("Success");
+			            alert.setHeaderText(null);
+			            alert.setContentText("Order collected successfully!");
+			            alert.showAndWait();
+			            
+			            ObservableList<OrderClass> orderslist = Database.getAllAwaitingOrders();
+			    		populateTable(orderslist);
+			    		
+			    		collectOrderIDTF.clear();
+			    		collectOrderTimeTF.clear();
+					}
+					else
+					{
+						Alert alert = new Alert(Alert.AlertType.ERROR);
+			            alert.setTitle("Error");
+			            alert.setHeaderText(null);
+			            alert.setContentText("Invalid Order ID!");
+			            alert.showAndWait();
+					}
+				}
+				
 			}
 			else
 			{
-				Alert alert = new Alert(Alert.AlertType.ERROR);
-	            alert.setTitle("Error");
-	            alert.setHeaderText(null);
-	            alert.setContentText("Invalid Order ID!");
-	            alert.showAndWait();
+				if (Database.collectOrder(collectOrderIDTF.getText(), collectOrderTimeTF.getText()))
+				{
+					Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+		            alert.setTitle("Success");
+		            alert.setHeaderText(null);
+		            alert.setContentText("Order collected successfully!");
+		            alert.showAndWait();
+		            
+		            ObservableList<OrderClass> orderslist = Database.getAllAwaitingOrders();
+		    		populateTable(orderslist);
+		    		
+		    		collectOrderIDTF.clear();
+		    		collectOrderTimeTF.clear();
+				}
+	    		
+	    		else
+	    		{
+	    			Alert alert = new Alert(Alert.AlertType.ERROR);
+		            alert.setTitle("Error");
+		            alert.setHeaderText(null);
+		            alert.setContentText("Invalid Order ID!");
+		            alert.showAndWait();
+	    		}
 			}
 		}
 	}

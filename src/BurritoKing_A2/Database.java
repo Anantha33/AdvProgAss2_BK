@@ -415,6 +415,28 @@ public class Database
 		 return orderDate;
 	 }
 	 
+	 public static String getOrderReadyTime(String orderID)
+	 {
+		 String sql = "SELECT ReadyTime FROM Orders WHERE OrderID = ?";
+		 String orderReadyTime = "";
+		 try (Connection conn = getConnection())
+		 {
+			 PreparedStatement pstmt  = conn.prepareStatement(sql);
+			 pstmt.setString(1, orderID);
+			 ResultSet rs = pstmt.executeQuery();
+			 
+			 while (rs.next())
+			 {
+				 orderReadyTime = rs.getString("ReadyTime");
+			 }
+		 }
+		 catch (SQLException e) 
+         {
+			 System.out.println(e.getMessage());  
+         }
+		 return orderReadyTime;
+	 }
+	 
 	 
 	 public static ObservableList<OrderClass> getAllOrders()
 	 {

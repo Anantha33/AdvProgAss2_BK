@@ -8,24 +8,24 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BurritoKing_A2.PaymentController">
    <children>
-      <TextField fx:id="cardNumberTF" layoutX="171.0" layoutY="73.0" onKeyTyped="#cardNumberTyped" promptText="Enter card number" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;">
+      <TextField fx:id="cardNumberTF" layoutX="153.0" layoutY="75.0" onKeyTyped="#cardNumberTyped" promptText="Enter card number" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;">
          <font>
-            <Font name="Georgia" size="20.0" />
+            <Font name="Georgia Bold" size="20.0" />
          </font>
       </TextField>
-      <TextField fx:id="expDateTF" layoutX="171.0" layoutY="121.0" onKeyTyped="#expDateTyped" prefHeight="25.0" prefWidth="169.0" promptText="Enter expiry date (mm/yyyy)" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;">
+      <TextField fx:id="expDateTF" layoutX="153.0" layoutY="121.0" onKeyTyped="#expDateTyped" prefHeight="25.0" prefWidth="192.0" promptText="Enter expiry date (mm/yyyy)" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;">
          <font>
-            <Font name="Georgia" size="12.0" />
+            <Font name="Georgia Bold" size="12.0" />
          </font>
       </TextField>
-      <PasswordField fx:id="cvvTF" layoutX="345.0" layoutY="121.0" onKeyTyped="#cvvTyped" prefHeight="25.0" prefWidth="85.0" promptText="Enter CVV" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;">
+      <PasswordField fx:id="cvvTF" layoutX="363.0" layoutY="121.0" onKeyTyped="#cvvTyped" prefHeight="25.0" prefWidth="85.0" promptText="Enter CVV" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;">
          <font>
-            <Font name="Georgia" size="12.0" />
+            <Font name="Georgia Bold" size="12.0" />
          </font>
       </PasswordField>
-      <TextField fx:id="orderTimeTF" layoutX="183.0" layoutY="184.0" onKeyTyped="#orderTimeTyped" prefHeight="16.0" prefWidth="236.0" promptText="Enter order time (hh:mm)" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;">
+      <TextField fx:id="orderTimeTF" layoutX="88.0" layoutY="183.0" onKeyTyped="#orderTimeTyped" prefHeight="35.0" prefWidth="425.0" promptText="Enter order time (HH:mm, 24 hour format)" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;">
          <font>
-            <Font name="Georgia" size="18.0" />
+            <Font name="Georgia Bold" size="18.0" />
          </font>
       </TextField>
       <Button layoutX="255.0" layoutY="262.0" mnemonicParsing="false" onAction="#openConfirmationPage" style="-fx-background-color: #263F73;" text="Submit" textFill="WHITE">
