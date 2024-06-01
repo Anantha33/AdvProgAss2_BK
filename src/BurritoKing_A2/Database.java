@@ -27,22 +27,10 @@ public class Database
 	static int month = localDate.getMonthValue();
 	static String monthString = String.valueOf(month);
 	
-	static int monthLength = monthString.length();
-	
 	static int year = localDate.getYear();
 	static String yearString = String.valueOf(year);
 	
 	public static List<OrderClass> ll = new LinkedList<OrderClass>();
-	
-	
-	private static String checkMonthLength() 
-	{
-		if (monthLength == 1)
-		{
-			monthString = "0" + monthString;
-		}
-		return monthString;
-	}
 	
 	public static Connection getConnection() throws SQLException 
     {
@@ -289,10 +277,10 @@ public class Database
 		return vipStatus;
 	 }
 	 
-	 public static void newOrder(String orderTime)
+	 public static void newOrder(String orderTime, String readyTime)
 	 {
 		 String sql = "INSERT INTO Orders ('NumOfBurritos', 'NumOfFries', 'NumOfSodas', 'NumOfMeals', 'TotalCost', "
-		 		+ "'OrderDate', 'OrderTime', 'PrepTime', 'OrderStatus', 'User') VALUES (?,?,?,?,?,?,?,?,?,?)" ;
+		 		+ "'OrderDate', 'OrderTime', 'PrepTime', 'ReadyTime', 'OrderStatus', 'User') VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 		 
 		 try (Connection conn = getConnection())
 		 {
@@ -302,12 +290,12 @@ public class Database
 			 pstmt.setInt(3, OrderDetailsSingleton.getInstance().getCurrentNumOfSodas());
 			 pstmt.setInt(4, OrderDetailsSingleton.getInstance().getCurrentNumOfMeals());
 			 pstmt.setDouble(5, OrderDetailsSingleton.getInstance().getCurrentTotalCost());
-			 checkMonthLength();
 			 pstmt.setString(6, dayString + "/" + monthString + "/" + yearString);
 			 pstmt.setString(7, orderTime);
 			 pstmt.setDouble(8, OrderDetailsSingleton.getInstance().getCurrentPrepTime());
-			 pstmt.setString(9, "Await for collection");
-			 pstmt.setString(10, UserSingleton.getInstance().getCurrentUsername());
+			 pstmt.setString(9, readyTime);
+			 pstmt.setString(10, "Await for collection");
+			 pstmt.setString(11, UserSingleton.getInstance().getCurrentUsername());
 			 pstmt.executeUpdate();
 		 }
 		 catch (SQLException e) 

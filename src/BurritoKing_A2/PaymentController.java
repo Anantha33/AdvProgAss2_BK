@@ -44,20 +44,7 @@ public class PaymentController implements Initializable
 	
 	public void openConfirmationPage(ActionEvent event) throws IOException
 	{
-		double orderPrepTime = OrderDetailsSingleton.getInstance().getCurrentPrepTime();
-		int hours = 21*60;
-		int minutes = 21;
-		int totalTime = hours + minutes;
-		System.out.println("Input time: " + totalTime);
-		
-		double updatedTime = totalTime + orderPrepTime;
-		System.out.println("Ready time: " + updatedTime);
-		
-		System.out.println(updatedTime /60);
-		
-		
-		//System.out.printf("%f", minutes);
-		
+		double orderPrepTimeInMinutes = OrderDetailsSingleton.getInstance().getCurrentPrepTime();
 		
 		if (UserSingleton.getInstance().getCurrentVIPStatus())
 		{	
@@ -133,7 +120,11 @@ public class PaymentController implements Initializable
 		            alert.showAndWait();
 				}
 				else
-				{
+				{	
+					String currentOrderReadyTime = getOrderReadyTime(orderTimeTF.getText(), orderPrepTimeInMinutes);
+					
+					System.out.println(currentOrderReadyTime);
+					
 					if (UserSingleton.getInstance().getCurrentVIPStatus())
 					{	
 						Database.updateCredits(totalCredits);
@@ -147,7 +138,7 @@ public class PaymentController implements Initializable
 								CreditsController.newTotalOrderCost, 
 								OrderDetailsSingleton.getInstance().getCurrentPrepTime());
 						
-						Database.newOrder(orderTimeTF.getText());
+						Database.newOrder(orderTimeTF.getText(), currentOrderReadyTime);
 						
 						OrderDetailsSingleton.getInstance().setCurrentOrderDetails(0, 0, 0, 0, 
 						CartController.getFriesRemainingAfterCurrentOrder(), 0, 0);
@@ -164,7 +155,7 @@ public class PaymentController implements Initializable
 					}
 					else
 					{
-						Database.newOrder(orderTimeTF.getText());
+						Database.newOrder(orderTimeTF.getText(), currentOrderReadyTime);
 						
 						OrderDetailsSingleton.getInstance().setCurrentOrderDetails(0, 0, 0, 0, 
 						CartController.getFriesRemainingAfterCurrentOrder(), 0, 0);
@@ -193,6 +184,35 @@ public class PaymentController implements Initializable
 	}
 	
 	
+	public String getOrderReadyTime(String currentOrderTime, double orderPrepTimeInMinutes)
+	{	
+		double orderTimeInMinutes = (Double.parseDouble(currentOrderTime.substring(0, currentOrderTime.indexOf(":")))*60)
+				+ Double.parseDouble(currentOrderTime.substring(3, 5));
+		
+		double orderReadyTimeInMinutes = orderTimeInMinutes + orderPrepTimeInMinutes;
+		
+		String orderReadyInHHmm = String.valueOf(orderReadyTimeInMinutes / 60);
+		
+		String orderReadyHH = orderReadyInHHmm.substring(0, orderReadyInHHmm.indexOf("."));
+		
+		String orderReadymm;
+		
+		if (orderReadyInHHmm.length() == 4)
+		{
+			orderReadymm = orderReadyInHHmm.substring(orderReadyInHHmm.indexOf("."),4);
+		}
+		else
+		{
+			orderReadymm = orderReadyInHHmm.substring(orderReadyInHHmm.indexOf("."),5);
+		}
+		
+		double orderReadymmDouble = Math.round(Double.parseDouble(orderReadymm) * 60);
+		
+		String orderReadyTime = orderReadyHH + ":" + String.valueOf((int)orderReadymmDouble);
+		
+		return orderReadyTime;
+	}
+
 	public void cardNumberTyped(KeyEvent event) throws IOException
 	{
 		if (event.getCharacter().matches("[^0-9]"))
