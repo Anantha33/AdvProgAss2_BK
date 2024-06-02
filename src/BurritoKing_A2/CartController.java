@@ -11,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
+//This class helps the user with the addition of food items, as well as calculating the cost and time of the particular order
 public class CartController implements Initializable
 {
 	Pages pages = new Pages();
@@ -42,7 +43,8 @@ public class CartController implements Initializable
 	double numOfMealsToBePrepared;
 	double timeForMealPrep;
 	
-	public void openOrderDetailsPage(ActionEvent event) throws IOException
+	//Checking the values of the items and proceeding to the order details page
+	public void openOrderDetailsPage(ActionEvent event) throws IOException 
 	{
 		if (burritoTF.getText().isBlank())
 		{
@@ -90,7 +92,6 @@ public class CartController implements Initializable
 		}
 		else
 		{
-		
 			//Burrito preparation time
 			timeForBurritoPreparation = (Math.ceil(numOfBurritosOrdered/burritosMaxPerBatch) * timeForBurrito);
 			
@@ -107,14 +108,17 @@ public class CartController implements Initializable
 				timeForFriesPreparation = (numOfFriesBatchesInTotal * timeForFries);
 			}
 			
+			//Checking if there are fries in the warming tray
 			else if (numOfFriesOrderedInTotal <= numOfFriesLeft)
 			{
 				numOfFriesRemainingAfterCurrentOrder = numOfFriesLeft - numOfFriesOrderedInTotal;
 				timeForFriesPreparation = 0;
 			}
 			
+			//Time to prepare a meal
 			timeForMealPrep = (Math.ceil((numOfMealsOrdered + numOfBurritosOrdered)/burritosMaxPerBatch) * timeForBurrito);
 			
+			//Setting the order details
 			OrderDetailsSingleton.getInstance().setCurrentOrderDetails(numOfBurritosOrdered, numOfFriesOrdered, 
 					numOfSodasOrdered, numOfMealsOrdered, OrderDetailsSingleton.getInstance().getCurrentNumOfFriesLeft(), 
 					totalOrderCost(), getTimeForOrder());
@@ -123,11 +127,13 @@ public class CartController implements Initializable
 		}
 	}
 	
+	//Returning the fries that remain after current order
 	public static double getFriesRemainingAfterCurrentOrder()
 	{	
 		return numOfFriesRemainingAfterCurrentOrder;
 	}
 	
+	//Returning the time taken to prepare an order
 	public double getTimeForOrder()
 	{
 		if (timeForMealPrep >= timeForBurritoPreparation && timeForMealPrep >= timeForFriesPreparation)
@@ -145,6 +151,7 @@ public class CartController implements Initializable
 		}
 	}
 	
+	//Returning the total cost of the order
 	public double totalOrderCost()
 	{
 		double totalCost = numOfBurritosOrdered * Price.priceOfBurrito + numOfFriesOrdered * Price.priceOfFries + 
@@ -152,7 +159,7 @@ public class CartController implements Initializable
 		return totalCost;
 	}
 	
-	
+	//Opening the dashboard page
 	public void openDashboardPage(ActionEvent event) throws IOException
 	{
 		pages.dashboardPage(event);
@@ -162,7 +169,7 @@ public class CartController implements Initializable
 		mealTF.clear();
 	}
 	
-	
+	//Regex implementation to handle invalid inputs
 	public void numOfBurritosTyped(KeyEvent event) throws IOException
 	{
 		if (event.getCharacter().matches("[^0-9]"))
@@ -174,6 +181,7 @@ public class CartController implements Initializable
 		}
 	}
 	
+	//Regex implementation to handle invalid inputs
 	public void numOfFriesTyped(KeyEvent event) throws IOException
 	{
 		if (event.getCharacter().matches("[^0-9]"))
@@ -185,6 +193,7 @@ public class CartController implements Initializable
 		}
 	}
 	
+	//Regex implementation to handle invalid inputs
 	public void numOfSodasTyped(KeyEvent event) throws IOException
 	{
 		if (event.getCharacter().matches("[^0-9]"))
@@ -196,6 +205,7 @@ public class CartController implements Initializable
 		}
 	}
 	
+	//Regex implementation to handle invalid inputs
 	public void numOfMealsTyped(KeyEvent event) throws IOException
 	{
 		if (event.getCharacter().matches("[^0-9]"))
@@ -206,7 +216,8 @@ public class CartController implements Initializable
 			mealTF.deleteNextChar();
 		}
 	}
-
+	
+	//Setting the values of the respective item textfields and checking if the user is a VIP or not (for ordering meals)
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{

@@ -13,6 +13,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+//This class handles the upgrade of a user from a normal user to a VIP user
 public class UpgradeProfileController
 {
 	Pages pages = new Pages();
@@ -61,7 +62,7 @@ public class UpgradeProfileController
 		}
 	}
 	
-	
+	//Regex implementation to handle invalid inputs
 	private boolean isValidEmail(String email)
 	{
 		String regex = "^[\\w!#$%&amp;'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&amp;'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";

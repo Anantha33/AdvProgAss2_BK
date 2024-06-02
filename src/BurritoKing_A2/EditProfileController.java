@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 
+//This class handles the updation of first and last names, as well as the password of the user
 public class EditProfileController 
 {
 	Pages pages = new Pages();
@@ -17,6 +18,7 @@ public class EditProfileController
 	public PasswordField newPasswordTF;
 	public PasswordField cNewPasswordTF;
 	
+	//Updating the first name
 	public void updateFirstName(ActionEvent event) throws IOException
 	{
 		if (newFirstNameTF.getText().isBlank())
@@ -39,7 +41,7 @@ public class EditProfileController
 		}
 	}
 	
-	
+	//Updating the last name
 	public void updateLastName(ActionEvent event) throws IOException
 	{
 		if (newLastNameTF.getText().isBlank())
@@ -62,7 +64,7 @@ public class EditProfileController
 		}
 	}
 	
-	
+	//Updating the password
 	public void updatePassword(ActionEvent event) throws IOException
 	{
 		if (newPasswordTF.getText().isBlank() || cNewPasswordTF.getText().isBlank())
@@ -104,6 +106,7 @@ public class EditProfileController
         alert.showAndWait();
     }
 	
+	//Regex implementation to handle invalid inputs
 	public void newFNameTyped(KeyEvent event) throws IOException
 	{
 		if (event.getCharacter().matches("[^a-zA-Z]"))
@@ -115,7 +118,7 @@ public class EditProfileController
 		}
 	}
 	
-	
+	//Regex implementation to handle invalid inputs
 	public void newLNameTyped(KeyEvent event) throws IOException
 	{
 		if (event.getCharacter().matches("[^a-zA-Z]"))

@@ -24,8 +24,6 @@ import javafx.scene.input.KeyEvent;
 //It initializes the collect order page with a table consisting of orders to be collected.
 //It checks the date and time of the order and the collection date and time; based on that, it displays an error message
 //or a success message to the user.
-
-
 public class CollectController implements Initializable
 {
 	static Date date = new Date();
@@ -112,6 +110,7 @@ public class CollectController implements Initializable
 			
 			Matcher datePattern = Pattern.compile("([^/]+)/([^/]+)/([^/]+)").matcher(currentOrderDate);
 			
+			//Dividing the order date into day, month and year
 			if (datePattern.matches())
 			{
 				orderDay = datePattern.group(1);
@@ -125,6 +124,7 @@ public class CollectController implements Initializable
 				
 				Matcher readyTimePattern = Pattern.compile("([^:]+):([^:]+)").matcher(orderReadyTime);
 				
+				//Dividing the ready time into hours and minutes
 				if (readyTimePattern.matches())
 				{
 					orderReadyTimeHH = readyTimePattern.group(1);
@@ -136,6 +136,7 @@ public class CollectController implements Initializable
 				
 				Matcher collectTimePattern = Pattern.compile("([^:]+):([^:]+)").matcher(collectOrderTimeTF.getText());
 				
+				//Dividing the pickup time into hours and minutes
 				if (collectTimePattern.matches())
 				{
 					collectTimeHH = collectTimePattern.group(1);
@@ -144,6 +145,7 @@ public class CollectController implements Initializable
 				
 				double collectTimeInMinutes = (Double.parseDouble(collectTimeHH)*60) + (Double.parseDouble(collectTimemm));
 				
+				//Checking if the pickup time is greater than or equal to the time the order gets ready
 				if (collectTimeInMinutes < orderReadyTimeInMinutes)
 				{
 					Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -213,6 +215,7 @@ public class CollectController implements Initializable
 		pages.dashboardPage(event);
 	}
 	
+	//Regex implementation to handle invalid inputs
 	public void collectOrderIDTyped(KeyEvent event) throws IOException
 	{
 		if (event.getCharacter().matches("[^0-9]"))
@@ -224,6 +227,7 @@ public class CollectController implements Initializable
 		}
 	}
 	
+	//Regex implementation to handle invalid inputs
 	public void collectTimeTyped(KeyEvent event) throws IOException
 	{
 		if (event.getCharacter().matches("[^0-9:]"))
@@ -235,6 +239,7 @@ public class CollectController implements Initializable
 		}
 	}
 
+	//Setting the table to show all orders that are waiting to be collected
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{

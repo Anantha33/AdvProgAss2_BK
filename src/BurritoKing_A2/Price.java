@@ -1,5 +1,6 @@
 package BurritoKing_A2;
 
+//The price of all the food items
 public class Price 
 {
 	public static double priceOfBurrito = 7.0;

@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.fxml.*;
 
+//This class handles the navigation to various other pages of the program, as well as displaying all orders waiting to be collected
 public class DashboardController implements Initializable
 {	
 	Pages pages = new Pages();
@@ -65,6 +66,7 @@ public class DashboardController implements Initializable
 		pages.cancelOrderPage(event);
 	}
 	
+	//Logging out
 	public void openLoginPage(ActionEvent event) throws IOException
 	{
 		OrderDetailsSingleton.getInstance().setCurrentOrderDetails(0, 0, 0, 0, 
@@ -89,6 +91,7 @@ public class DashboardController implements Initializable
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
+		//Displaying the first and last name of the user
 		userFullName.setText(currentFName + " " + currentLName);
 		
 		if (currentIsVIP)
@@ -100,7 +103,7 @@ public class DashboardController implements Initializable
 			upgradeUserButton.setDisable(false);
 		}
 		
-		
+		//Setting the table to show all orders that are waiting to be collected
 		colOrderID.setCellValueFactory(cellData -> cellData.getValue().getOrderID().asObject());
 		colOrderedItems.setCellValueFactory(cellData -> cellData.getValue().getOrderAllItems());
 		colOrderTotalCost.setCellValueFactory(cellData -> cellData.getValue().getOrderTotalCost().asObject());

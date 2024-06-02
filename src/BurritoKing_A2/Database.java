@@ -14,6 +14,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+//This class implements all the functions related to the database
 public class Database 
 {
 	private static final String DATABASE_URL = "jdbc:sqlite:src/AdvProgA2.db";
@@ -32,6 +33,7 @@ public class Database
 	
 	public static List<OrderClass> ll = new LinkedList<OrderClass>();
 	
+	//Initiating the connection with the database
 	public static Connection getConnection() throws SQLException 
     {
         try 
@@ -46,6 +48,27 @@ public class Database
         }
     }
 	
+	//Inserting new user
+	public static void insertNewUser(String username, String password, String firstName, String lastName)
+	{
+		 String sql = "INSERT INTO Customer (Username, Password, firstName, lastName) VALUES (?, ?, ?, ?)";
+		 
+		 try (Connection conn = getConnection())
+		 {
+			 PreparedStatement pstmt = conn.prepareStatement(sql);
+			 pstmt.setString(1, username);
+			 pstmt.setString(2, password);
+			 pstmt.setString(3, firstName);
+			 pstmt.setString(4, lastName);
+			 pstmt.executeUpdate();
+		 }
+		 catch (SQLException e) 
+	     {
+			 e.printStackTrace();
+	     }
+	}
+	
+	//Validating the user during login
 	public static boolean authenticateUser(String username, String password) 
     {
 		String sql = "SELECT * FROM Customer WHERE Username = ? AND Password = ?";
@@ -72,6 +95,7 @@ public class Database
         return validUser;
     }
 	
+	//Checking whether the given username already exists or not
 	public static boolean isUsernameExists(String username) 
 	{
 		String sql = "SELECT COUNT(*) FROM Customer WHERE Username = ?";
@@ -90,7 +114,8 @@ public class Database
         }
     }
 	
-	public static void updateFirstName(String newFirstName)
+	//Updating the first name
+	public static void updateFirstName(String newFirstName) 
 	{
 		String sql = "UPDATE Customer SET FirstName = ? WHERE Username = ?";
 		try (Connection conn = getConnection())
@@ -106,8 +131,8 @@ public class Database
         }
 	}
 	
-	
-	public static void updateLastName(String newLastName)
+	//Updating the last name
+	public static void updateLastName(String newLastName) 
 	{
 		String sql = "UPDATE Customer SET LastName = ? WHERE Username = ?";
 		try (Connection conn = getConnection())
@@ -123,7 +148,8 @@ public class Database
         }
 	}
 	
-	public static String getPassword(String username)
+	//Getting the password of the user
+	public static String getPassword(String username) 
 	{
 		String sql = "SELECT Password FROM Customer WHERE Username = ?";
 		String currentPassword = "";
@@ -146,8 +172,8 @@ public class Database
 		return currentPassword;
 	}
 	
-	
-	public static void updatePassword(String newPassword)
+	//Updating the password
+	public static void updatePassword(String newPassword) 
 	{
 		String sql = "UPDATE Customer SET Password = ? WHERE Username = ?";
 		try (Connection conn = getConnection())
@@ -163,8 +189,8 @@ public class Database
         }
 	}
 	
-	
-	public static void upgradeUser(String email)
+	//Upgrading the user to VIP
+	public static void upgradeUser(String email) 
 	{
 		String sql = "UPDATE Customer SET IsVIP = 1, Email = ? WHERE Username = ?";
 		try (Connection conn = getConnection())
@@ -180,7 +206,8 @@ public class Database
         }
 	}
 	
-	public static void updateCredits(double totalCredits)
+	//Updating the credits of a VIP user
+	public static void updateCredits(double totalCredits) 
 	{
 		String sql = "UPDATE Customer SET Credits = ? WHERE Username = ?";
 		try (Connection conn = getConnection())
@@ -196,7 +223,8 @@ public class Database
         }
 	}
 	
-	public static double getCurrentCredits(String username)
+	//Getting the current credits of the user
+	public static double getCurrentCredits(String username) 
 	{
 		String sql = "SELECT Credits FROM Customer WHERE Username = ?";
 		double currentCredits = 0;
@@ -219,9 +247,9 @@ public class Database
 		return currentCredits;
 	}
 	
-	
-	public static String getFirstName(String username)
-	 {
+	//Getting the first name of the user
+	public static String getFirstName(String username) 
+	{
 		String sql = "SELECT FirstName FROM Customer WHERE Username = ?" ;  
 		String firstName = "";
         try (Connection conn = getConnection())
@@ -243,9 +271,9 @@ public class Database
 		 
 	 }
 	
-	
-	public static String getLastName(String username)
-	 {
+	//Getting the last name of the user
+	public static String getLastName(String username) 
+	{
 		String sql = "SELECT LastName FROM Customer WHERE Username = ?" ;  
         String lastName = "";
         try (Connection conn = getConnection())
@@ -267,16 +295,16 @@ public class Database
 		 
 	 }
 	
-	
-	 public static boolean getVIPStatus(String username)
-	 {
-		 String sql = "SELECT isVIP FROM Customer WHERE Username = ?" ;
-		 boolean vipStatus = false;
+	//Getting the VIP Status of the user
+	public static boolean getVIPStatus(String username) 
+	{
+		String sql = "SELECT isVIP FROM Customer WHERE Username = ?" ;
+		boolean vipStatus = false;
 		 
-		 try (Connection conn = getConnection())
-		 {  
-            PreparedStatement pstmt  = conn.prepareStatement(sql);
-            pstmt.setString(1, username);
+		try (Connection conn = getConnection())
+		{  
+			PreparedStatement pstmt  = conn.prepareStatement(sql);
+			pstmt.setString(1, username);
             ResultSet rs = pstmt.executeQuery();  
             
             while (rs.next())
@@ -300,124 +328,126 @@ public class Database
 		return vipStatus;
 	 }
 	 
-	 public static void newOrder(String orderTime, String readyTime)
-	 {
-		 String sql = "INSERT INTO Orders ('NumOfBurritos', 'NumOfFries', 'NumOfSodas', 'NumOfMeals', 'TotalCost', "
-		 		+ "'OrderDate', 'OrderTime', 'PrepTime', 'ReadyTime', 'OrderStatus', 'User') VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+	//Inserting a new order into the database
+	public static void newOrder(String orderTime, String readyTime) 
+	{
+		String sql = "INSERT INTO Orders ('NumOfBurritos', 'NumOfFries', 'NumOfSodas', 'NumOfMeals', 'TotalCost', "
+				+ "'OrderDate', 'OrderTime', 'PrepTime', 'ReadyTime', 'OrderStatus', 'User') VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 		 
-		 try (Connection conn = getConnection())
-		 {
-			 PreparedStatement pstmt  = conn.prepareStatement(sql);
-			 pstmt.setInt(1, OrderDetailsSingleton.getInstance().getCurrentNumOfBurritos());
-			 pstmt.setInt(2, OrderDetailsSingleton.getInstance().getCurrentNumOfFries());
-			 pstmt.setInt(3, OrderDetailsSingleton.getInstance().getCurrentNumOfSodas());
-			 pstmt.setInt(4, OrderDetailsSingleton.getInstance().getCurrentNumOfMeals());
-			 pstmt.setDouble(5, OrderDetailsSingleton.getInstance().getCurrentTotalCost());
-			 pstmt.setString(6, dayString + "/" + monthString + "/" + yearString);
-			 pstmt.setString(7, orderTime);
-			 pstmt.setDouble(8, OrderDetailsSingleton.getInstance().getCurrentPrepTime());
-			 pstmt.setString(9, readyTime);
-			 pstmt.setString(10, "Await for collection");
-			 pstmt.setString(11, UserSingleton.getInstance().getCurrentUsername());
-			 pstmt.executeUpdate();
-		 }
-		 catch (SQLException e) 
-         {  
-           System.out.println(e.getMessage());  
-         }
-	 }
+		try (Connection conn = getConnection())
+		{
+			PreparedStatement pstmt  = conn.prepareStatement(sql);
+			pstmt.setInt(1, OrderDetailsSingleton.getInstance().getCurrentNumOfBurritos());
+			pstmt.setInt(2, OrderDetailsSingleton.getInstance().getCurrentNumOfFries());
+			pstmt.setInt(3, OrderDetailsSingleton.getInstance().getCurrentNumOfSodas());
+			pstmt.setInt(4, OrderDetailsSingleton.getInstance().getCurrentNumOfMeals());
+			pstmt.setDouble(5, OrderDetailsSingleton.getInstance().getCurrentTotalCost());
+			pstmt.setString(6, dayString + "/" + monthString + "/" + yearString);
+			pstmt.setString(7, orderTime);
+			pstmt.setDouble(8, OrderDetailsSingleton.getInstance().getCurrentPrepTime());
+			pstmt.setString(9, readyTime);
+			pstmt.setString(10, "Await for collection");
+			pstmt.setString(11, UserSingleton.getInstance().getCurrentUsername());
+			pstmt.executeUpdate();
+		}
+		catch (SQLException e) 
+		{  
+			System.out.println(e.getMessage());  
+		}
+	}
 	 
-	 
-	 public static int latestOrderID()
-	 {
-		 String sql = "SELECT OrderID FROM Orders ORDER BY OrderID DESC LIMIT 1";
-		 int latestOrderID = 0;
-		 try (Connection conn = getConnection())
-		 {
-			 PreparedStatement pstmt  = conn.prepareStatement(sql);
-			 ResultSet rs = pstmt.executeQuery();
-			 
-			 if (rs.next())
-			 {
-				 latestOrderID = rs.getInt("OrderID");
-			 }
-			 else
-			 {
-				 latestOrderID = 0;
-			 }
-		 }
-		 catch (SQLException e) 
-         {  
-           System.out.println(e.getMessage());  
-         }
-		 return latestOrderID;
-	 }
-	 
-	 public static boolean cancelOrder(String orderID)
-	 {
-		 String sql = "UPDATE Orders SET OrderStatus = 'Cancelled' WHERE OrderID = ? AND OrderStatus = ? AND User = ?";
-		 boolean result = false;
+	//Getting the latest Order ID
+	public static int latestOrderID() 
+	{
+		String sql = "SELECT OrderID FROM Orders ORDER BY OrderID DESC LIMIT 1";
+		int latestOrderID = 0;
+		try (Connection conn = getConnection())
+		{
+			PreparedStatement pstmt  = conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
 		 
-		 try (Connection conn = getConnection())
-		 {
-			 PreparedStatement pstmt  = conn.prepareStatement(sql);
-			 pstmt.setString(1, orderID);
-			 pstmt.setString(2, "Await for collection");
-			 pstmt.setString(3, UserSingleton.getInstance().getCurrentUsername());
-			 int updateCount = pstmt.executeUpdate();
-			 if (updateCount == 1)
-			 {
-				 result = true;
-			 }
-			 else
-			 {
-				 result = false;
-			 }
-		 }
-		 catch (SQLException e) 
-         { 
-		   result = false;
-           System.out.println(e.getMessage());  
-         }
-		 return result;
-	 }
+			if (rs.next())
+			{
+				latestOrderID = rs.getInt("OrderID");
+			}
+			else
+			{
+				latestOrderID = 0;
+			}
+		}
+		catch (SQLException e) 
+		{  
+			System.out.println(e.getMessage());  
+		}
+		return latestOrderID;
+	}
 	 
+	//Changing the status of an order to cancelled
+	public static boolean cancelOrder(String orderID) 
+	{
+		String sql = "UPDATE Orders SET OrderStatus = 'Cancelled' WHERE OrderID = ? AND OrderStatus = ? AND User = ?";
+		boolean result = false;
+		
+		try (Connection conn = getConnection())
+		{
+			PreparedStatement pstmt  = conn.prepareStatement(sql);
+			pstmt.setString(1, orderID);
+			pstmt.setString(2, "Await for collection");
+			pstmt.setString(3, UserSingleton.getInstance().getCurrentUsername());
+			int updateCount = pstmt.executeUpdate();
+			if (updateCount == 1)
+			{
+				result = true;
+			}
+			else
+			{
+				result = false;
+			}
+		}
+		catch (SQLException e) 
+		{ 
+			result = false;
+			System.out.println(e.getMessage());  
+		}
+		return result;
+	}
 	 
-	 public static boolean collectOrder(String orderID, String collectTime)
-	 {
-		 String sql = "UPDATE Orders SET OrderStatus = 'Collected', PickupDate = ?, PickupTime = ?"
-		 		+ " WHERE OrderID = ? AND OrderStatus = ? AND User = ?";
-		 boolean result = false;
-		 
-		 try (Connection conn = getConnection())
-		 {
-			 PreparedStatement pstmt  = conn.prepareStatement(sql);
-			 pstmt.setString(1, dayString + "/" + monthString + "/" + yearString);
-			 pstmt.setString(2, collectTime);
-			 pstmt.setString(3, orderID);
-			 pstmt.setString(4, "Await for collection");
-			 pstmt.setString(5, UserSingleton.getInstance().getCurrentUsername());
-			 int updateCount = pstmt.executeUpdate();
-			 if (updateCount == 1)
-			 {
-				 result = true;
-			 }
-			 else
-			 {
-				 result = false;
-			 }
-		 }
-		 catch (SQLException e) 
-         { 
-		   result = false;
-           System.out.println(e.getMessage());  
-         }
-		 return result;
-	 }
+	//Changing the status of an order to collected
+	public static boolean collectOrder(String orderID, String collectTime) 
+	{
+		String sql = "UPDATE Orders SET OrderStatus = 'Collected', PickupDate = ?, PickupTime = ?"
+	 		+ " WHERE OrderID = ? AND OrderStatus = ? AND User = ?";
+		boolean result = false;
 	 
+		try (Connection conn = getConnection())
+		{
+			PreparedStatement pstmt  = conn.prepareStatement(sql);
+			pstmt.setString(1, dayString + "/" + monthString + "/" + yearString);
+			pstmt.setString(2, collectTime);
+			pstmt.setString(3, orderID);
+			pstmt.setString(4, "Await for collection");
+			pstmt.setString(5, UserSingleton.getInstance().getCurrentUsername());
+			int updateCount = pstmt.executeUpdate();
+			if (updateCount == 1)
+			{
+				result = true;
+			}
+			else
+			{
+				result = false;
+			}
+		}
+		catch (SQLException e) 
+		{ 
+			result = false;
+			System.out.println(e.getMessage());  
+		}
+		return result;
+	}
 	 
-	 public static String getOrderDate(String orderID)
-	 {
+	//Getting the date of the order
+	public static String getOrderDate(String orderID) 
+	{
 		 String sql = "SELECT OrderDate FROM Orders WHERE OrderID = ?";
 		 String orderDate = "";
 		 try (Connection conn = getConnection())
@@ -432,14 +462,15 @@ public class Database
 			 }
 		 }
 		 catch (SQLException e) 
-         {
+	     {
 			 System.out.println(e.getMessage());  
-         }
+	     }
 		 return orderDate;
-	 }
-	 
-	 public static String getOrderReadyTime(String orderID)
-	 {
+	}
+ 
+	//Getting the time at which the order will be ready for pickup
+	public static String getOrderReadyTime(String orderID) 
+	{
 		 String sql = "SELECT ReadyTime FROM Orders WHERE OrderID = ?";
 		 String orderReadyTime = "";
 		 try (Connection conn = getConnection())
@@ -454,15 +485,15 @@ public class Database
 			 }
 		 }
 		 catch (SQLException e) 
-         {
+	     {
 			 System.out.println(e.getMessage());  
-         }
+	     }
 		 return orderReadyTime;
-	 }
-	 
-	 
-	 public static ObservableList<OrderClass> getAllOrders()
-	 {
+	}
+ 
+	//Getting all the orders of a user
+	public static ObservableList<OrderClass> getAllOrders() 
+	{
 		 ObservableList<OrderClass> orderslist = FXCollections.observableArrayList();
 		 String sql = "SELECT OrderID, NumOfBurritos, NumOfFries, NumOfSodas, NumOfMeals, TotalCost, OrderDate, OrderTime,"
 			 		+ " OrderStatus FROM Orders WHERE User = ? ORDER BY OrderDate DESC, OrderTime DESC";
@@ -474,14 +505,15 @@ public class Database
 			 orderslist = getOrderObjects(rs);
 		 }
 		 catch (SQLException e)
-         { 
-           System.out.println(e.getMessage());  
-         }
+	     { 
+	       System.out.println(e.getMessage());  
+	     }
 		 return orderslist;
-	 }
-	 
-	 public static ObservableList<OrderClass> getAllAwaitingOrders()
-	 {
+	}
+ 
+	//Getting all the orders of a user that are waiting to be collected
+	public static ObservableList<OrderClass> getAllAwaitingOrders() 
+	{
 		 ObservableList<OrderClass> orderslist = FXCollections.observableArrayList();
 		 String sql = "SELECT OrderID, NumOfBurritos, NumOfFries, NumOfSodas, NumOfMeals, TotalCost, OrderDate, OrderTime,"
 		 		+ " OrderStatus FROM Orders WHERE User = ? AND OrderStatus = 'Await for collection'";
@@ -493,13 +525,14 @@ public class Database
 			 orderslist = getOrderObjects(rs);
 		 }
 		 catch (SQLException e) 
-         { 
-           System.out.println(e.getMessage());  
-         }
+	     { 
+	       System.out.println(e.getMessage());  
+	     }
 		 return orderslist;
-	 }
+	}
 
-	private static ObservableList<OrderClass> getOrderObjects(ResultSet rs) throws SQLException
+	//Setting the orders into an observable list
+	private static ObservableList<OrderClass> getOrderObjects(ResultSet rs) throws SQLException 
 	{
 		try
 		{
@@ -518,14 +551,14 @@ public class Database
 				oc.setOrderDate(rs.getString("OrderDate"));
 				oc.setOrderTime(rs.getString("OrderTime"));
 				oc.setOrderStatus(rs.getString("OrderStatus"));
-				orderslist.add(oc);
+					orderslist.add(oc);
+				}
+				return orderslist;
+			}	
+			catch (SQLException e)
+			{
+				e.printStackTrace();
 			}
-			return orderslist;
-		}	
-		catch (SQLException e)
-		{
-			e.printStackTrace();
+			return null;
 		}
-		return null;
 	}
-}

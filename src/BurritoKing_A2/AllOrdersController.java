@@ -14,6 +14,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+//This class shows the user all of their orders, irrespective of the order status
 public class AllOrdersController implements Initializable
 {
 	Pages pages = new Pages();
@@ -37,11 +38,13 @@ public class AllOrdersController implements Initializable
 	@FXML
 	public TableView allOrdersTable;
 	
-	public void openDashboardPage(ActionEvent event) throws IOException
+	//Opening the dashboard page
+	public void openDashboardPage(ActionEvent event) throws IOException 
 	{
 		pages.dashboardPage(event);
 	}
-
+	
+	//Initializing the table to show all orders
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
@@ -57,6 +60,7 @@ public class AllOrdersController implements Initializable
 
 	private void populateTable(ObservableList<OrderClass> orderslist) 
 	{
-		allOrdersTable.setItems(orderslist);
+		//Populating the table with the values of the observable list
+		allOrdersTable.setItems(orderslist); 
 	}
 }

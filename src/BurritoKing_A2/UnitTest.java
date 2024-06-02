@@ -18,7 +18,8 @@ public class UnitTest
     {
         try (Connection conn = DriverManager.getConnection(DATABASE_URL)) 
         {
-            String sql = "INSERT INTO Customer (Username, Password, FirstName, LastName) VALUES (?,?,?,?)"; //Inserting new user
+        	//Inserting new user
+            String sql = "INSERT INTO Customer (Username, Password, FirstName, LastName) VALUES (?,?,?,?)"; 
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, "testuser");
             pstmt.setString(2, "testpassword");
@@ -33,7 +34,8 @@ public class UnitTest
     {
         try (Connection conn = DriverManager.getConnection(DATABASE_URL)) 
         {
-            String sql = "DELETE FROM Customer WHERE Username = ?"; //Deleting the recently added user
+        	//Deleting the recently added user
+            String sql = "DELETE FROM Customer WHERE Username = ?"; 
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, "testuser");
             pstmt.executeUpdate();
@@ -47,8 +49,9 @@ public class UnitTest
         try 
         {
             setUpTestUser();
-
-            boolean isAuthenticated = Database.authenticateUser("testuser", "testpassword"); //Checking if the password corresponds to the user
+            
+            //Checking if the password corresponds to the user
+            boolean isAuthenticated = Database.authenticateUser("testuser", "testpassword"); 
             assertTrue("User should be authenticated with valid credentials", isAuthenticated);
 
             boolean isNotAuthenticated = Database.authenticateUser("testuser", "wrongpassword");
@@ -79,8 +82,9 @@ public class UnitTest
         try 
         {
             setUpTestUser();
-
-            boolean exists = Database.isUsernameExists("testuser"); //Checking whether the username exists
+            
+            //Checking whether the username exists
+            boolean exists = Database.isUsernameExists("testuser"); 
             assertTrue("Username should exist in the database", exists);
 
             boolean doesNotExist = Database.isUsernameExists("nonexistentuser");
@@ -104,15 +108,16 @@ public class UnitTest
         }
     }
     
+    //Testing whether the user is a VIP or not
     @Test
-    
     public void testVIPStatus()
     {
     	try
     	{
     		setUpTestUser();
     		
-    		boolean notVip = Database.getVIPStatus("testuser");//Checking the vip status of the user
+    		//Checking the vip status of the user
+    		boolean notVip = Database.getVIPStatus("testuser");
     		assertFalse("User is not a VIP", notVip);
     		
     		boolean Vip = Database.getVIPStatus("Andy");
@@ -143,13 +148,17 @@ public class UnitTest
     {
     	try
     	{
-    		UserSingleton.getInstance().setCurrentUserDetails("Andy", "Andy", "Kris", false, 0); //Setting the current user
+    		//Setting the current user
+    		UserSingleton.getInstance().setCurrentUserDetails("Andy", "Andy", "Kris", false, 0); 
     		
-    		Database.updateFirstName("Anantha"); //Setting the new first name
+    		//Setting the new first name
+    		Database.updateFirstName("Anantha"); 
     		
-    		String newFirstName = Database.getFirstName("Andy"); //Retrieving the first name of the user
+    		//Retrieving the first name of the user
+    		String newFirstName = Database.getFirstName("Andy"); 
     		
-    		assertEquals(newFirstName, "Anantha"); //Asserting whether the new first name is equal to the given parameter
+    		//Asserting whether the new first name is equal to the given parameter
+    		assertEquals(newFirstName, "Anantha"); 
     	}
     	catch (Exception e) 
         {
@@ -159,7 +168,8 @@ public class UnitTest
     	{
     		try
     		{
-    			Database.updateFirstName("Andy"); //Rolling back to the original first name
+    			//Rolling back to the original first name
+    			Database.updateFirstName("Andy"); 
     		}
     		catch (Exception e)
     		{
@@ -174,13 +184,16 @@ public class UnitTest
     {
     	try
     	{
-    		UserSingleton.getInstance().setCurrentUserDetails("Andy", "Andy", "Kris", false, 0); //Setting the current user
+    		//Setting the current user
+    		UserSingleton.getInstance().setCurrentUserDetails("Andy", "Andy", "Kris", false, 0); 
     		
-    		Database.updateCredits(100.0); //Updating the credits
+    		//Updating the credits
+    		Database.updateCredits(100.0); 
     		
     		String credits = String.valueOf(Database.getCurrentCredits("Andy"));
     		
-    		assertNotEquals(credits, "0"); //Asserting whether the retrieved credits is not equal to the given parameter
+    		//Asserting whether the retrieved credits is not equal to the given parameter
+    		assertNotEquals(credits, "0"); 
     	}
     	catch (Exception e) 
         {
@@ -190,7 +203,8 @@ public class UnitTest
     	{
     		try
     		{
-    			Database.updateCredits(0); //Rolling back to the original credits
+    			//Rolling back to the original credits
+    			Database.updateCredits(0); 
     		}
     		catch (Exception e)
     		{

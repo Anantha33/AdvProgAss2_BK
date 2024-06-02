@@ -14,6 +14,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
+//This class helps the user cancel an order that is waiting to be collected
 public class CancelController implements Initializable
 {
 	Pages pages = new Pages();
@@ -39,14 +40,16 @@ public class CancelController implements Initializable
 	@FXML
 	public TableView cancelOrderTable;
 	
-	public void openDashboardPage(ActionEvent event) throws IOException
+	//Opening the dashboard page
+	public void openDashboardPage(ActionEvent event) throws IOException 
 	{
 		pages.dashboardPage(event);
 	}
 	
 	public void cancelOrder(ActionEvent event) throws IOException
 	{
-		if (Database.cancelOrder(cancelOrderIDTF.getText()))
+		//Cancelling the order if the order ID is valid
+		if (Database.cancelOrder(cancelOrderIDTF.getText())) 
 		{
 			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Success");
@@ -67,7 +70,8 @@ public class CancelController implements Initializable
 		}
 	}
 	
-	public void orderIDTyped(KeyEvent event) throws IOException
+	//Regex implementation to handle invalid inputs
+	public void orderIDTyped(KeyEvent event) throws IOException 
 	{
 		if (event.getCharacter().matches("[^0-9]"))
 		{
@@ -78,6 +82,7 @@ public class CancelController implements Initializable
 		}
 	}
 
+	//Initializing the table to show all the orders that are waiting to be collected
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{

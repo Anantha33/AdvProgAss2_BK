@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+//This class handles all the things related to the displaying of order items
 public class OrderClass 
 {
 	private IntegerProperty orderIDProperty;

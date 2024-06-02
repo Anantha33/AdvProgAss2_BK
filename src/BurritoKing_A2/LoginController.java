@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.fxml.*;
 
+//This class handles the login of a user
 public class LoginController 
 {	
 	Pages pages = new Pages();
@@ -18,6 +19,7 @@ public class LoginController
 	public TextField usernameTF;
 	public PasswordField passwordTF;
 	
+	//Opens the dashboard if there is a successful login, otherwise shows an error
 	public void openDashboard(ActionEvent event) throws IOException
 	{	
 		if (Database.authenticateUser(usernameTF.getText(), passwordTF.getText()))
@@ -48,10 +50,11 @@ public class LoginController
 	
 	
 	public void openWelcomePage(ActionEvent event) throws IOException
-	 {
+	{
 		pages.welcomePage(event);
-	 }
+	}
 	
+	//Regex implementation to handle invalid inputs
 	public void usernameTyped(KeyEvent event) throws IOException
 	{
 		if (event.getCharacter().matches("[^a-zA-Z0-9_.]"))

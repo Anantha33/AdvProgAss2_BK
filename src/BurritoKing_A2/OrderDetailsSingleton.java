@@ -1,5 +1,7 @@
 package BurritoKing_A2;
 
+
+//Singleton class to handle all the necessary order items, total cost and preparation time
 public class OrderDetailsSingleton 
 {
 	private static OrderDetailsSingleton single_instance = null;
@@ -12,6 +14,7 @@ public class OrderDetailsSingleton
 	private double currentTotalCost;
 	private double currentPrepTime;
 	
+	//Setter method to set attributes
 	public void setCurrentOrderDetails(int numOfBurritos, int numOfFries, int numOfSodas, int numOfMeals, double numOfFriesLeft,
 			double totalOrderCost, double prepTime)
 	{
@@ -23,6 +26,9 @@ public class OrderDetailsSingleton
 		currentTotalCost = totalOrderCost;
 		currentPrepTime = prepTime;
 	}
+	
+	
+	//Getter methods for all attributes
 	
 	public int getCurrentNumOfBurritos()
 	{
@@ -59,6 +65,7 @@ public class OrderDetailsSingleton
 		return currentPrepTime;
 	}
 	
+	//Checking if the class has only one instance
 	public static synchronized OrderDetailsSingleton getInstance()
     {
         if (single_instance == null)

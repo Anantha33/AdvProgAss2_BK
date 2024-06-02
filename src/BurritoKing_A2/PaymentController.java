@@ -19,6 +19,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
+
+//This class handles the payment of the user, while also accepting the order time
 public class PaymentController implements Initializable
 {
 	Pages pages = new Pages();
@@ -123,6 +125,7 @@ public class PaymentController implements Initializable
 				{	
 					String currentOrderReadyTime = getOrderReadyTime(orderTimeTF.getText(), orderPrepTimeInMinutes);
 					
+					//For VIP User
 					if (UserSingleton.getInstance().getCurrentVIPStatus())
 					{	
 						Database.updateCredits(totalCredits);
@@ -151,6 +154,8 @@ public class PaymentController implements Initializable
 			            
 			            pages.dashboardPage(event);
 					}
+					
+					//For normal user
 					else
 					{
 						Database.newOrder(orderTimeTF.getText(), currentOrderReadyTime);
@@ -181,7 +186,7 @@ public class PaymentController implements Initializable
 		}
 	}
 	
-	
+	//Calculation of the time an order takes to get ready, after it is ordered
 	public String getOrderReadyTime(String currentOrderTime, double orderPrepTimeInMinutes)
 	{	
 		double orderTimeInMinutes = (Double.parseDouble(currentOrderTime.substring(0, currentOrderTime.indexOf(":")))*60)
@@ -210,7 +215,8 @@ public class PaymentController implements Initializable
 		
 		return orderReadyTime;
 	}
-
+	
+	//Regex implementation to handle invalid inputs
 	public void cardNumberTyped(KeyEvent event) throws IOException
 	{
 		if (event.getCharacter().matches("[^0-9]"))
@@ -222,6 +228,7 @@ public class PaymentController implements Initializable
 		}
 	}
 	
+	//Regex implementation to handle invalid inputs
 	public void expDateTyped(KeyEvent event) throws IOException
 	{
 		if (event.getCharacter().matches("[^0-9/]"))
@@ -233,6 +240,7 @@ public class PaymentController implements Initializable
 		}
 	}
 	
+	//Regex implementation to handle invalid inputs
 	public void cvvTyped(KeyEvent event) throws IOException
 	{
 		if (event.getCharacter().matches("[^0-9]"))
@@ -244,6 +252,7 @@ public class PaymentController implements Initializable
 		}
 	}
 	
+	//Regex implementation to handle invalid inputs
 	public void orderTimeTyped(KeyEvent event) throws IOException
 	{
 		if (event.getCharacter().matches("[^0-9:]"))
@@ -255,6 +264,7 @@ public class PaymentController implements Initializable
 		}
 	}
 	
+	//Regex implementation to handle invalid inputs
 	public static boolean isValidTime(String time)
 	{
 		String regex = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
@@ -267,6 +277,7 @@ public class PaymentController implements Initializable
 		return m.matches();
 	}
 	
+	//Regex implementation to handle invalid inputs
 	public static boolean isValidDate(String date)
 	{
 		String regex = "([0]?[1-9]|1[0-2])/[0-9][0-9][0-9][0-9]";
@@ -278,7 +289,8 @@ public class PaymentController implements Initializable
 		Matcher m = p.matcher(date);
 		return m.matches();
 	}
-
+	
+	//Initializing the system date and time
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{

@@ -1,8 +1,4 @@
 package BurritoKing_A2;
-	
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -10,9 +6,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 
-
+//The main class of the program
 public class Main extends Application 
 {	
+	//Shows the welcome page at the start of the program
 	@Override
 	public void start(Stage welcomeStage) 
 	{
@@ -30,15 +27,9 @@ public class Main extends Application
 		}
 	}
 	
+	//Launching the program
 	public static void main(String[] args) 
 	{
-//		Date date = new Date();
-//		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-//		int year  = localDate.getYear();
-//		int month = localDate.getMonthValue();
-//		int day   = localDate.getDayOfMonth();
-//		System.out.println(month);
-//		System.out.println(year);
 		launch();
 	}
 }

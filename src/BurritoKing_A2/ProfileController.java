@@ -9,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
+
+//This class shows the user the profile details, whilst giving them the opportunity to change the details (except username)
 public class ProfileController implements Initializable
 {	
 	Pages pages = new Pages();
@@ -45,7 +47,7 @@ public class ProfileController implements Initializable
 		pages.dashboardPage(event);
 	}
 
-
+	//Displaying the username, first, and last names
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{

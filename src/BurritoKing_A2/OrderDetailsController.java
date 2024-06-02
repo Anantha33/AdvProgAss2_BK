@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
+//This class shows the user what they have ordered, before initiating the payment
 public class OrderDetailsController implements Initializable
 {
 	Pages pages = new Pages();
@@ -37,7 +38,8 @@ public class OrderDetailsController implements Initializable
 	{
 		pages.redeemCreditsPage(event);
 	}
-
+	
+	//Showing the number of all items the user has ordered
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
@@ -48,6 +50,7 @@ public class OrderDetailsController implements Initializable
 		totalCost.setText("$" + String.valueOf(OrderDetailsSingleton.getInstance().getCurrentTotalCost()));
 		totalPrepTime.setText(String.valueOf(OrderDetailsSingleton.getInstance().getCurrentPrepTime()) + " minutes");
 		
+		//Allows the user to redeem credits if the user is a VIP
 		if (UserSingleton.getInstance().getCurrentVIPStatus())
 		{
 			redeemCreditsButton.setDisable(false);

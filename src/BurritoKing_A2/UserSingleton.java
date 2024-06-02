@@ -1,5 +1,7 @@
 package BurritoKing_A2;
 
+
+//Singleton class to store all the data of the current user
 class UserSingleton 
 {
 	private static UserSingleton single_instance = null;
@@ -10,6 +12,7 @@ class UserSingleton
 	private boolean currentIsVIP;
 	private double currentCredits;
 	
+	//Setter method to set attributes
 	public void setCurrentUserDetails(String username, String fName, String lName, boolean vipStatus, double credits)
 	{
 		currentUsername = username;
@@ -18,6 +21,8 @@ class UserSingleton
 		currentIsVIP = vipStatus;
 		currentCredits = credits;
 	}
+	
+	//Getter methods to get all the attributes of the user
 	
 	public String getCurrentUsername()
 	{
@@ -44,6 +49,7 @@ class UserSingleton
 		return currentCredits;
 	}
 	
+	//Checking if the class has only one instance
 	public static synchronized UserSingleton getInstance()
     {
         if (single_instance == null)

@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
+//This class handles the redeeming of credits of a VIP user
 public class CreditsController implements Initializable
 {
 	Pages pages = new Pages();
@@ -49,6 +50,7 @@ public class CreditsController implements Initializable
 		}
 		else
 		{
+			//Updating the total order cost
 			currentOrderCreditsRedeemed = Double.parseDouble(creditsTF.getText());
 			newTotalOrderCost -= (currentOrderCreditsRedeemed / 100);
 			
@@ -63,6 +65,7 @@ public class CreditsController implements Initializable
 		}
 	}
 	
+	//Regex implementation to handle invalid inputs
 	public void creditsTyped(KeyEvent event) throws IOException
 	{
 		if (event.getCharacter().matches("[^0-9]"))

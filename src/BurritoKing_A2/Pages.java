@@ -8,10 +8,12 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.event.ActionEvent;
 
+
+//This class loads all the pages the program has to offer, so it's easy to call them from various other controllers
 public class Pages 
 {		
 	public void welcomePage(ActionEvent event) throws IOException
-	 {
+	{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/WelcomePage.fxml"));
 		Parent root = loader.load();
 		Scene welcomeScene = new Scene(root);
@@ -20,7 +22,7 @@ public class Pages
 		welcomeStage.setScene(welcomeScene);
 		welcomeStage.setTitle("Welcome Page");
 		welcomeStage.show();
-	 }
+	}
 	
 	public void loginPage(ActionEvent event) throws IOException
 	{
