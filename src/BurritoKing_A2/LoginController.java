@@ -31,7 +31,7 @@ public class LoginController
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Login Successful");
             alert.setHeaderText(null);
-            alert.setContentText("Successfully logged in!");
+            alert.setContentText("Successfully logged in! \n" + "Welcome aboard, " + usernameTF.getText() + "!");
             alert.showAndWait();
             
 			pages.dashboardPage(event);
@@ -41,7 +41,7 @@ public class LoginController
 			Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Login Error");
             alert.setHeaderText(null);
-            alert.setContentText("Invalid username or password");
+            alert.setContentText("Invalid username or password!");
             alert.showAndWait();
 		}
 	}

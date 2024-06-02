@@ -1,16 +1,35 @@
-# Burrito King Program
+# Burrito King Program - Assignment 2 - s4023336
 
-Application Summary:
+1) IDE used and IDE version:
 
-A basic Java application called Burrito King imitates the ordering process for meals at the fictional "Burrito King" restaurant. In addition to ordering meals, fries, sodas, and burritos, it also generates a sales report and totals sales. The application has the ability to change food item pricing as well.
+	The IDE used is Eclipse and the version is 2023-12
+
+2) Java version, JavaFX version, Database:
+	
+	The Java version used is 1.8.0_411
+	The JavaFX version used is 22.0.1 Windows x64
+	The database used is SQLiteStudio, version - 3.4.4
+
+3) Steps to install and run the code:
+
+
+4) Class Diagram:
+
+
 
 Functionalities Achieved:
 
-Ordering System: Users can choose from a menu that includes meals, fries, sodas, and burritos. The quantity of each item they want to order can be entered. In order to avoid mistakes, the application gracefully handles negative input values.
+Sign-up: New users have the option to signup to the program.
 
-Sales Report: Generates a sales report displaying the total number of items sold and total sales for each item category. Also displays the number of unsold fries left in stock.
+Login: Existing users can login into the program using their respective usernames and passwords.
 
-Price Update: Enables the user to change the cost of sodas, fries, and burritos. Displays the current prices of all food items.
+
+
+Ordering System (Cart): Users can choose from a menu that includes meals, fries, sodas, and burritos. 
+The quantity of each item they want to order can be entered. 
+In order to avoid mistakes, the application gracefully handles negative input values.
+
+
 
 Class Design:
 
