@@ -1,67 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BurritoKing_A2.CartController">
-   <children>
-      <Label layoutX="257.0" layoutY="14.0" text="Your Cart">
-         <font>
-            <Font name="Georgia Bold Italic" size="20.0" />
-         </font>
-      </Label>
-      <Button layoutX="14.0" layoutY="12.0" mnemonicParsing="false" onAction="#openDashboardPage" style="-fx-background-color: #263F73;" text="&lt;- Back" textFill="WHITE">
-         <font>
-            <Font name="Georgia" size="15.0" />
-         </font>
-      </Button>
-      <Label layoutX="120.0" layoutY="76.0" text="Burritos:">
-         <font>
-            <Font name="Georgia" size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="120.0" layoutY="116.0" text="Fries:">
-         <font>
-            <Font name="Georgia" size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="120.0" layoutY="156.0" text="Sodas:">
-         <font>
-            <Font name="Georgia" size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="120.0" layoutY="201.0" text="Meals:">
-         <font>
-            <Font name="Georgia" size="20.0" />
-         </font>
-      </Label>
-      <Button layoutX="235.0" layoutY="280.0" mnemonicParsing="false" onAction="#openOrderDetailsPage" style="-fx-background-color: #263F73;" text="Place Order" textFill="WHITE">
-         <font>
-            <Font name="Georgia" size="20.0" />
-         </font>
-      </Button>
-      <TextField fx:id="burritoTF" layoutX="310.0" layoutY="76.0" onKeyTyped="#numOfBurritosTyped" promptText="Enter number of burritos" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;">
-         <font>
-            <Font name="Georgia Bold" size="16.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="mealTF" disable="true" layoutX="310.0" layoutY="201.0" onKeyTyped="#numOfMealsTyped" promptText="Enter number of meals" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;">
-         <font>
-            <Font name="Georgia Bold" size="16.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="sodaTF" layoutX="310.0" layoutY="156.0" onKeyTyped="#numOfSodasTyped" promptText="Enter number of sodas" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;">
-         <font>
-            <Font name="Georgia Bold" size="16.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="friesTF" layoutX="310.0" layoutY="116.0" onKeyTyped="#numOfFriesTyped" prefHeight="29.0" prefWidth="235.0" promptText="Enter number of fries" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;">
-         <font>
-            <Font name="Georgia Bold" size="16.0" />
-         </font>
-      </TextField>
-   </children>
-</AnchorPane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BurritoKing_A2.CartController">
+   <center>
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="257.0" layoutY="14.0" text="Your Cart" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   				<font>
+      				<Font name="Georgia Bold Italic" size="20.0" />
+   				</font>
+			</Label>
+            <GridPane vgap="25.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Burritos:">
+                     <font>
+                        <Font name="Georgia" size="20.0" />
+                     </font></Label>
+                  <Label text="Fries:" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Georgia" size="20.0" />
+                     </font></Label>
+                  <Label text="Sodas:" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Georgia" size="20.0" />
+                     </font></Label>
+                  <Label text="Meals:" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Georgia" size="20.0" />
+                     </font></Label>
+                  <TextField fx:id="burritoTF" onKeyTyped="#numOfBurritosTyped" prefHeight="29.0" prefWidth="231.0" promptText="Enter number of burritos" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="1">
+                     <font>
+                        <Font name="Georgia Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="friesTF" onKeyTyped="#numOfFriesTyped" promptText="Enter number of fries" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Georgia Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="sodaTF" onKeyTyped="#numOfSodasTyped" promptText="Enter number of sodas" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Georgia Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="mealTF" onKeyTyped="#numOfMealsTyped" promptText="Enter number of meals" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Georgia Bold" size="16.0" />
+                     </font></TextField>
+               </children>
+               <VBox.margin>
+                  <Insets left="70.0" right="70.0" top="60.0" />
+               </VBox.margin>
+            </GridPane>
+            <Button mnemonicParsing="false" onAction="#openOrderDetailsPage" style="-fx-background-color: #263F73;" text="Place Order" textFill="WHITE">
+               <font>
+                  <Font name="Georgia" size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="80.0" />
+               </VBox.margin></Button>
+         </children>
+         <BorderPane.margin>
+            <Insets top="25.0" />
+         </BorderPane.margin>
+      </VBox>
+   </center>
+   <top>
+      <HBox prefHeight="19.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#openDashboardPage" style="-fx-background-color: #263F73;" text="&lt;- Back" textFill="WHITE">
+               <font>
+                  <Font name="Georgia" size="16.0" />
+               </font></Button>
+         </children>
+      </HBox>
+   </top>
+</BorderPane>
