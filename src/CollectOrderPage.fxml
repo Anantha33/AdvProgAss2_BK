@@ -16,14 +16,14 @@
          <children>
             <TextField fx:id="collectOrderIDTF" onKeyTyped="#collectOrderIDTyped" prefHeight="0.0" prefWidth="600.0" promptText="Enter Order ID" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;">
                <font>
-                  <Font name="Georgia Bold" size="12.0" />
+                  <Font name="Georgia" size="12.0" />
                </font></TextField>
             <TextField fx:id="collectOrderTimeTF" onKeyTyped="#collectTimeTyped" promptText="Enter collection time (HH:mm, 24 hour format)" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
                <font>
-                  <Font name="Georgia Bold" size="12.0" />
+                  <Font name="Georgia" size="12.0" />
                </font>
             </TextField>
             <Button mnemonicParsing="false" onAction="#collectOrder" style="-fx-background-color: #263F73;" text="Submit" textFill="WHITE">
