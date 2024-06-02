@@ -123,6 +123,29 @@ public class Database
         }
 	}
 	
+	public static String getPassword(String username)
+	{
+		String sql = "SELECT Password FROM Customer WHERE Username = ?";
+		String currentPassword = "";
+		
+		try (Connection conn = getConnection())
+		{
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, username);
+			ResultSet rs = pstmt.executeQuery();  
+			
+			while (rs.next())
+			{
+				currentPassword = rs.getString("Password");
+			}
+		}
+		catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+		return currentPassword;
+	}
+	
 	
 	public static void updatePassword(String newPassword)
 	{

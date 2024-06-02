@@ -23,6 +23,10 @@ public class EditProfileController
 		{
 			showAlert("Error", "New first name cannot be null");
 		}
+		else if (newFirstNameTF.getText().equals(UserSingleton.getInstance().getCurrentFName()))
+		{
+			showAlert("Error", "New first name is the same as the previous one!");
+		}
 		else
 		{
 			Database.updateFirstName(newFirstNameTF.getText());
@@ -30,6 +34,8 @@ public class EditProfileController
 					newFirstNameTF.getText(), UserSingleton.getInstance().getCurrentLName(), 
 					UserSingleton.getInstance().getCurrentVIPStatus(), UserSingleton.getInstance().getCurrentCredits());
 			showAlert("Success", "First name updated successfully!");
+			
+			pages.profilePage(event);
 		}
 	}
 	
@@ -40,6 +46,10 @@ public class EditProfileController
 		{
 			showAlert("Error", "New last name cannot be null");
 		}
+		else if (newLastNameTF.getText().equals(UserSingleton.getInstance().getCurrentLName()))
+		{
+			showAlert("Error", "New last name is the same as the previous one!");
+		}
 		else
 		{
 			Database.updateLastName(newLastNameTF.getText());
@@ -47,6 +57,8 @@ public class EditProfileController
 					UserSingleton.getInstance().getCurrentFName(), newLastNameTF.getText(), 
 					UserSingleton.getInstance().getCurrentVIPStatus(), UserSingleton.getInstance().getCurrentCredits());
 			showAlert("Success", "Last name updated successfully!");
+			
+			pages.profilePage(event);
 		}
 	}
 	
@@ -63,10 +75,17 @@ public class EditProfileController
 			showAlert("Error", "Passwords do not match!");
 		}
 		
+		else if (newPasswordTF.getText().equals(Database.getPassword(UserSingleton.getInstance().getCurrentUsername())))
+		{
+			showAlert("Error", "New password is the same as the previous one!");
+		}
+		
 		else
 		{
 			Database.updatePassword(newPasswordTF.getText());
 			showAlert("Success", "Password updated successfully!");
+			
+			pages.profilePage(event);
 		}
 	}
 	
