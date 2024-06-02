@@ -84,11 +84,6 @@ public class DashboardController implements Initializable
 	{
 		pages.upgradeProfilePage(event);
 	}
-	
-	public void displayCurrentTime()
-	{
-		System.out.println(currentDateTime);
-	}
 
 
 	@Override
@@ -119,10 +114,4 @@ public class DashboardController implements Initializable
 	{
 		awaitingOrdersTable.setItems(orderslist);
 	}
-	
-	long currentTimeInMillis = System.currentTimeMillis();
-
-	Date currentDate = new Date(currentTimeInMillis);
-
-	String currentDateTime = currentDate.toString();
 }

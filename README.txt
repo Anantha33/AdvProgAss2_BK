@@ -2,16 +2,20 @@
 
 1) IDE used and IDE version:
 
-	The IDE used is Eclipse and the version is 2023-12
+	1.1) The IDE used is Eclipse and the version is 2023-12
 
 2) Java version, JavaFX version, Database:
 	
-	The Java version used is 1.8.0_411
-	The JavaFX version used is 22.0.1 Windows x64
-	The database used is SQLiteStudio, version - 3.4.4
+	2.1) The Java version used is 1.8.0_411
+	2.2) The JavaFX version used is 22.0.1 Windows x64
+	2.3) The database used is SQLiteStudio, version - 3.4.4
 
 3) Steps to install and run the code:
-
+	
+	3.1) Import the submitted files, retaining the whole package hierarchy.
+	3.2) Modify the module path by adding the necessary javafx jar files.
+	3.3) Modify the class path by adding the necessary SQLite jdbc jar file.
+	3.4) Run the Main.java file.
 
 4) Class Diagram:
 
@@ -23,28 +27,24 @@ Sign-up: New users have the option to signup to the program.
 
 Login: Existing users can login into the program using their respective usernames and passwords.
 
+Dashboard: Orders that are waiting to be collected are shown in the dashboard. The first and last name of the user is 
+also shown, along with various other buttons to navigate through the program.
 
+Edit profile: Users have different options to edit either their first name, last name, and/or password.
 
 Ordering System (Cart): Users can choose from a menu that includes meals, fries, sodas, and burritos. 
 The quantity of each item they want to order can be entered. 
 In order to avoid mistakes, the application gracefully handles negative input values.
 
+Cancel Order: Users have the option to cancel an order that is waiting to be collected.
 
+Collect Order: Users can collect the order they want, provided it is ready to be collected.
 
-Class Design:
+View All Orders: Users can view all their orders (newest order first).
 
-The program is divided into several classes to encapsulate different functionalities:
+Collecting credits (for VIP Users): The program collects credits for each order made by a VIP user.
 
-Main Class (Main.java): Contains the main method to start the program. Instantiates the Menu class to display the main menu.
+Redeeming credits (for VIP Users): The program allows VIP users to redeem credits, providing them appropriate discounts,
+while collecting credits on the discounted cost.
 
-Menu Class (Menu.java): Manages the main menu options. Allows users to order food items, view sales reports, and update prices.
-
-Kitchen Class (Kitchen.java): Handles food ordering functionality. Processes user input for ordering food items. Calculates total sales and manages transactions.
-
-Management Class (Management.java): Calculates and displays sales reports. Processes transactions and calculates change for payments.
-
-Data Class (Data.java): Stores static data such as food prices, total items sold, and total sales.
-
-Update Class (Update.java): Manages the functionality to update food item prices.
-
-Preparation Class (Preparation.java): Handles the preparation of food items (burritos, fries, and meals). Calculates preparation times and manages remaining unsold fries.
+Logout: Logging out of the dashboard successfully.
