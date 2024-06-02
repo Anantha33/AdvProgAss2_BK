@@ -14,7 +14,7 @@ import javafx.scene.control.Label;
 public class ProfileController implements Initializable
 {	
 	Pages pages = new Pages();
-	String currentusername = UserSingleton.getInstance().getCurrentUsername();
+	String currentUsername = UserSingleton.getInstance().getCurrentUsername();
 	String currentFirstName = UserSingleton.getInstance().getCurrentFName();
 	String currentLastName = UserSingleton.getInstance().getCurrentLName();
 	
@@ -51,7 +51,7 @@ public class ProfileController implements Initializable
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
-		currentUName.setText(currentusername);
+		currentUName.setText(currentUsername);
 		currentFName.setText(currentFirstName);
 		currentLName.setText(currentLastName);
 	}

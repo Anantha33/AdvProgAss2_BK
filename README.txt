@@ -1,4 +1,4 @@
-# Burrito King Program - Assignment 2 - s4023336
+#Burrito King Program_Assignment 2 - s4023336
 
 1) IDE used and IDE version:
 
@@ -16,9 +16,6 @@
 	3.2) Modify the module path by adding the necessary javafx jar files.
 	3.3) Modify the class path by adding the necessary SQLite jdbc jar file.
 	3.4) Run the Main.java file.
-
-4) Class Diagram:
-
 
 
 Functionalities Achieved:
@@ -46,5 +43,7 @@ Collecting credits (for VIP Users): The program collects credits for each order 
 
 Redeeming credits (for VIP Users): The program allows VIP users to redeem credits, providing them appropriate discounts,
 while collecting credits on the discounted cost.
+
+Exporting orders: Export all orders shown in the view all orders page.
 
 Logout: Logging out of the dashboard successfully.
