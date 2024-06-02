@@ -14,8 +14,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -52,6 +50,7 @@ public class AllOrdersController implements Initializable
 		pages.dashboardPage(event);
 	}
 	
+	//Exports all orders to a .csv file
 	public void exportAllOrders(ActionEvent event) 
 	{
         FileChooser fileChooser = new FileChooser();
@@ -66,7 +65,8 @@ public class AllOrdersController implements Initializable
             saveOrdersToFile(file);
         }
     }
-
+	
+	//Writes into the .csv file, adding data from the orders observable list
     private void saveOrdersToFile(File file) 
     {
         ObservableList<OrderClass> orders = Database.getAllOrders();
@@ -83,13 +83,18 @@ public class AllOrdersController implements Initializable
                              order.getOrderStatus().get() + "," +
                              order.getOrderAllItems().get() + "\n");
             }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setHeaderText(null);
+            alert.setContentText("All orders exported successfully!");
+            alert.showAndWait();
         } 
         catch (IOException e) 
         {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
-            alert.setContentText("An error occurred while saving the file.");
+            alert.setContentText("An error occurred while saving the file!");
             alert.showAndWait();
         }
     }
