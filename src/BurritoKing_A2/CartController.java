@@ -156,6 +156,10 @@ public class CartController implements Initializable
 	public void openDashboardPage(ActionEvent event) throws IOException
 	{
 		pages.dashboardPage(event);
+		burritoTF.clear();
+		friesTF.clear();
+		sodaTF.clear();
+		mealTF.clear();
 	}
 	
 	

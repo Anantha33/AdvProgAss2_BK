@@ -27,7 +27,7 @@ public class UpgradeProfileController
 	}
 	
 	
-	public void upgradeUser()
+	public void upgradeUser(ActionEvent event) throws IOException
 	{
 		if (emailTF.getText().isBlank())
 		{
@@ -47,6 +47,8 @@ public class UpgradeProfileController
 	            alert.setHeaderText(null);
 	            alert.setContentText("Please log out and log in again to access VIP functionalities!");
 	            alert.showAndWait();
+	            
+	            pages.dashboardPage(event);
 			}
 			else
 			{

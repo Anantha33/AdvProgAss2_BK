@@ -1,37 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="250.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BurritoKing_A2.UpgradeProfileController">
-   <children>
-      <Label layoutX="208.0" layoutY="41.0" text="Upgrade Profile">
-         <font>
-            <Font name="Georgia Bold Italic" size="22.0" />
-         </font>
-      </Label>
-      <CheckBox fx:id="promotionCheckbox" layoutX="40.0" layoutY="90.0" mnemonicParsing="false" onAction="#checkboxFunction" text="Would you like to receive promotional information via email?">
-         <font>
-            <Font name="Georgia" size="18.0" />
-         </font>
-      </CheckBox>
-      <TextField fx:id="emailTF" disable="true" layoutX="200.0" layoutY="140.0" prefWidth="200.0" promptText="Enter e-mail address" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;">
-         <font>
-            <Font name="Georgia Bold" size="12.0" />
-         </font></TextField>
-      <Button layoutX="14.0" layoutY="12.0" mnemonicParsing="false" onAction="#openDashboardPage" style="-fx-background-color: #263F73;" text="&lt;- Back" textFill="WHITE">
-         <font>
-            <Font name="Georgia" size="15.0" />
-         </font>
-      </Button>
-      <Button layoutX="255.0" layoutY="184.0" mnemonicParsing="false" onAction="#upgradeUser" style="-fx-background-color: #263F73;" text="Submit" textFill="WHITE">
-         <font>
-            <Font name="Georgia" size="20.0" />
-         </font>
-      </Button>
-   </children>
-</AnchorPane>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BurritoKing_A2.UpgradeProfileController">
+   <top>
+      <HBox prefHeight="30.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#openDashboardPage" style="-fx-background-color: #263F73;" text="&lt;- Back" textFill="WHITE">
+               <font>
+                  <Font name="Georgia" size="16.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <VBox alignment="TOP_CENTER" prefHeight="324.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Upgrade Profile">
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Georgia Bold Italic" size="22.0" />
+               </font>
+            </Label>
+            <CheckBox fx:id="promotionCheckbox" mnemonicParsing="false" onAction="#checkboxFunction" text="Would you like to receive promotional information via email?">
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Georgia" size="18.0" />
+               </font>
+            </CheckBox>
+            <TextField fx:id="emailTF" disable="true" promptText="Enter e-mail address" style="-fx-border-color: #263F73; -fx-border-width: 0px 0px 2px 0px;">
+               <VBox.margin>
+                  <Insets left="100.0" right="100.0" top="30.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Georgia" size="16.0" />
+               </font>
+            </TextField>
+            <Button mnemonicParsing="false" onAction="#upgradeUser" style="-fx-background-color: #263F73;" text="Submit" textFill="WHITE">
+               <VBox.margin>
+                  <Insets top="60.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Georgia" size="20.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
